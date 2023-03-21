@@ -1,0 +1,48 @@
+---
+import { getAllBlogs } from "../lib/blog";
+import markdownHtml from 'zenn-markdown-html';
+import { Blog } from "../components/Blog";
+import Layout from "../layouts/Layout.astro";
+
+export interface Props {
+	title: string;
+  tags: string[];
+  date: string;
+  body: string;
+}
+
+export async function getStaticPaths() {
+  const blogs = await getAllBlogs()
+  return blogs.map(blog => {
+    return {
+      params: {
+        slug: blog.slug,
+      },
+      props: {
+        title: blog.title,
+        tags: blog.tags,
+        date: blog.date,
+        body: blog.body
+      }
+    }
+  })
+}
+
+const { title, tags, date, body } = Astro.props
+const html = markdownHtml(body)
+
+---
+<Layout title={title}>
+  <div class="m-auto p-5 max-w-xl">
+    <div class="pb-5 border-b-2 mb-10 border-purple-400">
+      <div>{date}</div>
+      <h1 class="font-bold text-4xl">{title}</h1>
+      <div class="flex flex-wrap">
+        {
+          tags.map(t => <div class="bg-indigo-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2">{t}</div>)
+        }
+      </div>
+    </div>
+    <Blog html={html} />
+  </div>
+</Layout>

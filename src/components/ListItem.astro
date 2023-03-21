@@ -1,0 +1,18 @@
+---
+import type { Blog } from '../lib/blog'
+export interface Props {
+  blog: Blog
+}
+
+const { title, tags, date, slug } = Astro.props.blog
+---
+
+<a href={`/${slug}`} class="p-3 border-b border-purple-400 block hover:opacity-50">
+  <div>{date}</div>
+  <div class="text-2xl font-semibold mt-2 break-words">{title}</div>
+  <div class="flex flex-wrap">
+    {
+      tags.map(t => <div class="bg-indigo-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mt-2">{t}</div>)
+    }
+  </div>
+</a>
