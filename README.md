@@ -14,7 +14,7 @@ npm create astro@latest
 npx astro add tailwind
 ```
 
-### microCMS SDK
+~~microCMS SDK~~(使用やめた)
 
 ```
 npm install microcms-js-sdk
@@ -27,4 +27,4 @@ npm i zenn-markdown-html
 npm i zenn-content-css
 ```
 
-![architecture](architecture.png)
+![architecture](doc/architecture.png)
