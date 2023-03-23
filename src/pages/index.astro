@@ -1,12 +1,13 @@
 ---
 import ListItem from '../components/ListItem.astro';
+import { BLOG_NAME } from '../consts/message';
 import Layout from '../layouts/Layout.astro';
 import { getAllBlogs } from '../lib/blog';
 
 const blogs = await getAllBlogs();
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title={BLOG_NAME}>
 	<main>
 		{
 			blogs.map((blog) => {

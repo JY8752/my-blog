@@ -1,0 +1,1 @@
+export const BLOG_NAME = "ぱんだ🐼のITブログ"
