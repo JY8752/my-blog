@@ -27,4 +27,11 @@ npm i zenn-markdown-html
 npm i zenn-content-css
 ```
 
+### Google Analyticsの導入
+
+```
+npm install -D @astrojs/partytown
+
+```
+
 ![architecture](doc/architecture.png)
