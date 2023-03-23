@@ -1,8 +1,19 @@
 ---
 import { getAllBlogs } from "../lib/blog";
-import markdownHtml from 'zenn-markdown-html';
+import lib from 'zenn-markdown-html';
 import { Blog } from "../components/Blog";
 import Layout from "../layouts/Layout.astro";
+import type { MarkdownOptions } from "zenn-markdown-html/lib/types";
+
+ // build時にそのまま使うとエラーになるため修正
+type MarkdownHtml = (text: string, options?: MarkdownOptions) => string
+type MarkdownHtmlAtBuild = { default: MarkdownHtml }
+
+let markdownHtml: MarkdownHtml = lib
+
+if(typeof lib !== 'function') {
+  markdownHtml = (lib as MarkdownHtmlAtBuild).default
+}
 
 export interface Props {
 	title: string;
