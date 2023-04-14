@@ -16,6 +16,21 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.envrc
+.env.yaml
 
 # macOS-specific files
 .DS_Store
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+*.tfvars
+
+*.zip
+
+credentials.json

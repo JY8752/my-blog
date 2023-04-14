@@ -1,0 +1,7 @@
+*_test.go
+
+.env
+.env.yaml
+.envrc
+
+Makefile
