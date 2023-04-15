@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/cloudevents/sdk-go/v2/event"
@@ -93,7 +94,15 @@ func Notify(ctx context.Context, e event.Event) error {
 	var sections []slack.Block
 
 	// Header Section
-	headerText := slack.NewTextBlockObject("mrkdwn", "*Zenn Google Analytics 月間レポート*\n", false, false)
+	loc, err := time.LoadLocation("Asia/Tokyo")
+	if err != nil {
+		panic(err)
+	}
+	now := time.Now().In(loc)
+	oneMonthAgo := now.AddDate(0, -1, 0) // 1日実行なので一ヶ月前を取得する
+	lastMonth := oneMonthAgo.Month()
+
+	headerText := slack.NewTextBlockObject("mrkdwn", fmt.Sprintf("*Zenn Google Analytics [%d月] 月間レポート*\n", int(lastMonth)), false, false)
 	headerSection := slack.NewSectionBlock(headerText, nil, nil)
 	sections = append(sections, headerSection)
 
