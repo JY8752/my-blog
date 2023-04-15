@@ -1,4 +1,4 @@
-# GoogleAnalyticsの月間レポートをSlackで飛ばす
+# GoogleAnalyticsの月間レポートをSlackで飛ばす(zenn)
 
 ## Google Analytics Data API(G4)
 
