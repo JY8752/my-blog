@@ -1,0 +1,6 @@
+name = "ogp-generate"
+main = "src/index.ts"
+compatibility_date = "2023-04-16"
+rules = [
+  { type = "Data", globs = ["**/*.ttf", "**/*.otf"], fallthrough = true },
+]

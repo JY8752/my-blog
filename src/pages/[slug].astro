@@ -40,10 +40,21 @@ export async function getStaticPaths() {
 }
 
 const { title, tags, date, body } = Astro.props
+const slug = Astro.params.slug
 const html = markdownHtml(body)
 
 ---
 <Layout title={title}>
+  <head>
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={`https://ogp-generate.j-y-87524086.workers.dev?msg=${title}`} />
+    <meta name="twitter:title" content={title} />
+
+    <meta property="og:url" content={`https://jy-panda.com/${slug}`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:image" content={`https://ogp-generate.j-y-87524086.workers.dev?msg=${title}`} />
+  </head>
   <div class="m-auto p-5 max-w-xl">
     <div class="pb-5 border-b-2 mb-10 border-purple-400">
       <div>{date}</div>
