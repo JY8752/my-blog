@@ -8,6 +8,17 @@ const blogs = await getAllBlogs();
 ---
 
 <Layout title={BLOG_NAME}>
+	<head>
+		<!-- twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content="../../public/Top.png" />
+		<meta name="twitter:title" content={BLOG_NAME} />
+		<meta name="twitter:url" content={`https://jy-panda.com/`} />
+
+		<meta property="og:url" content={`https://jy-panda.com/`} />
+		<meta property="og:title" content={BLOG_NAME} />
+		<meta property="og:image" content="../../public/Top.png" />
+	</head>
 	<main>
 		{
 			blogs.map((blog) => {
