@@ -12,17 +12,16 @@ const ogpImageURL = new URL('/Top.png', canonicalURL);
 
 <Layout title={BLOG_NAME}>
 	<main>
-		<head>
-			<!-- twitter -->
-			<meta name="twitter:card" content="summary_large_image" />
-			<meta name="twitter:image" content={ogpImageURL} />
-			<meta name="twitter:title" content={BLOG_NAME} />
-			<meta name="twitter:url" content={BLOG_URL} />
+		<!-- twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={ogpImageURL} />
+		<meta name="twitter:title" content={BLOG_NAME} />
+		<meta name="twitter:url" content={BLOG_URL} />
 
-			<meta property="og:url" content={BLOG_URL} />
-			<meta property="og:title" content={BLOG_NAME} />
-			<meta property="og:image" content={ogpImageURL} />
-		</head>
+		<meta property="og:url" content={BLOG_URL} />
+		<meta property="og:title" content={BLOG_NAME} />
+		<meta property="og:image" content={ogpImageURL} />
+
 		{
 			blogs.map((blog) => {
 				return <ListItem blog={blog} />
