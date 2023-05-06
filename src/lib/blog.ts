@@ -14,6 +14,6 @@ export async function getAllBlogs(): Promise<Blog[]> {
     .map((blog) => ({ ...blog.data, slug: blog.slug, body: blog.body }))
     .sort(
       (a, z) =>
-        new Date(z.date).getMilliseconds() - new Date(a.date).getMilliseconds()
+        new Date(z.date).getTime() - new Date(a.date).getTime()
     );
 }
