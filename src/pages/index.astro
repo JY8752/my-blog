@@ -1,39 +1,39 @@
 ---
-import ListItem from '../components/ListItem.astro';
-import { BLOG_NAME, BLOG_URL } from '../consts/message';
-import Layout from '../layouts/Layout.astro';
-import { getAllBlogs } from '../lib/blog';
+import ListItem from "../components/ListItem.astro";
+import { BLOG_NAME, BLOG_URL } from "../consts/message";
+import Layout from "../layouts/Layout.astro";
+import { getAllBlogs } from "../lib/blog";
 
 const blogs = await getAllBlogs();
 
 const canonicalURL = new URL(Astro.url.pathname, BLOG_URL);
-const ogpImageURL = new URL('/Top.png', canonicalURL);
+const ogpImageURL = new URL("/Top.png", canonicalURL);
 ---
 
 <Layout title={BLOG_NAME}>
-	<main>
-		<!-- twitter -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:image" content={ogpImageURL} />
-		<meta name="twitter:title" content={BLOG_NAME} />
-		<meta name="twitter:url" content={BLOG_URL} />
+  <main>
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogpImageURL} />
+    <meta name="twitter:title" content={BLOG_NAME} />
+    <meta name="twitter:url" content={BLOG_URL} />
 
-		<meta property="og:url" content={BLOG_URL} />
-		<meta property="og:title" content={BLOG_NAME} />
-		<meta property="og:image" content={ogpImageURL} />
+    <meta property="og:url" content={BLOG_URL} />
+    <meta property="og:title" content={BLOG_NAME} />
+    <meta property="og:image" content={ogpImageURL} />
 
-		{
-			blogs.map((blog) => {
-				return <ListItem blog={blog} />
-			})
-		}
-	</main>
+    {
+      blogs.map((blog) => {
+        return <ListItem blog={blog} />;
+      })
+    }
+  </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
+  main {
+    /* margin: auto; */
+    padding: 1.5rem;
+    max-width: 60ch;
+  }
 </style>
