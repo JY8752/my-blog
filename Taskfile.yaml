@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  new:article:
+    dir: $HOME/myapp/my-blog/astro-my-blog/src/content/blog
+    cmds:
+      - note-cli create article -a Junichi.Y --no-dir -t .
