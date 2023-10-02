@@ -5,3 +5,4 @@ tasks:
     dir: $HOME/myapp/my-blog/astro-my-blog/src/content/blog
     cmds:
       - note-cli create article -a Junichi.Y --no-dir -t .
+    silent: true
