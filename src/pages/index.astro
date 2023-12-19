@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import ListItem from "../components/ListItem.astro";
 import { BLOG_NAME, BLOG_URL } from "../consts/message";
 import Layout from "../layouts/Layout.astro";
@@ -11,7 +12,6 @@ const ogpImageURL = new URL("/Top.png", canonicalURL);
 ---
 
 <Layout title={BLOG_NAME}>
-  <main>
     <!-- twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogpImageURL} />
@@ -22,12 +22,47 @@ const ogpImageURL = new URL("/Top.png", canonicalURL);
     <meta property="og:title" content={BLOG_NAME} />
     <meta property="og:image" content={ogpImageURL} />
 
-    {
-      blogs.map((blog) => {
-        return <ListItem blog={blog} />;
-      })
-    }
-  </main>
+    <div class="flex p-10 justify-center flex-col-reverse md:flex-row">
+      <div class="w-50">
+        {
+          blogs.map((blog) => {
+            return <ListItem blog={blog} />;
+          })
+        }
+      </div>
+      <div
+        class="p-5 m-10 rounded shadow-sm bg-violet-200 break-words whitespace-pre-wrap"
+      >
+        <Image
+          src="/Icon.png"
+          alt="アイコン"
+          width="200"
+          height="150"
+          class="rounded-full mx-auto mt-10"
+        />
+        <div class="p-3">
+          <p class="text-lg font-semibold">Yamanaka Junichi</p>
+          <p>2020年に営業から独学でエンジニアになりました。メインはサーバーサイド。</p>
+        </div>
+        <div class="p-3 flex flex-col">
+          <p class="text-lg font-semibold">言語</p>
+          <p>Java/Kotlin/Go/TypeScript/Terraform/</p>
+          <p>(Solidity/Cadence/Rust/Python/Ruby/Elm)</p>
+        </div>
+        <div class="p-3 flex flex-col">
+          <p class="text-lg font-semibold">フレームワーク</p>
+          <p>Spring/React</p>
+        </div>
+        <div class="p-3 flex flex-col">
+          <p class="text-lg font-semibold">DB</p>
+          <p>MySQL/Mongo/Redis</p>
+        </div>
+        <div class="p-3 flex flex-col">
+          <p class="text-lg font-semibold">その他</p>
+          <p>Docker/Kubernetes/AWS/GCP/Cloudflare</p>
+        </div>
+      </div>
+    </div>
 </Layout>
 
 <style>
