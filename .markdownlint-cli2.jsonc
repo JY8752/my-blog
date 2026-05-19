@@ -1,0 +1,13 @@
+{
+  // ブログコンテンツは Zenn markdown 記法のため除外
+  "globs": ["**/*.md", "!node_modules/**", "!src/content/blog/**"],
+  "config": {
+    "default": true,
+    // 行長制限は厳しすぎるため無効
+    "MD013": false,
+    // HTML コメントで始まるファイルがあるため無効
+    "MD041": false,
+    // コードブロック内のタブは許容
+    "MD010": { "code_blocks": false }
+  }
+}
