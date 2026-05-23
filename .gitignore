@@ -3,6 +3,9 @@ dist/
 .next/
 .open-next/
 
+# generated files
+src/generated/
+
 # generated types
 .astro/
 
@@ -38,3 +41,5 @@ pnpm-debug.log*
 credentials.json
 
 *.local.json
+
+.wrangler/
