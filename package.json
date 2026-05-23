@@ -3,22 +3,22 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "build:cloudflare": "opennextjs-cloudflare build",
+    "preview": "opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && wrangler deploy",
     "lint": "vp lint src",
     "lint:md": "markdownlint-cli2",
-    "format": "vp fmt src && prettier --write \"src/**/*.astro\"",
-    "format:check": "vp fmt src --check && prettier --check \"src/**/*.astro\""
+    "format": "vp fmt src",
+    "format:check": "vp fmt src --check"
   },
   "dependencies": {
-    "@astrojs/react": "^3.0.2",
-    "@astrojs/tailwind": "^5.0.0",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
-    "astro": "^3.1.4",
+    "gray-matter": "^4.0.3",
+    "next": "^16.2.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.3",
@@ -26,14 +26,14 @@
     "zenn-markdown-html": "^0.1.146"
   },
   "devDependencies": {
-    "@astrojs/partytown": "^2.0.0",
     "@cloudflare/workers-types": "^4.20230922.0",
+    "@opennextjs/cloudflare": "^1.19.11",
+    "@types/node": "^25.9.1",
+    "autoprefixer": "^10.5.0",
     "markdownlint-cli2": "^0.22.1",
-    "prettier": "^3.1.1",
-    "prettier-plugin-astro": "^0.12.2",
-    "prettier-plugin-tailwindcss": "^0.5.9",
+    "typescript": "6.0.3",
     "vite-plus": "^0.1.21",
     "vitest": "^0.34.5",
-    "wrangler": "^3.10.0"
+    "wrangler": "^4.94.0"
   }
 }
