@@ -1,8 +1,8 @@
-import 'zenn-content-css';
+import "zenn-content-css";
 
 type Props = {
-  html: string
-}
+  html: string;
+};
 export const Blog: React.FC<Props> = ({ html }) => {
   return (
     <div
@@ -13,5 +13,5 @@ export const Blog: React.FC<Props> = ({ html }) => {
         __html: html,
       }}
     />
-  )
-}
+  );
+};

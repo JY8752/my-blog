@@ -1,18 +1,25 @@
 ---
-import type { Blog } from '../lib/blog'
+import type { Blog } from "../lib/blog";
 export interface Props {
-  blog: Blog
+  blog: Blog;
 }
 
-const { title, tags, date, slug } = Astro.props.blog
+const { title, tags, date, slug } = Astro.props.blog;
 ---
 
-<a href={`/${slug}`} class="p-3 border-b border-purple-400 block hover:opacity-50">
+<a
+  href={`/${slug}`}
+  class="block border-b border-purple-400 p-3 hover:opacity-50"
+>
   <div>{date}</div>
-  <div class="text-2xl font-semibold mt-2 break-words">{title}</div>
+  <div class="mt-2 break-words text-2xl font-semibold">{title}</div>
   <div class="flex flex-wrap">
     {
-      tags.map(t => <div class="bg-blue-800 rounded-full px-3 py-1 text-sm font-semibold mr-2 mt-2">{t}</div>)
+      tags.map((t) => (
+        <div class="mr-2 mt-2 rounded-full bg-blue-800 px-3 py-1 text-sm font-semibold">
+          {t}
+        </div>
+      ))
     }
   </div>
 </a>

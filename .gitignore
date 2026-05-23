@@ -34,3 +34,5 @@ pnpm-debug.log*
 *.zip
 
 credentials.json
+
+*.local.json
