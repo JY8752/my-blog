@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "packageManager": "bun@1.1.2",
   "scripts": {
-    "generate:blog-data": "node scripts/generate-blog-data.js",
+    "generate:blog-data": "bun run scripts/generate-blog-data.ts",
     "predev": "bun run generate:blog-data",
     "dev": "next dev",
     "prebuild": "bun run generate:blog-data",
