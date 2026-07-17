@@ -1,36 +1,35 @@
 # My Blog
 
-## setup
+個人プロフィール兼ブログサイトです。Next.js + React + Tailwind CSS で構築しています。
+ブログ記事は Zenn の Markdown 記法で `src/content/blog/` に置きます。
 
-### astro
-
-```bash
-npm create astro@latest
-```
-
-### tailwind
+## Setup
 
 ```bash
-npx astro add tailwind
+npm install
 ```
 
-~~microCMS SDK~~(使用やめた)
+## Commands
 
 ```bash
-npm install microcms-js-sdk
+npm run dev        # 開発サーバーを起動
+npm run build      # Next.js の本番ビルド
+npm run start      # Next.js の本番サーバーを起動
+npm run preview    # Cloudflare 用にビルドしてローカル preview
+npm run deploy     # Cloudflare 用にビルドして deploy
+npm run check      # code check + Markdown lint
+npm run fix        # code check の自動修正
+npm run lint:md    # Markdown lint
 ```
 
-### zenn markdown
+ブログ記事を作成する場合:
 
 ```bash
-npm i zenn-markdown-html
-npm i zenn-content-css
+task new:article
 ```
 
-### Google Analyticsの導入
+## Blog Data
 
-```bash
-npm install -D @astrojs/partytown
-```
+`npm run dev` と `npm run build` の前に `src/generated/blogs.json` を自動生成します。
 
 ![architecture](doc/architecture.png)

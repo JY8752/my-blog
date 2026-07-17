@@ -26,5 +26,6 @@ const blogs = fs
   })
   .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, JSON.stringify(blogs, null, 2));
 console.log(`✓ Generated ${blogs.length} blog posts → src/generated/blogs.json`);

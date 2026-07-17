@@ -1,6 +1,13 @@
 {
   // ブログコンテンツは Zenn markdown 記法のため除外
-  "globs": ["**/*.md", "!node_modules/**", "!src/content/blog/**"],
+  "globs": [
+    "**/*.md",
+    "!**/node_modules/**",
+    "!.next/**",
+    "!.open-next/**",
+    "!dist/**",
+    "!src/content/blog/**"
+  ],
   "config": {
     "default": true,
     // 行長制限は厳しすぎるため無効

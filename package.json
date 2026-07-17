@@ -9,14 +9,12 @@
     "prebuild": "npm run generate:blog-data",
     "build": "next build",
     "start": "next start",
-    "prebuild:cloudflare": "npm run generate:blog-data",
     "build:cloudflare": "opennextjs-cloudflare build",
-    "preview": "opennextjs-cloudflare preview",
+    "preview": "npm run build:cloudflare && opennextjs-cloudflare preview",
     "deploy": "npm run build:cloudflare && wrangler deploy",
-    "lint": "vp lint src",
-    "lint:md": "markdownlint-cli2",
-    "format": "vp fmt src",
-    "format:check": "vp fmt src --check"
+    "check": "vp check src && npm run lint:md",
+    "fix": "vp check src --fix",
+    "lint:md": "markdownlint-cli2"
   },
   "dependencies": {
     "next": "^16.2.10",
