@@ -6,20 +6,20 @@
 ## Setup
 
 ```bash
-npm install
+bun install
 ```
 
 ## Commands
 
 ```bash
-npm run dev        # 開発サーバーを起動
-npm run build      # Next.js の本番ビルド
-npm run start      # Next.js の本番サーバーを起動
-npm run preview    # Cloudflare 用にビルドしてローカル preview
-npm run deploy     # Cloudflare 用にビルドして deploy
-npm run check      # code check + Markdown lint
-npm run fix        # code check の自動修正
-npm run lint:md    # Markdown lint
+bun run dev        # 開発サーバーを起動
+bun run build      # Next.js の本番ビルド
+bun run start      # Next.js の本番サーバーを起動
+bun run preview    # Cloudflare 用にビルドしてローカル preview
+bun run deploy     # Cloudflare 用にビルドして deploy
+bun run check      # code check + Markdown lint
+bun run fix        # code check の自動修正
+bun run lint:md    # Markdown lint
 ```
 
 ブログ記事を作成する場合:
@@ -30,6 +30,6 @@ task new:article
 
 ## Blog Data
 
-`npm run dev` と `npm run build` の前に `src/generated/blogs.json` を自動生成します。
+`bun run dev` と `bun run build` の前に `src/generated/blogs.json` を自動生成します。
 
 ![architecture](doc/architecture.png)
