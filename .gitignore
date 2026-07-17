@@ -8,6 +8,7 @@ src/generated/
 
 # generated types
 .astro/
+*.tsbuildinfo
 
 # dependencies
 node_modules/

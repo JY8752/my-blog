@@ -4,10 +4,7 @@ import { Blog } from "../../components/Blog";
 import { BLOG_URL } from "../../consts/message";
 import { getAllBlogs } from "../../lib/blog";
 
-// zenn-markdown-html の CJS/ESM 両対応
-import lib from "zenn-markdown-html";
-const markdownHtml: (text: string, options?: { embedOrigin: string }) => string =
-  typeof lib === "function" ? lib : (lib as { default: typeof lib }).default;
+import markdownToHtml from "zenn-markdown-html";
 
 export function generateStaticParams() {
   return getAllBlogs().map((blog) => ({ slug: blog.slug }));
@@ -37,16 +34,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const blog = getAllBlogs().find((b) => b.slug === slug);
   if (!blog) notFound();
 
-  const html = markdownHtml(blog.body, {
+  const html = await markdownToHtml(blog.body, {
     embedOrigin: "https://embed.zenn.studio",
   });
 

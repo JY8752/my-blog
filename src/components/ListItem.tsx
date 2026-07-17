@@ -8,12 +8,9 @@ interface Props {
 export function ListItem({ blog }: Props) {
   const { title, tags, date, slug } = blog;
   return (
-    <Link
-      href={`/${slug}`}
-      className="block border-b border-purple-400 p-3 hover:opacity-50"
-    >
+    <Link href={`/${slug}`} className="block border-b border-purple-400 p-3 hover:opacity-50">
       <div>{date}</div>
-      <div className="mt-2 break-words text-2xl font-semibold">{title}</div>
+      <div className="mt-2 wrap-break-word text-2xl font-semibold">{title}</div>
       <div className="flex flex-wrap">
         {tags.map((t) => (
           <div
