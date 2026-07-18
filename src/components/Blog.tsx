@@ -7,7 +7,7 @@ export const Blog: React.FC<Props> = ({ html }) => {
   return (
     <div
       // "znc"というクラス名を指定する
-      className="znc "
+      className="znc"
       // htmlを渡す
       dangerouslySetInnerHTML={{
         __html: html,
