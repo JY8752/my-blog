@@ -19,10 +19,14 @@ export const metadata: Metadata = {
 };
 
 const skillGroups = [
-  { label: "Languages", values: ["Java", "Kotlin", "Go", "TypeScript", "Terraform", "(Rust)"] },
-  { label: "Frameworks", values: ["Spring", "React", "Next.js", "Vue.js"] },
-  { label: "Platform", values: ["AWS", "GCP", "Cloudflare", "Kubernetes"] },
-  { label: "DB", values: ["PostgreSQL", "MySQL", "Redis", "MongoDB"] },
+  { label: "Languages 📚", values: ["Java", "Kotlin", "Go", "TypeScript", "Terraform", "(Rust)"] },
+  { label: "Frameworks 🚀", values: ["Spring", "React", "Next.js", "Vue.js"] },
+  { label: "Platform 🚧", values: ["AWS", "Google Cloud", "Cloudflare", "(Kubernetes)"] },
+  { label: "DB 📦", values: ["PostgreSQL", "MySQL", "Redis", "MongoDB"] },
+  {
+    label: "Favorite ❤️",
+    values: ["Protobuf", "Connect", "gRPC", "Unit Test", "TDD", "DDD", "Clean Architecture"],
+  },
 ];
 
 export default function Home() {
@@ -36,12 +40,14 @@ export default function Home() {
             Backend engineer · HOKKAIDO, JAPAN
           </p>
           <h1 className="mt-6 max-w-3xl text-4xl leading-[1.18] font-extrabold tracking-[-0.03em] text-balance md:text-6xl">
-            つくることと、
+            子どもたちが
             <br />
-            <span className="text-primary">学んだこと</span>の記録
+            寝たあとの
+            <br />
+            <span className="text-primary">日々の学び</span>の記録
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-on-surface-variant">
-            営業職から独学でエンジニアへ。サーバーサイドを中心に、日々の開発で得た知見や試した技術を書き留めています。
+            営業職から独学でエンジニアへ。東京から北海道へ移住し、現在はサーバーサイドを中心に活動するフリーランスエンジニアです。日々の開発で得た学びや、試した技術を記録しています。2児のパパ。
           </p>
           <div className="mt-9 flex flex-wrap gap-4">
             <Link
@@ -51,7 +57,13 @@ export default function Home() {
               記事を読む
             </Link>
             <a
-              href="https://talks-3l6.pages.dev/"
+              href="https://work.jy-panda.com/"
+              className="rounded-lg border border-outline-variant bg-surface-container px-6 py-3 font-label text-sm font-bold text-on-surface transition-all hover:border-secondary/60 hover:text-secondary active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
+            >
+              職務経歴 ↗
+            </a>
+            <a
+              href="https://talk.jy-panda.com/"
               className="rounded-lg border border-outline-variant bg-surface-container px-6 py-3 font-label text-sm font-bold text-on-surface transition-all hover:border-secondary/60 hover:text-secondary active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
             >
               My Talks ↗
