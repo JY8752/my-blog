@@ -82,8 +82,8 @@ export default function Home() {
           <div className="relative">
             <div className="mx-auto h-44 w-44 overflow-hidden rounded-full border-4 border-primary bg-white shadow-neon-primary">
               <Image
-                src="/Icon.png"
-                alt="パンダのプロフィールイラスト"
+                src="/icon.png"
+                alt="ぱんだのプロフィールイラスト"
                 width={460}
                 height={460}
                 className="h-full w-full object-contain object-center"
