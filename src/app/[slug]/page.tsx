@@ -46,37 +46,34 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
   });
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12 md:py-20 lg:px-8">
+    <main className="mx-auto min-h-[70dvh] max-w-[1280px] px-5 py-12 md:px-8 md:py-24 lg:pb-32">
       <Link
         href="/#articles"
-        className="inline-flex items-center gap-2 rounded-lg font-label text-sm text-secondary transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
+        className="inline-flex items-center gap-2 font-label text-xs font-medium text-primary underline decoration-primary underline-offset-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
       >
         <span aria-hidden="true">←</span> 記事一覧へ
       </Link>
 
-      <article className="mt-8 overflow-hidden rounded-xl border border-white/8 bg-surface-container shadow-neon-secondary">
-        <header className="border-b border-outline-variant/60 bg-surface-container-low px-6 py-9 md:px-12 md:py-12">
+      <article className="mt-14 grid gap-10 md:mt-16 md:grid-cols-12 md:gap-x-8 md:gap-y-12">
+        <aside className="md:col-span-2 md:row-span-2 md:pt-2">
           <time
             dateTime={blog.date}
-            className="font-label text-sm tracking-[0.06em] text-on-surface-variant"
+            className="block font-label text-xs tracking-[0.06em] text-tertiary"
           >
             {blog.date}
           </time>
-          <h1 className="mt-5 text-3xl leading-[1.3] font-extrabold tracking-tight text-balance md:text-5xl">
+          <p className="mt-3 font-label text-xs leading-6 tracking-[0.04em] text-tertiary">
+            {blog.tags.join(" · ")}
+          </p>
+        </aside>
+
+        <header className="md:col-start-4 md:col-span-7">
+          <h1 className="max-w-[18ch] font-display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[1.12] font-bold tracking-[-0.035em] text-balance">
             {blog.title}
           </h1>
-          <div className="mt-7 flex flex-wrap gap-2">
-            {blog.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-lg border border-secondary/35 bg-secondary/10 px-3 py-1.5 font-label text-xs font-medium text-secondary"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </header>
-        <div className="article-content px-6 py-9 md:px-12 md:py-12">
+
+        <div className="article-content border-t border-outline-variant pt-9 md:col-start-4 md:col-span-7 md:pt-12">
           <Blog html={html} />
         </div>
       </article>

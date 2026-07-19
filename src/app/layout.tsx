@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Noto_Sans_JP, Outfit } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
 import "zenn-content-css";
+import { ThemeToggle } from "../components/ThemeToggle";
 import { BLOG_NAME } from "../consts/message";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-plus-jakarta",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const notoSansJp = Noto_Sans_JP({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-noto-sans-jp",
+  display: "swap",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
@@ -54,7 +61,7 @@ function SocialIcon({ name }: { name: SocialIconName }) {
         alt=""
         width="20"
         height="20"
-        className="mix-blend-screen invert opacity-80 transition-opacity group-hover:opacity-100"
+        className="theme-sizu-icon opacity-70 transition-opacity group-hover:opacity-100"
       />
     );
   }
@@ -83,10 +90,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="ja"
-      data-theme="dark"
-      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+      className={`${outfit.variable} ${notoSansJp.variable} ${jetBrainsMono.variable}`}
     >
       <body>
+        <Script id="theme-init" strategy="beforeInteractive">{`
+          (() => {
+            let theme;
+            try {
+              const storedTheme = window.localStorage.getItem('theme');
+              theme = storedTheme === 'light' || storedTheme === 'dark'
+                ? storedTheme
+                : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            } catch {
+              theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.theme = theme;
+          })();
+        `}</Script>
         <Script
           src="https://embed.zenn.studio/js/listen-embed-event.js"
           strategy="afterInteractive"
@@ -102,46 +123,75 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('config', 'G-P0D0MCX4BH');
         `}</Script>
 
-        <header className="sticky top-0 z-50 border-b border-white/8 bg-surface/80 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-[1200px] flex-col items-start gap-3 px-6 py-4 md:min-h-20 md:flex-row md:items-center md:justify-between md:gap-6 md:py-0 lg:px-8">
+        <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface-container">
+          <div className="mx-auto flex min-h-18 max-w-[1280px] items-center justify-between gap-6 px-5 md:px-8">
             <Link
-              className="group flex shrink-0 items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
+              className="group flex min-h-11 shrink-0 items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
               href="/"
             >
               <span
                 aria-hidden="true"
-                className="h-3 w-3 rounded-full bg-primary shadow-[0_0_20px_rgba(255,175,212,0.8)] transition-transform group-hover:scale-125"
+                className="brand-breath h-2.5 w-2.5 rounded-[2px] bg-primary"
               />
-              <span className="text-lg font-extrabold tracking-[-0.02em] md:text-xl">
+              <span className="font-display text-lg font-bold tracking-[-0.025em] md:text-xl">
                 ぱんだ<span className="text-primary">.</span>dev
               </span>
             </Link>
-            <nav
-              aria-label="ソーシャルリンク"
-              className="flex w-full flex-nowrap gap-2 overflow-x-auto py-1 md:w-auto"
-            >
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  aria-label={link.label}
-                  title={link.label}
-                  className="group grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-white/8 bg-surface-container text-on-surface-variant transition-all hover:border-secondary/40 hover:bg-secondary/10 hover:text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+
+            <div className="flex items-center gap-1">
+              <nav aria-label="ソーシャルリンク" className="hidden items-center gap-1 md:flex">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    aria-label={link.label}
+                    title={link.label}
+                    className="group grid h-11 w-11 shrink-0 place-items-center rounded-md text-on-surface-variant transition-colors hover:bg-primary-container hover:text-on-surface focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
+                  >
+                    <SocialIcon name={link.icon} />
+                  </a>
+                ))}
+              </nav>
+
+              <ThemeToggle />
+
+              <details className="group/menu relative md:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-md px-3 font-label text-xs font-medium text-on-surface-variant transition-colors hover:bg-primary-container hover:text-on-surface focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+                  Links
+                  <span
+                    aria-hidden="true"
+                    className="text-base leading-none transition-transform group-open/menu:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <nav
+                  aria-label="ソーシャルリンク"
+                  className="absolute top-[calc(100%+0.5rem)] right-0 z-10 grid w-56 gap-1 rounded-lg border border-outline-variant bg-surface-container-lowest p-2 shadow-paper"
                 >
-                  <SocialIcon name={link.icon} />
-                </a>
-              ))}
-            </nav>
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="group flex min-h-11 items-center gap-3 rounded-md px-3 font-label text-xs text-on-surface-variant transition-colors hover:bg-primary-container hover:text-on-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    >
+                      <SocialIcon name={link.icon} />
+                      <span>{link.label}</span>
+                    </a>
+                  ))}
+                </nav>
+              </details>
+            </div>
           </div>
         </header>
 
         {children}
 
-        <footer className="border-t border-white/8 bg-surface-container-lowest/55">
-          <div className="mx-auto max-w-[1200px] px-6 py-10 lg:px-8">
+        <footer className="border-t border-outline-variant bg-surface">
+          <div className="mx-auto max-w-[1280px] px-5 py-12 md:px-8 md:py-16">
             <div>
-              <p className="font-bold">Yamanaka Junichi</p>
-              <p className="mt-1 text-sm text-on-surface-variant">
+              <p className="font-display font-bold tracking-[-0.02em]">Yamanaka Junichi</p>
+              <p className="mt-1.5 text-sm text-on-surface-variant">
                 Backend engineer & lifelong learner.
               </p>
             </div>

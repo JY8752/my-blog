@@ -3,43 +3,45 @@ import type { Blog } from "../lib/blog";
 
 interface Props {
   blog: Blog;
+  index: number;
 }
 
-export function ListItem({ blog }: Props) {
+export function ListItem({ blog, index }: Props) {
   const { title, tags, date, slug } = blog;
+  const isFeatured = index === 0;
 
   return (
     <Link
       href={`/${slug}`}
-      className="group flex min-h-64 flex-col rounded-xl border border-white/8 bg-surface-container p-8 transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 hover:shadow-neon-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
+      style={{ animationDelay: `${index * 60}ms` }}
+      className={`article-reveal group grid gap-4 border-t border-outline-variant py-8 transition-colors duration-300 hover:border-primary md:grid-cols-12 md:gap-6 ${
+        isFeatured ? "md:py-12" : "md:py-9"
+      } focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary`}
     >
-      <div className="flex items-center justify-between gap-4">
-        <time
-          dateTime={date}
-          className="font-label text-sm tracking-[0.04em] text-on-surface-variant"
+      <time
+        dateTime={date}
+        className="font-label text-xs tracking-[0.06em] text-tertiary md:col-span-2 md:pt-1"
+      >
+        {date}
+      </time>
+      <div className="md:col-start-3 md:col-span-8">
+        <h3
+          className={`font-display leading-[1.2] font-semibold tracking-[-0.025em] text-on-surface text-balance transition-colors group-hover:text-primary ${
+            isFeatured ? "text-3xl md:text-4xl" : "text-2xl md:text-3xl"
+          }`}
         >
-          {date}
-        </time>
-        <span
-          aria-hidden="true"
-          className="grid h-9 w-9 place-items-center rounded-full bg-surface-container-high text-primary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-        >
-          ↗
-        </span>
+          {title}
+        </h3>
+        <p className="mt-4 font-label text-xs leading-6 tracking-[0.04em] text-tertiary">
+          {tags.join(" · ")}
+        </p>
       </div>
-      <h3 className="mt-7 text-2xl leading-[1.4] font-bold tracking-[-0.02em] text-on-surface text-balance">
-        {title}
-      </h3>
-      <div className="mt-auto flex flex-wrap gap-2 pt-8">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-lg border border-secondary/35 bg-secondary/10 px-3 py-1.5 font-label text-xs font-medium text-secondary"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+      <span
+        aria-hidden="true"
+        className="justify-self-end font-label text-lg text-primary transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 md:col-start-12 md:row-start-1"
+      >
+        ↗
+      </span>
     </Link>
   );
 }
