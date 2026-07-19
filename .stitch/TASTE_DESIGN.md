@@ -209,11 +209,20 @@ not secondary buttons.
 
 ### Profile and skills
 
-Do not place the entire profile inside a large floating card. Use a portrait,
-name, role, and short ruled definition list directly on the canvas. Remove all
-emoji characters from skill labels. Present skills as five compact rows separated
-by Quiet Rule: Languages, Frameworks, Platform, Database, and Practices. Skill
-values are plain text separated by middle dots, not a cloud of chips.
+Give the profile and skill inventory one compact raised surface so it reads as a
+distinct identity module against the open hero. Use a one-pixel structural
+border, the active raised-surface color, a neutral paper shadow, and a 16-pixel
+corner radius. Keep the portrait centered with a two-pixel accent ring. Remove
+all emoji characters from skill labels.
+
+Present skills under one simple `Skills` heading as five compact ruled groups:
+Languages, Frameworks, Platform, Database, and Practices. Do not show a group
+count or numeric group prefixes; the category labels already provide sufficient
+hierarchy. Within each group, render real skill values as small rectangular
+badges with a four-pixel corner radius, one-pixel neutral border, raised neutral
+fill, and JetBrains Mono labels. Badges must remain grouped under their category
+and wrap naturally; never merge every technology into one undifferentiated chip
+cloud.
 
 ### Theme behavior
 
@@ -225,13 +234,15 @@ size, spacing, typography, and content never change between themes.
 
 ### Article index
 
-Treat the article list as an editorial index, not a card gallery. Use border-top
-dividers, generous vertical padding, and a clear reading order. The latest story
-is featured with stronger type, while every story aligns to one consistent title
-column so the list scans cleanly. Each row contains the real date, title, and real
-tags only. Tags are simple JetBrains Mono text; only the currently focused tag
-may use the active accent wash. Do not fabricate reading time, view counts, excerpts, or
-statistics.
+Treat the article list as an editorial index, not a card gallery. Place the full
+index section on a subtly contrasting neutral surface with top and bottom rules.
+Use border-top dividers, generous vertical padding, and a clear reading order.
+The latest story gains a raised neutral fill, accent top rule, small `Latest`
+label, and stronger type, while every story aligns to one consistent title
+column so the list scans cleanly. Other rows gain the raised neutral fill only on
+hover. Each row contains the real date, title, and real tags only. Tags are
+simple JetBrains Mono text; only the currently focused tag may use the active
+accent wash. Do not fabricate reading time, view counts, excerpts, or statistics.
 
 ### Article content
 
