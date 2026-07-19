@@ -6,6 +6,7 @@
     "!.next/**",
     "!.open-next/**",
     "!dist/**",
+    "!.stitch/**",
     "!src/content/blog/**"
   ],
   "config": {

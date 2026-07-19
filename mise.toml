@@ -1,0 +1,20 @@
+[tools]
+bun = "1.1.2"
+"github:JY8752/note-cli" = "v0.7.1"
+
+[tasks."new:article"]
+description = "Create a new blog article under src/content/blog"
+dir = "{{ config_root }}/src/content/blog"
+run = "note-cli create article -a Junichi.Y --no-dir -t ."
+
+[tasks.format]
+description = "Format source files"
+run = "bun run format"
+
+[tasks.lint]
+description = "Lint source and Markdown files"
+run = "bun run lint"
+
+[tasks.check]
+description = "Check formatting, lint, types, and Markdown"
+run = "bun run check"
