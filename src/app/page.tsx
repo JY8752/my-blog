@@ -42,9 +42,8 @@ export default function Home() {
           <h1 className="mt-6 max-w-3xl text-4xl leading-[1.18] font-extrabold tracking-[-0.03em] text-balance md:text-6xl">
             子どもたちが
             <br />
-            寝たあとの
-            <br />
-            <span className="text-primary">日々の学び</span>の記録
+            <span className="text-primary">寝た</span>あとの
+            <span className="text-primary">学び</span>の記録
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-on-surface-variant">
             営業職から独学でエンジニアへ。東京から北海道へ移住し、現在はサーバーサイドを中心に活動するフリーランスエンジニアです。日々の開発で得た学びや、試した技術を記録しています。2児のパパ。
