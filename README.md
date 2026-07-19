@@ -50,7 +50,8 @@ Next.js（記事一覧・記事詳細の静的生成）
 OpenNext → Cloudflare Workers
 ```
 
-`predev`と`prebuild`で`bun run generate:blog-data`が自動実行されるため、通常は手動生成不要です。
+`predev`、`prebuild`、`precheck`で`bun run generate:blog-data`が自動実行されるため、
+通常は手動生成不要です。
 
 ## ディレクトリ構成
 

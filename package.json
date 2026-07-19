@@ -15,6 +15,7 @@
     "deploy": "bun run build:cloudflare && wrangler deploy",
     "format": "vp format src",
     "lint": "vp lint src && bun run lint:md",
+    "precheck": "bun run generate:blog-data",
     "check": "vp check src && bun run lint:md",
     "fix": "vp check src --fix",
     "lint:md": "markdownlint-cli2"
