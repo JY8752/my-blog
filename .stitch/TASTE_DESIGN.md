@@ -1,53 +1,53 @@
 ---
 name: Quiet Hokkaido Editorial
 colors:
-  surface: '#171815'
-  surface-dim: '#141512'
-  surface-bright: '#2A2C27'
-  surface-container-lowest: '#11120F'
-  surface-container-low: '#1A1B18'
-  surface-container: '#1E201C'
-  surface-container-high: '#262822'
-  surface-container-highest: '#30322C'
-  on-surface: '#F0EEE6'
-  on-surface-variant: '#BDBCB4'
-  inverse-surface: '#F0EEE6'
-  inverse-on-surface: '#2A2B27'
-  outline: '#8A8C83'
-  outline-variant: '#383A34'
-  surface-tint: '#D08A70'
-  primary: '#D08A70'
-  on-primary: '#2B1711'
-  primary-container: '#5A3227'
-  on-primary-container: '#F5D8CD'
-  inverse-primary: '#8C4432'
-  secondary: '#BDBCB4'
-  on-secondary: '#242520'
-  secondary-container: '#30322C'
-  on-secondary-container: '#E5E3DB'
-  tertiary: '#8A8C83'
-  on-tertiary: '#1A1B18'
-  tertiary-container: '#30322C'
-  on-tertiary-container: '#E5E3DB'
-  error: '#FFB4AB'
-  on-error: '#690005'
-  error-container: '#93000A'
-  on-error-container: '#FFDAD6'
-  primary-fixed: '#F5D8CD'
-  primary-fixed-dim: '#DDA58F'
-  on-primary-fixed: '#32130C'
-  on-primary-fixed-variant: '#6A3426'
-  secondary-fixed: '#E5E3DB'
-  secondary-fixed-dim: '#C8C7BF'
-  on-secondary-fixed: '#1B1C18'
-  on-secondary-fixed-variant: '#454740'
-  tertiary-fixed: '#E5E3DB'
-  tertiary-fixed-dim: '#C8C7BF'
-  on-tertiary-fixed: '#1B1C18'
-  on-tertiary-fixed-variant: '#454740'
-  background: '#171815'
-  on-background: '#F0EEE6'
-  surface-variant: '#30322C'
+  surface: '#F4F3EE'
+  surface-dim: '#E8E7E1'
+  surface-bright: '#FAF9F5'
+  surface-container-lowest: '#FFFDF9'
+  surface-container-low: '#F7F6F1'
+  surface-container: '#FAF9F5'
+  surface-container-high: '#ECEBE5'
+  surface-container-highest: '#E2E1DB'
+  on-surface: '#1C1D1A'
+  on-surface-variant: '#4F514B'
+  inverse-surface: '#2E302B'
+  inverse-on-surface: '#F2F1EB'
+  outline: '#74766F'
+  outline-variant: '#D8D8D1'
+  surface-tint: '#B85F48'
+  primary: '#B85F48'
+  on-primary: '#FFFDF9'
+  primary-container: '#F0DDD6'
+  on-primary-container: '#6B2C20'
+  inverse-primary: '#E7AA98'
+  secondary: '#4F514B'
+  on-secondary: '#FFFDF9'
+  secondary-container: '#E6E6DF'
+  on-secondary-container: '#272824'
+  tertiary: '#74766F'
+  on-tertiary: '#FFFDF9'
+  tertiary-container: '#E6E6DF'
+  on-tertiary-container: '#272824'
+  error: '#A34A3A'
+  on-error: '#FFFDF9'
+  error-container: '#F1DDD8'
+  on-error-container: '#5E2016'
+  primary-fixed: '#F0DDD6'
+  primary-fixed-dim: '#E1B8AA'
+  on-primary-fixed: '#3D1710'
+  on-primary-fixed-variant: '#7A382A'
+  secondary-fixed: '#E6E6DF'
+  secondary-fixed-dim: '#CACBC3'
+  on-secondary-fixed: '#1C1D1A'
+  on-secondary-fixed-variant: '#454741'
+  tertiary-fixed: '#E6E6DF'
+  tertiary-fixed-dim: '#CACBC3'
+  on-tertiary-fixed: '#1C1D1A'
+  on-tertiary-fixed-variant: '#454741'
+  background: '#F4F3EE'
+  on-background: '#1C1D1A'
+  surface-variant: '#E6E6DF'
 typography:
   display-lg:
     fontFamily: Outfit
@@ -115,7 +115,8 @@ modes stay focused, warm, intelligent, and gently humorous without becoming
 cyberpunk, cute, or decorative.
 
 - Density is **4/10, editorially airy**. Every section has room to breathe, while
-  article metadata stays compact and useful.
+  article metadata stays compact and useful. Scrap indexes may increase to
+  **7/10, compact but breathable** so dates, titles, and tags scan quickly.
 - Variance is **7/10, confidently asymmetric**. The hero, profile information,
   skills, and article index use offset columns and intentional empty space.
 - Motion is **5/10, quiet and fluid**. Interaction is noticeable through weight,
@@ -173,6 +174,8 @@ text. Never use pure black.
   1.85 for Japanese reading, maximum line length 65 characters.
 - **Metadata and technical labels:** `JetBrains Mono`, weight 500, uppercase only
   for short Latin labels. Do not uppercase Japanese text.
+- **Scrap titles:** `1.5rem` to `1.75rem`, line height 1.24. Scrap dates and tags
+  use `0.6875rem` to `0.75rem` JetBrains Mono with tabular figures.
 - **Desktop hero:** `clamp(3.25rem, 5.8vw, 5.75rem)`, line height 1.06.
 - **Article title:** `clamp(2.5rem, 4.6vw, 4.75rem)`, line height 1.12.
 - **Section heading:** `clamp(2rem, 3.2vw, 3.25rem)`, line height 1.18.
@@ -244,6 +247,33 @@ hover. Each row contains the real date, title, and real tags only. Tags are
 simple JetBrains Mono text; only the currently focused tag may use the active
 accent wash. Do not fabricate reading time, view counts, excerpts, or statistics.
 
+### Scrap index
+
+Treat scraps as a denser variation of the editorial article index, never as a
+card gallery. On desktop, use an asymmetric 12-column composition: a narrow
+intro rail in columns 1–4, one intentional empty column, and a wider searchable
+index in columns 6–12. Place `Scraps` and its real Japanese description in the
+intro rail with one short accent rule above the title.
+
+Place one search field at the top of the index column using the real placeholder
+`スクラップを検索`. Use the active clean-sheet surface, a one-pixel neutral
+border, an eight-pixel radius, and a 44-pixel minimum height. Focus changes only
+the border and two-pixel ring to the active accent. Do not add filter chips,
+sorting controls, or pagination unless the product has real behavior and data
+for them.
+
+Each scrap row is cardless and separated by a one-pixel top rule with 28–32
+pixels of vertical padding. Desktop rows align a fixed-width mono date, a
+flexible title-and-tags column, and a quiet northeast arrow. The newest real
+scrap may use a two-pixel accent left rule and the active raised surface. Other
+rows remain transparent until hover. Hover changes the title to the accent,
+adds the raised surface, and moves the arrow by no more than two pixels.
+
+Scrap tags are compact rectangular labels rather than pills: four-pixel radius,
+one-pixel neutral border, clean-sheet fill, and JetBrains Mono text. Preserve
+only real dates, titles, and tags. Never invent scrap excerpts, counts, authors,
+reading times, or engagement metrics.
+
 ### Article content
 
 Use a cardless reading surface. On desktop, place date and tag in a narrow left
@@ -293,6 +323,14 @@ pixels horizontally on hover. Do not use scale effects larger than 1.01.
 5. Same minimal footer. Do not add a table of contents, author card, share bar,
    related posts, newsletter, comments, or fabricated navigation.
 
+### Scrap-index composition
+
+1. Same restrained header and theme behavior as every other page.
+2. Asymmetric intro rail containing the real `Scraps` title and description.
+3. One accessible search field above the index.
+4. Cardless scrap rows using real dates, titles, tags, and consistent columns.
+5. Minimal footer with the real name and only real existing social links.
+
 ## 6. Responsive Rules
 
 - Below 768 pixels, all multi-column structures collapse to one column with
@@ -300,6 +338,8 @@ pixels horizontally on hover. Do not use scale effects larger than 1.01.
 - The panda remains a single 96-pixel centered profile portrait on mobile.
 - Article metadata moves above the title. Article rows stack date, title, and
   tags vertically with 12-pixel gaps.
+- Scrap layouts collapse in the order intro, search, and list. Scrap rows stack
+  date, title, tags, and arrow without horizontal overflow.
 - Header social links collapse into one clearly labelled menu; the brand remains
   visible. Every touch target is at least 44 by 44 pixels.
 - Headings scale with `clamp()`. Japanese body text never renders below 16 pixels.
@@ -310,8 +350,9 @@ pixels horizontally on hover. Do not use scale effects larger than 1.01.
 
 - Use spring-like easing equivalent to stiffness 100 and damping 20. CSS-only
   transitions may use `cubic-bezier(0.22, 1, 0.36, 1)`.
-- Reveal article rows in a 60-millisecond stagger using only opacity and a
-  six-pixel vertical transform.
+- Reveal article rows in a 60-millisecond stagger and scrap rows in a
+  50-millisecond stagger using only opacity and a four-to-six-pixel vertical
+  transform.
 - The brand square performs a restrained opacity breath from 0.72 to 1 over 3.6
   seconds. The profile image floats vertically by two pixels over 5 seconds.
 - The latest-article indicator may pulse opacity slowly. No other perpetual
@@ -329,6 +370,8 @@ pixels horizontally on hover. Do not use scale effects larger than 1.01.
 - No more than one accent hue and no oversaturated colors.
 - No centered hero, overlapping elements, or absolute-positioned content stacks.
 - No three-column equal-card rows, bento grids, excessive pills, or chip clouds.
+- No card-per-scrap layout, filter-chip wall, fabricated search filters, or fake
+  pagination.
 - No custom mouse cursor or large hover scaling.
 - No generic names, placeholder people, fake metrics, reading times, statistics,
   uptime figures, or system-performance sections.

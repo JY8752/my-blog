@@ -277,6 +277,10 @@ button {
   animation: article-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.scrap-reveal {
+  animation: article-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (min-width: 768px) {
   .article-content .znc {
     font-size: 1.0625rem;

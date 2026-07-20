@@ -133,7 +133,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 aria-hidden="true"
                 className="brand-breath h-2.5 w-2.5 rounded-[2px] bg-primary"
               />
-              <span className="font-display text-lg font-bold tracking-[-0.025em] md:text-xl">
+              <span className="font-display text-lg font-bold tracking-tight md:text-xl">
                 ぱんだ<span className="text-primary">.</span>dev
               </span>
             </Link>
@@ -156,13 +156,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <ThemeToggle />
 
               <details className="group/menu relative md:hidden">
-                <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-md px-3 font-label text-xs font-medium text-on-surface-variant transition-colors hover:bg-primary-container hover:text-on-surface focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
-                  Links
-                  <span
-                    aria-hidden="true"
-                    className="text-base leading-none transition-transform group-open/menu:rotate-45"
-                  >
-                    +
+                <summary className="cursor-pointer list-none rounded-md px-3 font-label text-xs font-medium text-on-surface-variant transition-colors hover:bg-primary-container hover:text-on-surface focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+                  <span className="flex min-h-11 items-center gap-2">
+                    Links
+                    <span
+                      aria-hidden="true"
+                      className="text-base leading-none transition-transform group-open/menu:rotate-45"
+                    >
+                      +
+                    </span>
                   </span>
                 </summary>
                 <nav

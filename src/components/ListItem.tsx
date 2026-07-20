@@ -33,7 +33,7 @@ export function ListItem({ blog, index }: Props) {
           </p>
         )}
         <h3
-          className={`font-display leading-[1.2] font-semibold tracking-[-0.025em] text-on-surface text-balance transition-colors group-hover:text-primary ${
+          className={`font-display leading-[1.2] font-semibold tracking-tight text-on-surface text-balance transition-colors group-hover:text-primary ${
             isFeatured ? "text-3xl md:text-4xl" : "text-2xl md:text-3xl"
           }`}
         >
