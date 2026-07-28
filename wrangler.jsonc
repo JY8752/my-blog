@@ -16,7 +16,7 @@
     }
   ],
   "vars": {
-    "ACCESS_TEAM_DOMAIN": "https://CHANGE_ME.cloudflareaccess.com",
-    "ACCESS_AUD": "CHANGE_ME"
+    "ACCESS_TEAM_DOMAIN": "https://jy-panda.cloudflareaccess.com",
+    "ACCESS_AUD": "6ab16807ed3ef7f443af0695915ae318786ba9f476301250ff9d576cdeabcf40"
   }
 }
