@@ -20,7 +20,7 @@ export default async function ScrapsAdminLayout({ children }: { children: React.
   }
 
   return (
-    <main className="mx-auto min-h-[calc(100dvh-4.5rem)] w-full max-w-[1280px] px-5 py-10 md:px-8 md:py-16">
+    <main className="mx-auto min-h-[calc(100dvh-4.5rem)] w-full max-w-editorial px-5 py-10 md:px-8 md:py-16">
       <nav
         aria-label="スクラップ管理"
         className="mb-12 flex flex-wrap items-center justify-between gap-4 border-b border-outline-variant pb-5"

@@ -34,12 +34,12 @@ export default function Home() {
 
   return (
     <main>
-      <section className="mx-auto grid max-w-[1280px] gap-16 px-5 py-[clamp(4.5rem,9vw,8rem)] md:px-8 lg:grid-cols-12 lg:gap-x-8">
+      <section className="mx-auto grid max-w-editorial gap-16 px-5 py-section md:px-8 lg:grid-cols-12 lg:gap-x-8">
         <div className="lg:col-span-7">
-          <p className="font-label text-xs font-medium tracking-[0.08em] text-tertiary uppercase">
+          <p className="font-label text-xs font-medium tracking-label-wide text-tertiary uppercase">
             Backend engineer · HOKKAIDO, JAPAN
           </p>
-          <h1 className="mt-8 max-w-4xl font-display text-[clamp(3.25rem,7.2vw,5.75rem)] leading-[1.06] font-bold tracking-[-0.035em] text-balance">
+          <h1 className="mt-8 max-w-4xl font-display text-[clamp(3.25rem,7.2vw,5.75rem)] leading-[1.06] font-bold tracking-display text-balance">
             <span className="block">子どもたちが</span>
             <span className="mt-1 block md:mt-2">
               <span className="text-primary">寝た</span>あとの
@@ -48,32 +48,32 @@ export default function Home() {
               <span className="text-primary">学び</span>の記録
             </span>
           </h1>
-          <p className="mt-8 max-w-[65ch] border-l-2 border-primary pl-5 text-base leading-[1.85] text-on-surface-variant md:mt-10 md:pl-6 md:text-[1.0625rem]">
+          <p className="mt-8 max-w-reading border-l-2 border-primary pl-5 text-base leading-[1.85] text-on-surface-variant md:mt-10 md:pl-6 md:text-body-lg">
             営業職から独学でエンジニアへ。東京から北海道へ移住し、現在はサーバーサイドを中心に活動するフリーランスエンジニアです。日々の開発で得た学びや、試した技術を記録しています。2児のパパ。
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
             <Link
               href="#articles"
-              className="inline-flex min-h-12 items-center rounded-md bg-primary px-6 font-label text-xs font-bold tracking-[0.04em] text-on-primary transition-[transform,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-primary-fixed-dim active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
+              className="inline-flex min-h-12 items-center rounded-md bg-primary px-6 font-label text-xs font-bold tracking-data text-on-primary transition-[transform,background-color] duration-300 ease-editorial hover:bg-primary-fixed-dim active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
             >
               記事を読む
             </Link>
             <div className="flex flex-wrap gap-x-7 gap-y-3">
               <Link
                 href="/scraps"
-                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
+                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-editorial hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
               >
                 Scraps →
               </Link>
               <a
                 href="https://work.jy-panda.com/"
-                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
+                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-editorial hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
               >
                 職務経歴 ↗
               </a>
               <a
                 href="https://talk.jy-panda.com/"
-                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
+                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-editorial hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
               >
                 My Talks ↗
               </a>
@@ -97,20 +97,20 @@ export default function Home() {
                 <p className="font-display text-xl font-semibold tracking-tight lg:text-2xl">
                   Yamanaka Junichi
                 </p>
-                <p className="mt-2 font-label text-[0.6875rem] leading-5 tracking-[0.06em] text-tertiary">
+                <p className="mt-2 font-label text-label-sm leading-5 tracking-label text-tertiary">
                   SERVER-SIDE DEVELOPER
                 </p>
               </div>
             </div>
 
             <div className="mt-8 border-b border-outline-variant pb-3">
-              <h2 className="font-display text-lg font-semibold tracking-[-0.02em]">Skills</h2>
+              <h2 className="font-display text-lg font-semibold tracking-title">Skills</h2>
             </div>
 
             <dl className="divide-y divide-outline-variant">
               {skillGroups.map((group) => (
                 <div key={group.label} className="py-5">
-                  <dt className="font-label text-[0.6875rem] tracking-[0.06em] text-tertiary">
+                  <dt className="font-label text-label-sm tracking-label text-tertiary">
                     {group.label}
                   </dt>
                   <dd className="mt-3">
@@ -118,7 +118,7 @@ export default function Home() {
                       {group.values.map((skill) => (
                         <li
                           key={skill}
-                          className="rounded-sm border border-outline-variant bg-surface-container-lowest px-2.5 py-1 font-label text-[0.6875rem] leading-5 text-on-surface-variant"
+                          className="rounded-sm border border-outline-variant bg-surface-container-lowest px-2.5 py-1 font-label text-label-sm leading-5 text-on-surface-variant"
                         >
                           {skill}
                         </li>
@@ -136,17 +136,17 @@ export default function Home() {
         id="articles"
         className="scroll-mt-24 border-y border-outline-variant bg-surface-container-low"
       >
-        <div className="mx-auto max-w-[1280px] px-5 py-[clamp(4.5rem,9vw,8rem)] md:px-8">
+        <div className="mx-auto max-w-editorial px-5 py-section md:px-8">
           <div className="mb-12 grid items-end gap-6 md:mb-16 md:grid-cols-12">
             <div className="md:col-span-7">
-              <p className="font-label text-xs tracking-[0.08em] text-tertiary uppercase">
+              <p className="font-label text-xs tracking-label-wide text-tertiary uppercase">
                 Latest writing
               </p>
-              <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3.25rem)] leading-[1.18] font-bold tracking-[-0.03em]">
+              <h2 className="mt-4 font-display text-[clamp(2rem,4vw,3.25rem)] leading-[1.18] font-bold tracking-heading">
                 記事一覧
               </h2>
             </div>
-            <p className="font-label text-xs tracking-[0.06em] text-tertiary md:col-start-11 md:col-span-2 md:text-right">
+            <p className="font-label text-xs tracking-label text-tertiary md:col-start-11 md:col-span-2 md:text-right">
               {String(blogs.length).padStart(2, "0")} ARTICLES
             </p>
           </div>

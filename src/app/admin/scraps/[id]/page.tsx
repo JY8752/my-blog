@@ -22,17 +22,17 @@ export default async function ManageScrapPage({ params }: { params: Promise<{ id
   return (
     <section>
       <div>
-        <div className="font-label text-[0.6875rem] tracking-[0.06em] text-tertiary uppercase">
+        <div className="font-label text-label-sm tracking-label text-tertiary uppercase">
           {scrap.entryCount} posts
         </div>
-        <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] font-bold tracking-[-0.035em]">
+        <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.08] font-bold tracking-display">
           {scrap.title}
         </h1>
         <div className="mt-5 flex flex-wrap gap-2">
           {scrap.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-sm border border-outline-variant px-2.5 py-1 font-label text-[0.6875rem] text-on-surface-variant"
+              className="rounded-sm border border-outline-variant px-2.5 py-1 font-label text-label-sm text-on-surface-variant"
             >
               {tag}
             </span>
@@ -49,13 +49,13 @@ export default async function ManageScrapPage({ params }: { params: Promise<{ id
       <div className="mt-14 max-w-5xl overflow-hidden rounded-lg border border-outline-variant bg-surface-container-lowest shadow-paper">
         <div className="flex items-baseline justify-between gap-5 border-b border-outline-variant bg-surface-container px-5 py-4 sm:px-8">
           <h2 className="font-display text-lg font-semibold">これまでの投稿</h2>
-          <span className="font-label text-[0.6875rem] text-tertiary">{entries.length} posts</span>
+          <span className="font-label text-label-sm text-tertiary">{entries.length} posts</span>
         </div>
 
         <ol className="divide-y divide-outline-variant">
           {entries.map((entry) => (
             <li key={entry.id} className="px-5 py-8 sm:px-8 sm:py-10">
-              <div className="mb-7 flex items-center gap-3 font-label text-[0.6875rem] tracking-[0.04em] text-tertiary">
+              <div className="mb-7 flex items-center gap-3 font-label text-label-sm tracking-data text-tertiary">
                 <span className="text-primary">POST {String(entry.position).padStart(2, "0")}</span>
                 <span aria-hidden="true" className="h-px flex-1 bg-outline-variant" />
                 <time dateTime={entry.createdAt}>{formatScrapDate(entry.createdAt)}</time>
@@ -69,7 +69,7 @@ export default async function ManageScrapPage({ params }: { params: Promise<{ id
 
         <div className="border-t border-outline-variant bg-surface-container px-5 py-8 sm:px-8 sm:py-10">
           <div className="mb-7">
-            <p className="font-label text-[0.6875rem] tracking-[0.08em] text-primary uppercase">
+            <p className="font-label text-label-sm tracking-label-wide text-primary uppercase">
               Continue this scrap
             </p>
             <h2 className="mt-2 font-display text-2xl font-semibold">続きを書く</h2>

@@ -46,10 +46,10 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
   });
 
   return (
-    <main className="mx-auto min-h-[70dvh] max-w-[1280px] px-5 py-12 md:px-8 md:py-24 lg:pb-32">
+    <main className="mx-auto min-h-[70dvh] max-w-editorial px-5 py-12 md:px-8 md:py-24 lg:pb-32">
       <Link
         href="/#articles"
-        className="inline-flex items-center gap-2 font-label text-xs font-medium text-primary underline decoration-primary underline-offset-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
+        className="inline-flex items-center gap-2 font-label text-xs font-medium text-primary underline decoration-primary underline-offset-4 transition-transform duration-300 ease-editorial hover:translate-x-0.5 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
       >
         <span aria-hidden="true">←</span> 記事一覧へ
       </Link>
@@ -58,17 +58,17 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
         <aside className="md:col-span-2 md:row-span-2 md:pt-2">
           <time
             dateTime={blog.date}
-            className="block font-label text-xs tracking-[0.06em] text-tertiary"
+            className="block font-label text-xs tracking-label text-tertiary"
           >
             {blog.date}
           </time>
-          <p className="mt-3 font-label text-xs leading-6 tracking-[0.04em] text-tertiary">
+          <p className="mt-3 font-label text-xs leading-6 tracking-data text-tertiary">
             {blog.tags.join(" · ")}
           </p>
         </aside>
 
         <header className="md:col-start-4 md:col-span-7">
-          <h1 className="max-w-[18ch] font-display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[1.12] font-bold tracking-[-0.035em] text-balance">
+          <h1 className="max-w-[18ch] font-display text-[clamp(2.5rem,5.6vw,4.75rem)] leading-[1.12] font-bold tracking-display text-balance">
             {blog.title}
           </h1>
         </header>

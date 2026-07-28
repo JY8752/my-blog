@@ -1,11 +1,45 @@
 @import "tailwindcss" source(none);
 @source "../**/*.{js,ts,jsx,tsx}";
 
+/*
+ * Tailwind-facing tokens mirrored from .stitch/TASTE_DESIGN.md.
+ * Keep the semantic aliases here so components do not repeat raw design values.
+ */
 @theme inline {
   --font-sans: var(--font-noto-sans-jp), var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-display:
     var(--font-outfit), var(--font-noto-sans-jp), ui-sans-serif, system-ui, sans-serif;
   --font-label: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --text-display-lg: 5rem;
+  --text-display-lg--line-height: 1.06;
+  --text-display-lg--letter-spacing: -0.035em;
+  --text-display-lg--font-weight: 700;
+  --text-headline-lg: 3rem;
+  --text-headline-lg--line-height: 1.12;
+  --text-headline-lg--letter-spacing: -0.03em;
+  --text-headline-lg--font-weight: 700;
+  --text-headline-md: 1.875rem;
+  --text-headline-md--line-height: 1.2;
+  --text-headline-md--letter-spacing: -0.02em;
+  --text-headline-md--font-weight: 650;
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.85;
+  --text-body-md: 1rem;
+  --text-body-md--line-height: 1.8;
+  --text-label-md: 0.8125rem;
+  --text-label-md--line-height: 1.4;
+  --text-label-md--letter-spacing: 0.06em;
+  --text-label-md--font-weight: 500;
+  --text-label-sm: 0.6875rem;
+  --text-label-sm--line-height: 1.4;
+
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.03em;
+  --tracking-title: -0.02em;
+  --tracking-data: 0.04em;
+  --tracking-label: 0.06em;
+  --tracking-label-wide: 0.08em;
 
   --color-surface: var(--theme-surface);
   --color-surface-dim: var(--theme-surface-dim);
@@ -17,29 +51,63 @@
   --color-surface-container-highest: var(--theme-surface-container-highest);
   --color-on-surface: var(--theme-on-surface);
   --color-on-surface-variant: var(--theme-on-surface-variant);
+  --color-inverse-surface: var(--theme-inverse-surface);
+  --color-inverse-on-surface: var(--theme-inverse-on-surface);
   --color-outline: var(--theme-outline);
   --color-outline-variant: var(--theme-outline-variant);
+  --color-surface-tint: var(--theme-surface-tint);
   --color-primary: var(--theme-primary);
   --color-on-primary: var(--theme-on-primary);
   --color-primary-container: var(--theme-primary-container);
   --color-on-primary-container: var(--theme-on-primary-container);
+  --color-inverse-primary: var(--theme-inverse-primary);
+  --color-primary-fixed: var(--theme-primary-fixed);
   --color-primary-fixed-dim: var(--theme-primary-fixed-dim);
+  --color-on-primary-fixed: var(--theme-on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--theme-on-primary-fixed-variant);
   --color-secondary: var(--theme-secondary);
   --color-on-secondary: var(--theme-on-secondary);
   --color-secondary-container: var(--theme-secondary-container);
   --color-on-secondary-container: var(--theme-on-secondary-container);
+  --color-secondary-fixed: var(--theme-secondary-fixed);
+  --color-secondary-fixed-dim: var(--theme-secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--theme-on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--theme-on-secondary-fixed-variant);
   --color-tertiary: var(--theme-tertiary);
   --color-on-tertiary: var(--theme-on-tertiary);
+  --color-tertiary-container: var(--theme-tertiary-container);
+  --color-on-tertiary-container: var(--theme-on-tertiary-container);
+  --color-tertiary-fixed: var(--theme-tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--theme-tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--theme-on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--theme-on-tertiary-fixed-variant);
   --color-error: var(--theme-error);
   --color-on-error: var(--theme-on-error);
+  --color-error-container: var(--theme-error-container);
+  --color-on-error-container: var(--theme-on-error-container);
+  --color-background: var(--theme-background);
+  --color-on-background: var(--theme-on-background);
+  --color-surface-variant: var(--theme-surface-variant);
 
   --radius-sm: 0.25rem;
+  --radius-default: 0.5rem;
   --radius-soft: 0.5rem;
   --radius-md: 0.875rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  --container-editorial: 80rem;
+  --container-reading: 65ch;
+
+  --spacing-container-padding: 2rem;
+  --spacing-card-gap: 3rem;
+  --spacing-section: clamp(4.5rem, 9vw, 8rem);
+  --spacing-inner-padding: 2rem;
 
   --shadow-paper: var(--theme-shadow-paper);
+
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root,
@@ -55,21 +123,43 @@
   --theme-surface-container-highest: #e2e1db;
   --theme-on-surface: #1c1d1a;
   --theme-on-surface-variant: #4f514b;
+  --theme-inverse-surface: #2e302b;
+  --theme-inverse-on-surface: #f2f1eb;
   --theme-outline: #74766f;
   --theme-outline-variant: #d8d8d1;
+  --theme-surface-tint: #b85f48;
   --theme-primary: #b85f48;
   --theme-on-primary: #fffdf9;
   --theme-primary-container: #f0ddd6;
   --theme-on-primary-container: #6b2c20;
+  --theme-inverse-primary: #e7aa98;
+  --theme-primary-fixed: #f0ddd6;
   --theme-primary-fixed-dim: #e1b8aa;
+  --theme-on-primary-fixed: #3d1710;
+  --theme-on-primary-fixed-variant: #7a382a;
   --theme-secondary: #4f514b;
   --theme-on-secondary: #fffdf9;
   --theme-secondary-container: #e6e6df;
   --theme-on-secondary-container: #272824;
+  --theme-secondary-fixed: #e6e6df;
+  --theme-secondary-fixed-dim: #cacbc3;
+  --theme-on-secondary-fixed: #1c1d1a;
+  --theme-on-secondary-fixed-variant: #454741;
   --theme-tertiary: #74766f;
   --theme-on-tertiary: #fffdf9;
+  --theme-tertiary-container: #e6e6df;
+  --theme-on-tertiary-container: #272824;
+  --theme-tertiary-fixed: #e6e6df;
+  --theme-tertiary-fixed-dim: #cacbc3;
+  --theme-on-tertiary-fixed: #1c1d1a;
+  --theme-on-tertiary-fixed-variant: #454741;
   --theme-error: #a34a3a;
   --theme-on-error: #fffdf9;
+  --theme-error-container: #f1ddd8;
+  --theme-on-error-container: #5e2016;
+  --theme-background: #f4f3ee;
+  --theme-on-background: #1c1d1a;
+  --theme-surface-variant: #e6e6df;
   --theme-shadow-paper: 0 18px 50px rgb(28 29 26 / 8%);
   --theme-warning-bg: #f2e8d2;
   --theme-warning-icon: #9b6c2a;
@@ -93,21 +183,43 @@
   --theme-surface-container-highest: #30322c;
   --theme-on-surface: #f0eee6;
   --theme-on-surface-variant: #bdbcb4;
+  --theme-inverse-surface: #f0eee6;
+  --theme-inverse-on-surface: #2e302b;
   --theme-outline: #8a8c83;
   --theme-outline-variant: #383a34;
+  --theme-surface-tint: #d08a70;
   --theme-primary: #d08a70;
   --theme-on-primary: #2b1711;
   --theme-primary-container: #5a3227;
   --theme-on-primary-container: #f5d8cd;
+  --theme-inverse-primary: #b85f48;
+  --theme-primary-fixed: #f0ddd6;
   --theme-primary-fixed-dim: #dda58f;
+  --theme-on-primary-fixed: #3d1710;
+  --theme-on-primary-fixed-variant: #7a382a;
   --theme-secondary: #bdbcb4;
   --theme-on-secondary: #242520;
   --theme-secondary-container: #30322c;
   --theme-on-secondary-container: #e5e3db;
+  --theme-secondary-fixed: #e6e6df;
+  --theme-secondary-fixed-dim: #cacbc3;
+  --theme-on-secondary-fixed: #1c1d1a;
+  --theme-on-secondary-fixed-variant: #454741;
   --theme-tertiary: #8a8c83;
   --theme-on-tertiary: #1a1b18;
+  --theme-tertiary-container: #30322c;
+  --theme-on-tertiary-container: #e5e3db;
+  --theme-tertiary-fixed: #e6e6df;
+  --theme-tertiary-fixed-dim: #cacbc3;
+  --theme-on-tertiary-fixed: #1c1d1a;
+  --theme-on-tertiary-fixed-variant: #454741;
   --theme-error: #ffb4ab;
   --theme-on-error: #690005;
+  --theme-error-container: #93000a;
+  --theme-on-error-container: #ffdad6;
+  --theme-background: #171815;
+  --theme-on-background: #f0eee6;
+  --theme-surface-variant: #30322c;
   --theme-shadow-paper: 0 18px 50px rgb(5 6 4 / 24%);
   --theme-warning-bg: #302a20;
   --theme-warning-icon: #d0a56a;

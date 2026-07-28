@@ -11,7 +11,7 @@ function ScrapTags({ tags }: { tags: string[] }) {
       {tags.map((tag) => (
         <li
           key={tag}
-          className="rounded-sm border border-outline-variant bg-surface-container-lowest px-2 py-1 font-label text-[0.6875rem] leading-4 text-on-surface-variant"
+          className="rounded-sm border border-outline-variant bg-surface-container-lowest px-2 py-1 font-label text-label-sm leading-4 text-on-surface-variant"
         >
           {tag}
         </li>
@@ -22,7 +22,7 @@ function ScrapTags({ tags }: { tags: string[] }) {
 
 function ScrapMeta({ scrap }: { scrap: ScrapSummary }) {
   return (
-    <div className="font-label text-[0.6875rem] tracking-[0.04em] text-tertiary">
+    <div className="font-label text-label-sm tracking-data text-tertiary">
       <span>
         {scrap.entryCount} {scrap.entryCount === 1 ? "post" : "posts"}
       </span>
@@ -42,12 +42,12 @@ function FeaturedScrap({ scrap }: { scrap: ScrapSummary }) {
         </time>
         <span
           aria-hidden="true"
-          className="font-label text-lg text-tertiary transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
+          className="font-label text-lg text-tertiary transition-[color,transform] duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
         >
           ↗
         </span>
       </div>
-      <h2 className="mt-4 font-display text-[clamp(2rem,3.4vw,2.375rem)] leading-[1.16] font-semibold tracking-[-0.03em] text-on-surface transition-colors group-hover:text-primary">
+      <h2 className="mt-4 font-display text-[clamp(2rem,3.4vw,2.375rem)] leading-[1.16] font-semibold tracking-heading text-on-surface transition-colors group-hover:text-primary">
         {scrap.title}
       </h2>
       <div className="mt-4">
@@ -73,12 +73,12 @@ function ScrapRow({ scrap, index }: { scrap: ScrapSummary; index: number }) {
         </time>
         <span
           aria-hidden="true"
-          className="font-label text-base text-tertiary transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
+          className="font-label text-base text-tertiary transition-[color,transform] duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-primary"
         >
           ↗
         </span>
       </div>
-      <h2 className="mt-3 font-display text-2xl leading-[1.24] font-semibold tracking-[-0.02em] text-on-surface transition-colors group-hover:text-primary md:text-[1.625rem]">
+      <h2 className="mt-3 font-display text-2xl leading-[1.24] font-semibold tracking-title text-on-surface transition-colors group-hover:text-primary md:text-[1.625rem]">
         {scrap.title}
       </h2>
       <div className="mt-3">
@@ -109,14 +109,14 @@ export function ScrapIndex({ scraps }: { scraps: ScrapSummary[] }) {
   const isSearching = normalizedQuery.length > 0;
 
   return (
-    <main className="mx-auto min-h-[calc(100dvh-4.5rem)] w-full max-w-[1280px] px-5 py-[clamp(4.5rem,9vw,8rem)] md:px-8">
+    <main className="mx-auto min-h-[calc(100dvh-4.5rem)] w-full max-w-editorial px-5 py-section md:px-8">
       <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-x-8">
         <aside className="lg:sticky lg:top-28 lg:col-span-4">
           <div aria-hidden="true" className="h-0.5 w-12 bg-primary" />
-          <h1 className="mt-6 font-display text-[clamp(3rem,6vw,5rem)] leading-[1.04] font-bold tracking-[-0.035em]">
+          <h1 className="mt-6 font-display text-[clamp(3rem,6vw,5rem)] leading-[1.04] font-bold tracking-display">
             Scraps
           </h1>
-          <p className="mt-6 max-w-[34ch] text-base leading-[1.8] text-on-surface-variant md:text-[1.0625rem]">
+          <p className="mt-6 max-w-[34ch] text-base leading-[1.8] text-on-surface-variant md:text-body-lg">
             日々の開発で見つけた断片的な知見や、試行錯誤の記録。
           </p>
           <div className="relative mt-8 max-w-md">

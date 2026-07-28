@@ -65,7 +65,7 @@ export function ScrapEntryForm({ scrapId }: { scrapId: string }) {
         <button
           type="submit"
           disabled={isSubmitting || !bodyMarkdown.trim()}
-          className="inline-flex min-h-12 items-center rounded-md bg-primary px-6 font-label text-xs font-bold tracking-[0.04em] text-on-primary transition-colors hover:bg-primary-fixed-dim disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex min-h-12 items-center rounded-md bg-primary px-6 font-label text-xs font-bold tracking-data text-on-primary transition-colors hover:bg-primary-fixed-dim disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "追加中…" : "投稿を追加"}
         </button>

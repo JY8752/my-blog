@@ -22,13 +22,13 @@ export function ListItem({ blog, index }: Props) {
     >
       <time
         dateTime={date}
-        className="font-label text-xs tracking-[0.06em] text-tertiary md:col-span-2 md:pt-1"
+        className="font-label text-xs tracking-label text-tertiary md:col-span-2 md:pt-1"
       >
         {date}
       </time>
       <div className="md:col-start-3 md:col-span-8">
         {isFeatured && (
-          <p className="mb-3 font-label text-[0.625rem] font-medium tracking-[0.08em] text-primary uppercase">
+          <p className="mb-3 font-label text-[0.625rem] font-medium tracking-label-wide text-primary uppercase">
             Latest
           </p>
         )}
@@ -39,13 +39,13 @@ export function ListItem({ blog, index }: Props) {
         >
           {title}
         </h3>
-        <p className="mt-4 font-label text-xs leading-6 tracking-[0.04em] text-tertiary">
+        <p className="mt-4 font-label text-xs leading-6 tracking-data text-tertiary">
           {tags.join(" · ")}
         </p>
       </div>
       <span
         aria-hidden="true"
-        className="grid h-9 w-9 place-items-center justify-self-end rounded-full border border-outline-variant bg-surface-container-lowest font-label text-base text-primary transition-[transform,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:border-primary md:col-start-12 md:row-start-1"
+        className="grid h-9 w-9 place-items-center justify-self-end rounded-full border border-outline-variant bg-surface-container-lowest font-label text-base text-primary transition-[transform,border-color] duration-300 ease-editorial group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:border-primary md:col-start-12 md:row-start-1"
       >
         ↗
       </span>

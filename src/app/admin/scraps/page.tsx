@@ -10,10 +10,10 @@ export default async function ScrapsAdminPage() {
     <section>
       <div className="flex flex-wrap items-end justify-between gap-5">
         <div>
-          <p className="font-label text-[0.6875rem] tracking-[0.08em] text-tertiary uppercase">
+          <p className="font-label text-label-sm tracking-label-wide text-tertiary uppercase">
             Private workspace
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2.5rem,5vw,4rem)] leading-none font-bold tracking-[-0.035em]">
+          <h1 className="mt-3 font-display text-[clamp(2.5rem,5vw,4rem)] leading-none font-bold tracking-display">
             Scraps
           </h1>
         </div>
@@ -39,7 +39,7 @@ export default async function ScrapsAdminPage() {
                 className="group grid gap-4 px-3 py-6 transition-colors hover:bg-surface-container md:grid-cols-[1fr_auto] md:items-center md:px-5"
               >
                 <div>
-                  <div className="flex flex-wrap items-center gap-3 font-label text-[0.6875rem] text-tertiary">
+                  <div className="flex flex-wrap items-center gap-3 font-label text-label-sm text-tertiary">
                     <span>{scrap.entryCount} posts</span>
                     <time dateTime={scrap.updatedAt}>{formatScrapDate(scrap.updatedAt)}</time>
                   </div>

@@ -156,7 +156,7 @@ export function ScrapCreateForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex min-h-12 items-center rounded-md bg-primary px-6 font-label text-xs font-bold tracking-[0.04em] text-on-primary transition-colors hover:bg-primary-fixed-dim disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex min-h-12 items-center rounded-md bg-primary px-6 font-label text-xs font-bold tracking-data text-on-primary transition-colors hover:bg-primary-fixed-dim disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isSubmitting ? "作成中…" : "スクラップを作成"}
         </button>

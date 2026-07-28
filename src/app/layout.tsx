@@ -94,20 +94,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${outfit.variable} ${notoSansJp.variable} ${jetBrainsMono.variable}`}
     >
       <body>
-        <Script id="theme-init" strategy="beforeInteractive">{`
-          (() => {
-            let theme;
-            try {
-              const storedTheme = window.localStorage.getItem('theme');
-              theme = storedTheme === 'light' || storedTheme === 'dark'
-                ? storedTheme
-                : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            } catch {
-              theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            }
-            document.documentElement.dataset.theme = theme;
-          })();
-        `}</Script>
         <Script
           src="https://embed.zenn.studio/js/listen-embed-event.js"
           strategy="afterInteractive"
@@ -124,7 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</Script>
 
         <header className="sticky top-0 z-50 border-b border-outline-variant bg-surface-container">
-          <div className="mx-auto flex min-h-18 max-w-[1280px] items-center justify-between gap-6 px-5 md:px-8">
+          <div className="mx-auto flex min-h-18 max-w-editorial items-center justify-between gap-6 px-5 md:px-8">
             <Link
               className="group flex min-h-11 shrink-0 items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary"
               href="/"
@@ -190,9 +176,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
 
         <footer className="border-t border-outline-variant bg-surface">
-          <div className="mx-auto max-w-[1280px] px-5 py-12 md:px-8 md:py-16">
+          <div className="mx-auto max-w-editorial px-5 py-12 md:px-8 md:py-16">
             <div>
-              <p className="font-display font-bold tracking-[-0.02em]">Yamanaka Junichi</p>
+              <p className="font-display font-bold tracking-title">Yamanaka Junichi</p>
               <p className="mt-1.5 text-sm text-on-surface-variant">
                 Backend engineer & lifelong learner.
               </p>
@@ -200,6 +186,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
       </body>
+      <Script id="theme-init" strategy="beforeInteractive">{`
+        (() => {
+          let theme;
+          try {
+            const storedTheme = window.localStorage.getItem('theme');
+            theme = storedTheme === 'light' || storedTheme === 'dark'
+              ? storedTheme
+              : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          } catch {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.dataset.theme = theme;
+        })();
+      `}</Script>
     </html>
   );
 }

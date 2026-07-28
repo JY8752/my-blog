@@ -81,7 +81,7 @@ export function MarkdownComposer({
               key={tab}
               type="button"
               onClick={() => setMobileTab(tab)}
-              className={`min-h-9 rounded-sm px-3 font-label text-[0.6875rem] transition-colors ${
+              className={`min-h-9 rounded-sm px-3 font-label text-label-sm transition-colors ${
                 mobileTab === tab
                   ? "bg-primary text-on-primary"
                   : "text-on-surface-variant hover:text-on-surface"
@@ -107,7 +107,7 @@ export function MarkdownComposer({
               compact ? "min-h-[18rem]" : "min-h-[28rem]"
             }`}
           />
-          <p className="mt-2 text-right font-label text-[0.6875rem] text-tertiary">
+          <p className="mt-2 text-right font-label text-label-sm text-tertiary">
             {value.length.toLocaleString()} / 50,000
           </p>
         </div>
@@ -120,11 +120,11 @@ export function MarkdownComposer({
           aria-busy={isPreviewing}
         >
           <div className="mb-5 flex items-center justify-between gap-4 border-b border-outline-variant pb-3">
-            <p className="font-label text-[0.6875rem] font-semibold tracking-[0.06em] text-tertiary uppercase">
+            <p className="font-label text-label-sm font-semibold tracking-label text-tertiary uppercase">
               Preview
             </p>
             {isPreviewing ? (
-              <span className="font-label text-[0.6875rem] text-tertiary">変換中…</span>
+              <span className="font-label text-label-sm text-tertiary">変換中…</span>
             ) : null}
           </div>
 
