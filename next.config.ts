@@ -3,6 +3,12 @@ import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 initOpenNextCloudflareForDev();
 
-const config: NextConfig = {};
+const config: NextConfig = {
+  turbopack: {
+    resolveAlias: {
+      shiki: "./src/lib/shiki.ts",
+    },
+  },
+};
 
 export default config;
