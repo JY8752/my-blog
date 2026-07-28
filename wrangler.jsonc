@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "my-blog",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-07-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "SCRAPS_DB",
+      "database_name": "my-blog-scraps",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "https://CHANGE_ME.cloudflareaccess.com",
+    "ACCESS_AUD": "CHANGE_ME"
+  }
+}

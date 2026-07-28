@@ -44,3 +44,6 @@ credentials.json
 *.local.json
 
 .wrangler/
+
+# local implementation plans
+.agents/plans/

@@ -12,8 +12,10 @@
 * 投稿日順のブログ記事一覧
 * Markdownから生成するブログ記事詳細ページ
 * Zenn Markdown記法によるコードブロック、メッセージ、埋め込み表示
+* D1に保存する時系列形式のスクラップ
+* Cloudflare Accessで保護したスクラップ管理画面
 * 記事ごとのOGP／Xカード設定
-* レスポンシブなダークテーマ
+* light／darkテーマとレスポンシブ表示
 
 ## 使用技術
 
@@ -24,7 +26,7 @@
 | Web | Next.js（App Router）、React、TypeScript |
 | スタイリング | Tailwind CSS、PostCSS、next/font |
 | コンテンツ | Markdown、gray-matter、zenn-markdown-html、zenn-content-css |
-| ホスティング | Cloudflare Workers、OpenNext、Wrangler |
+| ホスティング・データ | Cloudflare Workers、D1、Access、OpenNext、Wrangler |
 | コード品質 | Vite+、markdownlint |
 | OGP生成 | Cloudflare Workers、Satori、resvg-wasm |
 | 分析通知 | Google Cloud Functions、Go |
@@ -61,6 +63,9 @@ OpenNext → Cloudflare Workers
 │   ├── app/
 │   │   ├── page.tsx              # プロフィールと記事一覧
 │   │   ├── [slug]/page.tsx       # 記事詳細ページ
+│   │   ├── scraps/                # スクラップ一覧・詳細
+│   │   ├── admin/scraps/          # Accessで保護する管理画面
+│   │   ├── api/admin/             # スクラップ書き込み・プレビューAPI
 │   │   ├── layout.tsx             # 共通レイアウトとメタデータ
 │   │   └── globals.css            # Tailwindテーマと共通スタイル
 │   ├── components/
@@ -69,7 +74,10 @@ OpenNext → Cloudflare Workers
 │   ├── consts/                    # サイト共通定数
 │   ├── content/blog/              # ブログ記事のMarkdown
 │   ├── generated/blogs.json       # ビルド前に生成される記事データ
-│   └── lib/blog.ts                # 記事データ取得処理
+│   └── lib/
+│       ├── blog.ts                # 記事データ取得処理
+│       └── scraps/                # D1・Markdown・Accessの処理
+├── migrations/                    # D1マイグレーション
 ├── scripts/
 │   └── generate-blog-data.ts      # MarkdownからJSONを生成
 ├── public/                        # プロフィール画像、OGP画像など
@@ -78,7 +86,7 @@ OpenNext → Cloudflare Workers
 ├── gcp/functions/                 # アナリティクス通知用Cloud Functions
 ├── mise.toml                      # 開発ツールとタスクの定義
 ├── open-next.config.ts            # OpenNext設定
-├── wrangler.toml                  # Cloudflare Worker設定
+├── wrangler.jsonc                 # Worker・D1・Access変数の設定
 └── package.json
 ```
 
@@ -105,6 +113,7 @@ Bunと`note-cli`はmiseで管理するため、個別にインストールする
 mise trust
 mise install
 mise exec -- bun install
+mise exec -- bun run db:migrate:local
 mise exec -- bun run dev
 ```
 
@@ -138,6 +147,10 @@ miseタスクから呼び出すformatやlintの実体は`package.json`に置い�
 | `bun run build:cloudflare` | Cloudflare Workers向けの成果物を生成 |
 | `bun run preview` | Workersランタイムでローカルプレビュー |
 | `bun run deploy` | Cloudflare Workersへビルド・デプロイ |
+| `bun run db:migrate:local` | ローカルD1へマイグレーションを適用 |
+| `bun run db:migrate:remote` | 本番D1へマイグレーションを適用 |
+| `bun run types:cloudflare` | Cloudflare bindingの型定義を生成 |
+| `bun run test` | Vitestでテストを実行 |
 | `bun run format` | ソースコードをフォーマット |
 | `bun run lint` | ソースコードとMarkdownをLint |
 | `bun run check` | フォーマット、Lint、型、Markdownを検査 |
@@ -160,6 +173,23 @@ date: "2026-07-19"
 Frontmatterの`title`、`tags`、`date`は必須です。記事は`date`の降順で表示されます。
 本文には[ZennのMarkdown記法](https://zenn.dev/zenn/articles/markdown-guide)を利用できます。
 
+## スクラップ
+
+公開画面は`/scraps`、所有者向けの管理画面は`/admin/scraps`です。
+ひとつのテーマへMarkdownの投稿を時系列で追加でき、URLだけの行や
+`@[card](URL)`はZenn Markdownのリンクカードとして表示されます。
+
+ローカル開発ではCloudflare Accessの認証を省略します。最初にD1の
+マイグレーションを適用してから開発サーバーを起動してください。
+
+```bash
+bun run db:migrate:local
+bun run dev
+```
+
+本番では`/admin/scraps/*`と`/api/admin/*`をCloudflare Accessで保護します。
+管理API側でも`Cf-Access-Jwt-Assertion`の署名、issuer、audienceを検証します。
+
 ## Cloudflareへのデプロイ
 
 メインアプリは`@opennextjs/cloudflare`でCloudflare Workers向けに変換します。
@@ -178,7 +208,39 @@ Deploy command:    npx @opennextjs/cloudflare deploy
 Root directory:    /
 ```
 
-Worker名やエントリーポイント、静的アセットの設定は`wrangler.toml`で管理します。
+Worker名、D1 binding、静的アセット、Accessの検証値は`wrangler.jsonc`で管理します。
+
+### D1のセットアップ
+
+Cloudflareへログインして本番データベースを作成します。
+
+```bash
+bunx wrangler login
+bunx wrangler d1 create my-blog-scraps
+```
+
+作成結果の`database_id`を`wrangler.jsonc`の`SCRAPS_DB`へ追加し、
+マイグレーションを適用します。
+
+```bash
+bun run db:migrate:remote
+```
+
+### Cloudflare Accessのセットアップ
+
+Cloudflare Zero TrustでSelf-hosted applicationを作成し、次のパスを保護します。
+
+```text
+/admin/scraps*
+/api/admin/*
+```
+
+One-time PINを有効にし、自分のメールアドレスだけを許可するAllow policyを設定します。
+毎回の認証を避ける場合はGlobal、Application、Policyのセッション期間を
+それぞれ1か月に設定します。
+
+Access applicationのApplication Audience（AUD）とteam domainを、
+`wrangler.jsonc`の`ACCESS_AUD`、`ACCESS_TEAM_DOMAIN`へ設定してください。
 
 ## 関連サービス
 

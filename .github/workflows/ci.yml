@@ -52,5 +52,8 @@ jobs:
       - name: Check formatting, lint, and types
         run: bun run check
 
+      - name: Run tests
+        run: bun run test
+
       - name: Build for Cloudflare Workers
         run: bun run build:cloudflare

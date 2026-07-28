@@ -59,13 +59,12 @@ export default function Home() {
               記事を読む
             </Link>
             <div className="flex flex-wrap gap-x-7 gap-y-3">
-              <span
-                aria-disabled="true"
-                title="準備中"
-                className="cursor-not-allowed font-label text-xs font-medium text-on-surface-variant opacity-50"
+              <Link
+                href="/scraps"
+                className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"
               >
-                Scraps（準備中）
-              </span>
+                Scraps →
+              </Link>
               <a
                 href="https://work.jy-panda.com/"
                 className="font-label text-xs font-medium text-on-surface underline decoration-outline underline-offset-4 transition-[color,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-x-0.5 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary"

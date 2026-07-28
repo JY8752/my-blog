@@ -2,46 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-
-interface Scrap {
-  slug: string;
-  title: string;
-  date: string;
-  tags: string[];
-}
-
-const scraps: Scrap[] = [
-  {
-    slug: "aerospace-introduction",
-    title: "Aerospace導入",
-    date: "2023.11.20",
-    tags: ["macOS", "aerospace", "wm"],
-  },
-  {
-    slug: "go-1-22-routing-enhancements",
-    title: "Go 1.22 routing enhancements",
-    date: "2023.11.15",
-    tags: ["go", "backend"],
-  },
-  {
-    slug: "postgres-query-optimization-notes",
-    title: "Postgres query optimization notes",
-    date: "2023.10.30",
-    tags: ["postgres", "sql", "performance"],
-  },
-  {
-    slug: "setting-up-neovim-for-rust",
-    title: "Setting up Neovim for Rust",
-    date: "2023.10.12",
-    tags: ["neovim", "rust", "lsp"],
-  },
-  {
-    slug: "docker-multi-stage-build-patterns",
-    title: "Docker multi-stage build patterns",
-    date: "2023.09.05",
-    tags: ["docker", "devops"],
-  },
-];
+import { formatScrapDate } from "../lib/scraps/presentation";
+import type { ScrapSummary } from "../lib/scraps/types";
 
 function ScrapTags({ tags }: { tags: string[] }) {
   return (
@@ -58,18 +20,25 @@ function ScrapTags({ tags }: { tags: string[] }) {
   );
 }
 
-function FeaturedScrap({ scrap }: { scrap: Scrap }) {
+function ScrapMeta({ scrap }: { scrap: ScrapSummary }) {
+  return (
+    <div className="font-label text-[0.6875rem] tracking-[0.04em] text-tertiary">
+      <span>
+        {scrap.entryCount} {scrap.entryCount === 1 ? "post" : "posts"}
+      </span>
+    </div>
+  );
+}
+
+function FeaturedScrap({ scrap }: { scrap: ScrapSummary }) {
   return (
     <Link
       href={`/scraps/${scrap.slug}`}
       className="group block border-l-2 border-primary bg-surface-container p-6 transition-colors hover:bg-surface-container-high focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary md:p-8"
     >
       <div className="flex items-center justify-between gap-4">
-        <time
-          dateTime={scrap.date.replaceAll(".", "-")}
-          className="font-label text-xs text-tertiary"
-        >
-          {scrap.date}
+        <time dateTime={scrap.updatedAt} className="font-label text-xs text-tertiary">
+          {formatScrapDate(scrap.updatedAt)}
         </time>
         <span
           aria-hidden="true"
@@ -81,6 +50,9 @@ function FeaturedScrap({ scrap }: { scrap: Scrap }) {
       <h2 className="mt-4 font-display text-[clamp(2rem,3.4vw,2.375rem)] leading-[1.16] font-semibold tracking-[-0.03em] text-on-surface transition-colors group-hover:text-primary">
         {scrap.title}
       </h2>
+      <div className="mt-4">
+        <ScrapMeta scrap={scrap} />
+      </div>
       <div className="mt-6">
         <ScrapTags tags={scrap.tags} />
       </div>
@@ -88,7 +60,7 @@ function FeaturedScrap({ scrap }: { scrap: Scrap }) {
   );
 }
 
-function ScrapRow({ scrap, index }: { scrap: Scrap; index: number }) {
+function ScrapRow({ scrap, index }: { scrap: ScrapSummary; index: number }) {
   return (
     <Link
       href={`/scraps/${scrap.slug}`}
@@ -96,11 +68,8 @@ function ScrapRow({ scrap, index }: { scrap: Scrap; index: number }) {
       className="scrap-reveal group block border-t border-outline-variant px-4 py-6 transition-colors hover:bg-surface-container focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-primary md:py-7"
     >
       <div className="flex items-start justify-between gap-4">
-        <time
-          dateTime={scrap.date.replaceAll(".", "-")}
-          className="font-label text-xs text-tertiary"
-        >
-          {scrap.date}
+        <time dateTime={scrap.updatedAt} className="font-label text-xs text-tertiary">
+          {formatScrapDate(scrap.updatedAt)}
         </time>
         <span
           aria-hidden="true"
@@ -112,6 +81,9 @@ function ScrapRow({ scrap, index }: { scrap: Scrap; index: number }) {
       <h2 className="mt-3 font-display text-2xl leading-[1.24] font-semibold tracking-[-0.02em] text-on-surface transition-colors group-hover:text-primary md:text-[1.625rem]">
         {scrap.title}
       </h2>
+      <div className="mt-3">
+        <ScrapMeta scrap={scrap} />
+      </div>
       <div className="mt-4">
         <ScrapTags tags={scrap.tags} />
       </div>
@@ -119,7 +91,7 @@ function ScrapRow({ scrap, index }: { scrap: Scrap; index: number }) {
   );
 }
 
-export function ScrapIndex() {
+export function ScrapIndex({ scraps }: { scraps: ScrapSummary[] }) {
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const filteredScraps = useMemo(
@@ -127,7 +99,7 @@ export function ScrapIndex() {
       normalizedQuery.length === 0
         ? scraps
         : scraps.filter((scrap) =>
-            [scrap.title, scrap.date, ...scrap.tags]
+            [scrap.title, formatScrapDate(scrap.updatedAt), ...scrap.tags]
               .join(" ")
               .toLocaleLowerCase()
               .includes(normalizedQuery),
@@ -174,7 +146,14 @@ export function ScrapIndex() {
         <div aria-hidden="true" className="hidden lg:col-span-1 lg:block" />
 
         <section aria-label="スクラップ一覧" className="lg:col-span-7">
-          {filteredScraps.length === 0 ? (
+          {scraps.length === 0 ? (
+            <div className="border-y border-outline-variant py-16 text-center">
+              <p className="font-display text-xl font-semibold">最初のスクラップを準備中です</p>
+              <p className="mt-2 text-sm text-on-surface-variant">
+                日々の小さな試行錯誤を、ここに追加していきます。
+              </p>
+            </div>
+          ) : filteredScraps.length === 0 ? (
             <div className="border-y border-outline-variant py-16 text-center">
               <p className="font-display text-xl font-semibold">該当するスクラップはありません</p>
               <p className="mt-2 text-sm text-on-surface-variant">検索語を変えてお試しください。</p>

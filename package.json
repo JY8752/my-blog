@@ -13,6 +13,10 @@
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview": "bun run build:cloudflare && opennextjs-cloudflare preview",
     "deploy": "bun run build:cloudflare && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply my-blog-scraps --local",
+    "db:migrate:remote": "wrangler d1 migrations apply my-blog-scraps --remote",
+    "types:cloudflare": "wrangler types --env-interface CloudflareEnv",
+    "test": "vitest run",
     "format": "vp format src",
     "lint": "vp lint src && bun run lint:md",
     "precheck": "bun run generate:blog-data",
@@ -21,6 +25,7 @@
     "lint:md": "markdownlint-cli2"
   },
   "dependencies": {
+    "jose": "^6.2.4",
     "next": "^16.2.10",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
@@ -28,7 +33,7 @@
     "zenn-markdown-html": "^0.5.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260717.1",
+    "@cloudflare/workers-types": "^5.20260727.1",
     "@opennextjs/cloudflare": "^1.20.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.1.1",
