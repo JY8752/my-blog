@@ -4,7 +4,7 @@ import {
   bundledThemes,
   createBundledHighlighter,
 } from "shiki/bundle/web";
-import { createOnigurumaEngine } from "shiki/engine/oniguruma";
+import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
 
 /**
  * zenn-markdown-html imports Shiki's complete language bundle by default.
@@ -18,5 +18,5 @@ export const bundledLanguages = {
 export const createHighlighter = createBundledHighlighter({
   langs: bundledLanguages,
   themes: bundledThemes,
-  engine: () => createOnigurumaEngine(import("shiki/wasm")),
+  engine: () => createJavaScriptRegexEngine(),
 });
