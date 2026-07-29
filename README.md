@@ -79,7 +79,8 @@ OpenNext → Cloudflare Workers
 │       └── scraps/                # D1・Markdown・Accessの処理
 ├── migrations/                    # D1マイグレーション
 ├── scripts/
-│   └── generate-blog-data.ts      # MarkdownからJSONを生成
+│   ├── generate-blog-data.ts      # MarkdownからJSONを生成
+│   └── verify-d1-migrations.sh    # 空のD1へマイグレーションを検証
 ├── public/                        # プロフィール画像、OGP画像など
 ├── cloudflare/workers/
 │   └── ogp-generate/              # OGP画像生成Worker
@@ -90,7 +91,8 @@ OpenNext → Cloudflare Workers
 └── package.json
 ```
 
-`src/generated/`、`.next/`、`.open-next/`は生成物のためGit管理対象外です。
+`src/generated/`、`.next/`、`.open-next/`、`next-env.d.ts`は生成物のため
+Git管理対象外です。
 
 ## ローカル開発
 
@@ -98,11 +100,13 @@ OpenNext → Cloudflare Workers
 
 * [mise](https://mise.jdx.dev/)
 
-Bunと`note-cli`はmiseで管理するため、個別にインストールする必要はありません。
+Bun、Node.js、Go、`note-cli`はmiseで管理するため、個別にインストールする必要はありません。
 
 | ツール | バージョン | 導入方法 |
 | --- | --- | --- |
 | Bun | 1.1.2 | miseのBunバックエンド |
+| Node.js | 24.14.0 | miseのNode.jsバックエンド |
+| Go | 1.26.1 | miseのGoバックエンド |
 | note-cli | v0.7.1 | GitHub ReleasesのOS・CPU別バイナリ |
 
 バージョンとタスクは`mise.toml`で定義しています。`note-cli`の導入にGoやHomebrewは使用しません。
@@ -111,14 +115,13 @@ Bunと`note-cli`はmiseで管理するため、個別にインストールする
 
 ```bash
 mise trust
-mise install
-mise exec -- bun install
-mise exec -- bun run db:migrate:local
-mise exec -- bun run dev
+mise run setup
+bun run dev
 ```
 
-`mise install`で、プロジェクトが使用するBunと`note-cli`がインストールされます。
-シェルでmiseを有効化している場合、以降は通常どおり`bun run dev`を実行できます。
+`mise run setup`でツールとすべての依存関係を導入し、ローカルD1へマイグレーションを
+適用します。シェルでmiseを有効化している場合、以降は通常どおり`bun run dev`を
+実行できます。
 
 開発サーバーは通常、<http://localhost:3000/>で起動します。
 
@@ -128,13 +131,15 @@ mise exec -- bun run dev
 
 | コマンド | 説明 |
 | --- | --- |
+| `mise run setup` | ツールと依存関係を導入し、ローカルD1を準備 |
+| `mise run verify` | 全プロジェクトの完了条件をまとめて検証 |
 | `mise run format` | ソースコードをフォーマット |
 | `mise run lint` | ソースコードとMarkdownをLint |
 | `mise run check` | フォーマット、Lint、型、Markdownを検査 |
 | `mise run new:article` | `note-cli`で記事ファイルを作成 |
 
-miseタスクから呼び出すformatやlintの実体は`package.json`に置いています。
-これにより、CIやCloudflare Buildsでは従来どおりBunスクリプトを直接実行できます。
+初回は`mise run setup`、タスク完了前は`mise run verify`を実行します。
+GitHub Actionsも同じ2コマンドを使用します。
 
 ## Bunスクリプト
 

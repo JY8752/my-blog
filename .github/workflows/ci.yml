@@ -15,9 +15,9 @@ concurrency:
 
 jobs:
   verify:
-    name: Check and build
+    name: Setup and verify
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
@@ -26,7 +26,7 @@ jobs:
       - name: Set up mise
         uses: jdx/mise-action@v4
         with:
-          install_args: bun
+          install_args: bun node go
           cache: true
 
       - name: Cache Bun packages
@@ -37,6 +37,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bun-
 
+      - name: Cache npm packages
+        uses: actions/cache@v6
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('cloudflare/workers/ogp-generate/package-lock.json', 'mise.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Cache Go packages
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('gcp/functions/**/go.sum', 'mise.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Cache Next.js build
         uses: actions/cache@v6
         with:
@@ -46,14 +64,8 @@ jobs:
             ${{ runner.os }}-next-${{ hashFiles('bun.lockb') }}-
             ${{ runner.os }}-next-
 
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
+      - name: Set up repository
+        run: mise run setup
 
-      - name: Check formatting, lint, and types
-        run: bun run check
-
-      - name: Run tests
-        run: bun run test
-
-      - name: Build for Cloudflare Workers
-        run: bun run build:cloudflare
+      - name: Verify repository
+        run: mise run verify

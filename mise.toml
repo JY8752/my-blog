@@ -1,6 +1,32 @@
 [tools]
 bun = "1.1.2"
+node = "24.14.0"
+go = "1.26.1"
 "github:JY8752/note-cli" = "v0.7.1"
+
+[tasks.setup]
+description = "Install all dependencies and prepare the local D1 database"
+run = """
+mise install
+bun install --frozen-lockfile
+npm ci --prefix cloudflare/workers/ogp-generate
+go -C gcp/functions/notify_blog_analytics mod download
+go -C gcp/functions/notify_zenn_analytics mod download
+bun run db:migrate:local
+"""
+
+[tasks.verify]
+description = "Run every check required before completing a task"
+run = """
+bun run check
+bun run test
+./scripts/verify-d1-migrations.sh
+npm run typecheck --prefix cloudflare/workers/ogp-generate
+npm test --prefix cloudflare/workers/ogp-generate
+go -C gcp/functions/notify_blog_analytics test ./...
+go -C gcp/functions/notify_zenn_analytics test ./...
+bun run build:cloudflare
+"""
 
 [tasks."new:article"]
 description = "Create a new blog article under src/content/blog"

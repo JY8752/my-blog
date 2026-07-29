@@ -1,12 +1,12 @@
-import { unstable_dev } from "wrangler";
-import type { UnstableDevWorker } from "wrangler";
-import { describe, expect, it, beforeAll, afterAll } from "vitest";
+import { unstable_dev } from 'wrangler';
+import type { UnstableDevWorker } from 'wrangler';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-describe("Worker", () => {
+describe('Worker', () => {
 	let worker: UnstableDevWorker;
 
 	beforeAll(async () => {
-		worker = await unstable_dev("src/index.ts", {
+		worker = await unstable_dev('src/index.ts', {
 			experimental: { disableExperimentalWarning: true },
 		});
 	});
@@ -15,11 +15,12 @@ describe("Worker", () => {
 		await worker.stop();
 	});
 
-	it("should return Hello World", async () => {
-		const resp = await worker.fetch();
-		if (resp) {
-			const text = await resp.text();
-			expect(text).toMatchInlineSnapshot(`"Hello World!"`);
-		}
+	it('returns a cacheable PNG image', async () => {
+		const response = await worker.fetch('/?msg=Hello');
+		const image = new Uint8Array(await response.arrayBuffer());
+
+		expect(response.status).toBe(200);
+		expect(response.headers.get('cache-control')).toBe('max-age=604800');
+		expect(Array.from(image.slice(0, 8))).toEqual([137, 80, 78, 71, 13, 10, 26, 10]);
 	});
 });

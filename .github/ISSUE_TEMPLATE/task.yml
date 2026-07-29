@@ -1,0 +1,77 @@
+name: Development task
+description: AIエージェントまたは開発者へ依頼する実装タスク
+title: "[Task] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        実装者が追加判断を最小限にできるよう、目的と受け入れ条件を具体的に記載してください。
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: 目的
+      description: 実現したい利用者価値または解決したい問題
+      placeholder: 誰に、どのような価値を提供するタスクかを記載してください。
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: 背景
+      description: 現在の挙動、課題、関連する意思決定
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: 対象範囲
+      description: 変更してよい機能、画面、データ、設定
+      placeholder: |
+        - 対象となる機能
+        - 変更してよいファイルやデータ
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: 対象外
+      description: 今回変更しないもの、後続タスクへ分離するもの
+      placeholder: |
+        - 今回は対応しない機能
+        - 別Issueにする改善
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: 受け入れ条件
+      description: 実装完了を判定できる観測可能な条件
+      placeholder: |
+        - [ ] 正常系の期待動作
+        - [ ] エラー時や境界値の期待動作
+        - [ ] mise run verify が成功する
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: 制約・安全上の注意
+      description: 互換性、性能、セキュリティ、外部操作に関する制約
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 参考情報
+      description: 関連Issue、設計資料、調査の起点となるファイルやURL
+
+  - type: textarea
+    id: manual_verification
+    attributes:
+      label: 追加の検証方法
+      description: mise run verify以外に必要な手動確認と期待結果

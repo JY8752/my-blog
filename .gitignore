@@ -9,6 +9,7 @@ src/generated/
 # generated types
 .astro/
 *.tsbuildinfo
+next-env.d.ts
 
 # dependencies
 node_modules/
