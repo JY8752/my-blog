@@ -1,4 +1,5 @@
 import go from "@shikijs/langs/go";
+
 import {
   bundledLanguages as webLanguages,
   bundledThemes,

@@ -1,6 +1,6 @@
-import { getScrapsDatabase } from "@/lib/scraps/database";
-import { formatScrapDate } from "@/lib/scraps/presentation";
-import { listScraps } from "@/lib/scraps/repository";
+import { getScrapsDatabase } from "@/app/_lib/scraps/database";
+import { formatScrapDate } from "@/app/_lib/scraps/presentation";
+import { listScraps } from "@/app/_lib/scraps/repository";
 import Link from "next/link";
 
 export default async function ScrapsAdminPage() {

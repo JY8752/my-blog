@@ -1,7 +1,7 @@
-import { requireAdmin } from "@/lib/scraps/access";
-import { apiErrorResponse, assertSameOrigin, readJsonBody } from "@/lib/scraps/http";
-import { renderScrapMarkdown } from "@/lib/scraps/markdown";
-import { parseMarkdownPreviewInput } from "@/lib/scraps/validation";
+import { requireAdmin } from "@/app/_lib/scraps/access";
+import { apiErrorResponse, assertSameOrigin, readJsonBody } from "@/app/_lib/scraps/http";
+import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
+import { parseMarkdownPreviewInput } from "@/app/_lib/scraps/validation";
 
 export async function POST(request: Request) {
   try {

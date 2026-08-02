@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Blog } from "../lib/blog";
+import type { Blog } from "@/app/_lib/blog";
 
 interface Props {
   blog: Blog;

@@ -1,4 +1,4 @@
-import { requireAdmin } from "@/lib/scraps/access";
+import { requireAdmin } from "@/app/_lib/scraps/access";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";

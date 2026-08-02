@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { formatScrapDate } from "../lib/scraps/presentation";
-import type { ScrapSummary } from "../lib/scraps/types";
+import { formatScrapDate } from "@/app/_lib/scraps/presentation";
+import type { ScrapSummary } from "@/app/_lib/scraps/types";
 
 function ScrapTags({ tags }: { tags: string[] }) {
   return (

@@ -3,8 +3,8 @@ import { JetBrains_Mono, Noto_Sans_JP, Outfit } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
 import "zenn-content-css";
-import { ThemeToggle } from "../components/ThemeToggle";
-import { BLOG_NAME } from "../consts/message";
+import { ThemeToggle } from "@/app/_components/ThemeToggle";
+import { BLOG_NAME } from "@/app/_lib/site";
 import "./globals.css";
 
 const outfit = Outfit({

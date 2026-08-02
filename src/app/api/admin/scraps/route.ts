@@ -1,8 +1,8 @@
-import { requireAdmin } from "@/lib/scraps/access";
-import { getScrapsDatabase } from "@/lib/scraps/database";
-import { apiErrorResponse, assertSameOrigin, readJsonBody } from "@/lib/scraps/http";
-import { createScrap } from "@/lib/scraps/repository";
-import { parseCreateScrapInput } from "@/lib/scraps/validation";
+import { requireAdmin } from "@/app/_lib/scraps/access";
+import { getScrapsDatabase } from "@/app/_lib/scraps/database";
+import { apiErrorResponse, assertSameOrigin, readJsonBody } from "@/app/_lib/scraps/http";
+import { createScrap } from "@/app/_lib/scraps/repository";
+import { parseCreateScrapInput } from "@/app/_lib/scraps/validation";
 
 export async function POST(request: Request) {
   try {

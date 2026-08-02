@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { Blog } from "../Blog";
+import { Blog } from "@/app/_components/Blog";
 
 interface MarkdownComposerProps {
   value: string;

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ListItem } from "../components/ListItem";
-import { BLOG_NAME, BLOG_URL } from "../consts/message";
-import { getAllBlogs } from "../lib/blog";
+import { ListItem } from "@/app/_components/ListItem";
+import { getAllBlogs } from "@/app/_lib/blog";
+import { BLOG_NAME, BLOG_URL } from "@/app/_lib/site";
 
 export const metadata: Metadata = {
   openGraph: {

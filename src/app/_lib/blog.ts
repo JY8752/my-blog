@@ -1,4 +1,4 @@
-import blogsData from "../generated/blogs.json";
+import blogsData from "../../generated/blogs.json";
 
 export interface Blog {
   title: string;

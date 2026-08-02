@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ScrapIndex } from "../../components/ScrapIndex";
-import { getScrapsDatabase } from "../../lib/scraps/database";
-import { listScraps } from "../../lib/scraps/repository";
+import { getScrapsDatabase } from "@/app/_lib/scraps/database";
+import { listScraps } from "@/app/_lib/scraps/repository";
+import { ScrapIndex } from "@/app/scraps/_components/ScrapIndex";
 
 export const dynamic = "force-dynamic";
 

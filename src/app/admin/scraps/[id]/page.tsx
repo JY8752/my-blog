@@ -1,9 +1,9 @@
-import { Blog } from "@/components/Blog";
-import { ScrapEntryForm } from "@/components/scraps/ScrapEntryForm";
-import { getScrapsDatabase } from "@/lib/scraps/database";
-import { renderScrapMarkdown } from "@/lib/scraps/markdown";
-import { formatScrapDate } from "@/lib/scraps/presentation";
-import { getScrapById } from "@/lib/scraps/repository";
+import { Blog } from "@/app/_components/Blog";
+import { getScrapsDatabase } from "@/app/_lib/scraps/database";
+import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
+import { formatScrapDate } from "@/app/_lib/scraps/presentation";
+import { getScrapById } from "@/app/_lib/scraps/repository";
+import { ScrapEntryForm } from "@/app/admin/scraps/_components/ScrapEntryForm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 

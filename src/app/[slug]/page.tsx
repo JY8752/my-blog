@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Blog } from "../../components/Blog";
-import { BLOG_URL } from "../../consts/message";
-import { getAllBlogs } from "../../lib/blog";
+import { Blog } from "@/app/_components/Blog";
+import { getAllBlogs } from "@/app/_lib/blog";
+import { BLOG_URL } from "@/app/_lib/site";
 
 import markdownToHtml from "zenn-markdown-html";
 

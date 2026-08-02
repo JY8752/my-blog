@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
-import { slugify } from "../../lib/scraps/validation";
+import { slugify } from "@/app/_lib/scraps/validation";
 import { MarkdownComposer } from "./MarkdownComposer";
 
 interface ApiError {

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Blog } from "../../../components/Blog";
-import { getScrapsDatabase } from "../../../lib/scraps/database";
-import { renderScrapMarkdown } from "../../../lib/scraps/markdown";
-import { formatScrapDate } from "../../../lib/scraps/presentation";
-import { getScrapBySlug } from "../../../lib/scraps/repository";
+import { Blog } from "@/app/_components/Blog";
+import { getScrapsDatabase } from "@/app/_lib/scraps/database";
+import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
+import { formatScrapDate } from "@/app/_lib/scraps/presentation";
+import { getScrapBySlug } from "@/app/_lib/scraps/repository";
 
 export const dynamic = "force-dynamic";
 

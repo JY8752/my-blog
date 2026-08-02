@@ -1,4 +1,4 @@
-import { ScrapCreateForm } from "@/components/scraps/ScrapCreateForm";
+import { ScrapCreateForm } from "@/app/admin/scraps/_components/ScrapCreateForm";
 
 export default function NewScrapPage() {
   return (

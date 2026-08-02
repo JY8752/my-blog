@@ -6,7 +6,7 @@ initOpenNextCloudflareForDev();
 const config: NextConfig = {
   turbopack: {
     resolveAlias: {
-      shiki: "./src/lib/shiki.ts",
+      shiki: "./src/app/_lib/shiki.ts",
     },
   },
 };

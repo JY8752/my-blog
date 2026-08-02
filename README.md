@@ -63,22 +63,17 @@ OpenNext → Cloudflare Workers
 ├── .github/                       # Issue・Pull Request・CIの設定
 ├── src/
 │   ├── app/
+│   │   ├── _components/          # ルート横断で共有するUI
+│   │   ├── _lib/                 # 記事・Scrapsの共有ドメイン処理
 │   │   ├── page.tsx              # プロフィールと記事一覧
 │   │   ├── [slug]/page.tsx       # 記事詳細ページ
-│   │   ├── scraps/                # スクラップ一覧・詳細
-│   │   ├── admin/scraps/          # Accessで保護する管理画面
+│   │   ├── scraps/                # スクラップ一覧・詳細と一覧専用UI
+│   │   ├── admin/scraps/          # Accessで保護する管理画面と専用フォーム
 │   │   ├── api/admin/             # スクラップ書き込み・プレビューAPI
 │   │   ├── layout.tsx             # 共通レイアウトとメタデータ
 │   │   └── globals.css            # Tailwindテーマと共通スタイル
-│   ├── components/
-│   │   ├── Blog.tsx               # 変換済み記事本文の表示
-│   │   └── ListItem.tsx           # 記事一覧カード
-│   ├── consts/                    # サイト共通定数
 │   ├── content/blog/              # ブログ記事のMarkdown
-│   ├── generated/blogs.json       # ビルド前に生成される記事データ
-│   └── lib/
-│       ├── blog.ts                # 記事データ取得処理
-│       └── scraps/                # D1・Markdown・Accessの処理
+│   └── generated/blogs.json       # ビルド前に生成される記事データ
 ├── migrations/                    # D1マイグレーション
 ├── scripts/
 │   ├── generate-blog-data.ts      # MarkdownからJSONを生成
