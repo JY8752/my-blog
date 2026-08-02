@@ -22,12 +22,12 @@
 | 分類 | 技術 |
 | --- | --- |
 | 開発ツール・タスク管理 | mise |
-| パッケージ管理 | Bun |
+| パッケージ管理 | Bun（メイン）、npm（OGP Worker） |
 | Web | Next.js（App Router）、React、TypeScript |
 | スタイリング | Tailwind CSS、PostCSS、next/font |
 | コンテンツ | Markdown、gray-matter、zenn-markdown-html、zenn-content-css |
 | ホスティング・データ | Cloudflare Workers、D1、Access、OpenNext、Wrangler |
-| コード品質 | Vite+、markdownlint |
+| コード品質 | Vite+、Vitest、markdownlint |
 | OGP生成 | Cloudflare Workers、Satori、resvg-wasm |
 | 分析通知 | Google Cloud Functions、Go |
 
@@ -59,6 +59,8 @@ OpenNext → Cloudflare Workers
 
 ```text
 .
+├── .agents/                       # AIエージェント向け規則とタスク仕様
+├── .github/                       # Issue・Pull Request・CIの設定
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx              # プロフィールと記事一覧
@@ -91,8 +93,8 @@ OpenNext → Cloudflare Workers
 └── package.json
 ```
 
-`src/generated/`、`.next/`、`.open-next/`、`next-env.d.ts`は生成物のため
-Git管理対象外です。
+`src/generated/`、`.next/`、`.open-next/`、`.wrangler/`、`next-env.d.ts`は生成物です。
+直接編集せず、元になるMarkdown、生成スクリプト、Next.jsまたはWranglerの設定を変更してください。
 
 ## ローカル開発
 
@@ -119,9 +121,15 @@ mise run setup
 bun run dev
 ```
 
-`mise run setup`でツールとすべての依存関係を導入し、ローカルD1へマイグレーションを
-適用します。シェルでmiseを有効化している場合、以降は通常どおり`bun run dev`を
-実行できます。
+`mise run setup`は次をまとめて実行します。
+
+1. miseで固定されたツールを準備する
+2. ルートのBun依存関係を固定lockfileから導入する
+3. OGP Workerのnpm依存関係を固定lockfileから導入する
+4. GCP FunctionsのGoモジュールを取得する
+5. ローカルD1へ未適用のマイグレーションを適用する
+
+シェルでmiseを有効化している場合、以降は通常どおり`bun run dev`を実行できます。
 
 開発サーバーは通常、<http://localhost:3000/>で起動します。
 
@@ -140,6 +148,22 @@ bun run dev
 
 初回は`mise run setup`、タスク完了前は`mise run verify`を実行します。
 GitHub Actionsも同じ2コマンドを使用します。
+
+### 完了時の検証
+
+`mise run verify`は次の検証を順番に実行する、このリポジトリ共通の完了条件です。
+
+| 対象 | 検証 |
+| --- | --- |
+| メインアプリ | format、lint、型検査、Markdown lint、Vitest |
+| D1 | 空の一時DBに全マイグレーションを適用 |
+| OGP Worker | TypeScript型検査、Vitest |
+| GCP Functions | 各Goモジュールの`go test ./...` |
+| デプロイ成果物 | OpenNextによるCloudflare Workers向けビルド |
+
+開発中の短いフィードバックには`mise run check`、`bun run test`、
+`bun run lint:md -- path/to/changed.md`を利用できます。これらの部分コマンドは、最終的な
+`mise run verify`の代わりにはなりません。
 
 ## Bunスクリプト
 
@@ -176,7 +200,12 @@ date: "2026-07-19"
 ```
 
 Frontmatterの`title`、`tags`、`date`は必須です。記事は`date`の降順で表示されます。
+`title`は1〜100文字、`tags`は1〜5個、`date`は`YYYY-MM-DD`形式にします。
 本文には[ZennのMarkdown記法](https://zenn.dev/zenn/articles/markdown-guide)を利用できます。
+
+ブログ本文はZenn記法を保持するため、通常のMarkdown lint対象外です。記事データ生成と
+本番ビルドで検証します。それ以外のMarkdownを編集した場合は、開発中に
+`bun run lint:md -- path/to/changed.md`を実行してください。
 
 ## スクラップ
 
@@ -194,6 +223,11 @@ bun run dev
 
 本番では`/admin/scraps/*`と`/api/admin/*`をCloudflare Accessで保護します。
 管理API側でも`Cf-Access-Jwt-Assertion`の署名、issuer、audienceを検証します。
+
+スキーマを変更するときは`migrations/`へ連番のSQLファイルを追加します。既存のローカルDBを
+更新する場合だけ`bun run db:migrate:local`を実行してください。`mise run verify`では既存DBを
+使わず、空の一時DBにすべてのマイグレーションを適用して履歴を検証します。本番への適用は
+自動化せず、明示的な依頼とレビューを経て実行します。
 
 ## Cloudflareへのデプロイ
 
@@ -252,9 +286,28 @@ Access applicationのApplication Audience（AUD）とteam domainを、
 ### OGP画像生成
 
 `cloudflare/workers/ogp-generate/`に、記事タイトルからOGP画像を動的生成するWorkerがあります。
+独立したnpmプロジェクトのため、依存関係を変更した場合は同ディレクトリの
+`package-lock.json`も更新してください。デプロイはメインアプリと独立しています。
 詳細は[OGP WorkerのREADME](cloudflare/workers/ogp-generate/README.md)を参照してください。
 
 ### アナリティクス通知
 
 `gcp/functions/`に、Google AnalyticsやZennの集計結果を通知するCloud Functionsがあります。
+複数の独立したGoモジュールがあり、`mise run verify`では両方のテストを実行します。
+デプロイは各Makefileから行いますが、通常の実装タスクでは実行しません。
 詳細は[GCPのREADME](gcp/README.md)を参照してください。
+
+## コントリビューション
+
+GitHubのタスクには[Issue template](.github/ISSUE_TEMPLATE/task.yml)、ローカルの作業計画には
+[タスク仕様テンプレート](.agents/task-template.md)を利用できます。目的と背景、対象範囲と対象外、
+観測可能な受け入れ条件、制約、許可する外部操作、参考情報、`mise run verify`以外に必要な
+手動検証を明記してください。
+
+変更時は関連するコード、テスト、設定を確認し、既存の設計に沿って必要最小限の範囲を編集します。
+開発中は変更箇所に近いテストを実行し、利用方法やコマンドを変えた場合はREADMEも更新します。
+受け入れ条件が不足している場合でも、安全で可逆な範囲は既存設計から判断できますが、外部公開、
+データ破壊、権限変更など結果が大きく変わる操作は事前に合意してください。
+
+Pull Requestでは[Pull Request template](.github/pull_request_template.md)を使い、受け入れ条件との
+対応、検証結果、影響範囲、残課題を記録します。

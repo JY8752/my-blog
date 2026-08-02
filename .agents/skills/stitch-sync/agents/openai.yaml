@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stitch同期"
+  short_description: "UIとデザインシステムの変更をGoogle Stitchへ同期"
+  default_prompt: "$stitch-syncを使って、このUI変更を対応するStitch画面へ同期してください。"

@@ -1,171 +1,384 @@
 ---
-name: Soft Neon Dev
+name: Quiet Hokkaido Editorial
 colors:
-  surface: '#101224'
-  surface-dim: '#101224'
-  surface-bright: '#37374c'
-  surface-container-lowest: '#0b0c1f'
-  surface-container-low: '#191a2d'
-  surface-container: '#1d1e31'
-  surface-container-high: '#27283c'
-  surface-container-highest: '#323347'
-  on-surface: '#e1e0fb'
-  on-surface-variant: '#d7c1c8'
-  inverse-surface: '#e1e0fb'
-  inverse-on-surface: '#2e2f43'
-  outline: '#9f8c93'
-  outline-variant: '#524349'
-  surface-tint: '#ffafd4'
-  primary: '#ffc9e0'
-  on-primary: '#5a133d'
-  primary-container: '#ff9ecd'
-  on-primary-container: '#7b3059'
-  inverse-primary: '#92436d'
-  secondary: '#64d5f4'
-  on-secondary: '#003641'
-  secondary-container: '#109ebb'
-  on-secondary-container: '#002e39'
-  tertiary: '#abe794'
-  on-tertiary: '#063900'
-  tertiary-container: '#90cb7b'
-  on-tertiary-container: '#215614'
-  error: '#ffb4ab'
-  on-error: '#690005'
-  error-container: '#93000a'
-  on-error-container: '#ffdad6'
-  primary-fixed: '#ffd8e7'
-  primary-fixed-dim: '#ffafd4'
-  on-primary-fixed: '#3d0026'
-  on-primary-fixed-variant: '#762b55'
-  secondary-fixed: '#b0ecff'
-  secondary-fixed-dim: '#64d5f4'
-  on-secondary-fixed: '#001f27'
-  on-secondary-fixed-variant: '#004e5e'
-  tertiary-fixed: '#b5f39e'
-  tertiary-fixed-dim: '#9ad685'
-  on-tertiary-fixed: '#022100'
-  on-tertiary-fixed-variant: '#1d5110'
-  background: '#101224'
-  on-background: '#e1e0fb'
-  surface-variant: '#323347'
+  surface: '#F4F3EE'
+  surface-dim: '#E8E7E1'
+  surface-bright: '#FAF9F5'
+  surface-container-lowest: '#FFFDF9'
+  surface-container-low: '#F7F6F1'
+  surface-container: '#FAF9F5'
+  surface-container-high: '#ECEBE5'
+  surface-container-highest: '#E2E1DB'
+  on-surface: '#1C1D1A'
+  on-surface-variant: '#4F514B'
+  inverse-surface: '#2E302B'
+  inverse-on-surface: '#F2F1EB'
+  outline: '#74766F'
+  outline-variant: '#D8D8D1'
+  surface-tint: '#B85F48'
+  primary: '#B85F48'
+  on-primary: '#FFFDF9'
+  primary-container: '#F0DDD6'
+  on-primary-container: '#6B2C20'
+  inverse-primary: '#E7AA98'
+  secondary: '#4F514B'
+  on-secondary: '#FFFDF9'
+  secondary-container: '#E6E6DF'
+  on-secondary-container: '#272824'
+  tertiary: '#74766F'
+  on-tertiary: '#FFFDF9'
+  tertiary-container: '#E6E6DF'
+  on-tertiary-container: '#272824'
+  error: '#A34A3A'
+  on-error: '#FFFDF9'
+  error-container: '#F1DDD8'
+  on-error-container: '#5E2016'
+  primary-fixed: '#F0DDD6'
+  primary-fixed-dim: '#E1B8AA'
+  on-primary-fixed: '#3D1710'
+  on-primary-fixed-variant: '#7A382A'
+  secondary-fixed: '#E6E6DF'
+  secondary-fixed-dim: '#CACBC3'
+  on-secondary-fixed: '#1C1D1A'
+  on-secondary-fixed-variant: '#454741'
+  tertiary-fixed: '#E6E6DF'
+  tertiary-fixed-dim: '#CACBC3'
+  on-tertiary-fixed: '#1C1D1A'
+  on-tertiary-fixed-variant: '#454741'
+  background: '#F4F3EE'
+  on-background: '#1C1D1A'
+  surface-variant: '#E6E6DF'
 typography:
   display-lg:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Outfit
+    fontSize: 80px
+    fontWeight: '700'
+    lineHeight: '1.06'
+    letterSpacing: -0.035em
+  headline-lg:
+    fontFamily: Outfit
     fontSize: 48px
-    fontWeight: '800'
+    fontWeight: '700'
+    lineHeight: '1.12'
+    letterSpacing: -0.03em
+  headline-md:
+    fontFamily: Outfit
+    fontSize: 30px
+    fontWeight: '650'
     lineHeight: '1.2'
     letterSpacing: -0.02em
-  headline-lg:
-    fontFamily: Plus Jakarta Sans
-    fontSize: 32px
-    fontWeight: '700'
-    lineHeight: '1.3'
-  headline-md:
-    fontFamily: Plus Jakarta Sans
-    fontSize: 24px
-    fontWeight: '700'
-    lineHeight: '1.4'
   body-lg:
-    fontFamily: Plus Jakarta Sans
-    fontSize: 18px
+    fontFamily: Noto Sans JP
+    fontSize: 17px
     fontWeight: '400'
-    lineHeight: '1.6'
+    lineHeight: '1.85'
   body-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Noto Sans JP
     fontSize: 16px
     fontWeight: '400'
-    lineHeight: '1.6'
+    lineHeight: '1.8'
   label-md:
-    fontFamily: Space Grotesk
-    fontSize: 14px
+    fontFamily: JetBrains Mono
+    fontSize: 13px
     fontWeight: '500'
-    lineHeight: '1.2'
-    letterSpacing: 0.05em
+    lineHeight: '1.4'
+    letterSpacing: 0.06em
   headline-lg-mobile:
-    fontFamily: Plus Jakarta Sans
-    fontSize: 28px
+    fontFamily: Outfit
+    fontSize: 44px
     fontWeight: '700'
-    lineHeight: '1.3'
+    lineHeight: '1.08'
 rounded:
   sm: 0.25rem
   DEFAULT: 0.5rem
-  md: 0.75rem
+  md: 0.875rem
   lg: 1rem
   xl: 1.5rem
   full: 9999px
 spacing:
   unit: 8px
-  container-padding: 4rem
-  card-gap: 2.5rem
-  section-margin: 6rem
+  container-padding: 2rem
+  card-gap: 3rem
+  section-margin: 8rem
   inner-padding: 2rem
 ---
 
-## Brand & Style
+# Design System: Quiet Hokkaido Editorial
 
-The design system evolves the "Pop Dark" aesthetic into a refined, developer-centric workspace that balances playfulness with technical clarity. The brand personality is "Clean, Cute, and Playful," moving away from high-density chaos toward an organized, airy, and inviting interface. 
+## 1. Visual Theme & Atmosphere
 
-The visual style blends **Minimalism** with a **Tactile** edge. By utilizing significant whitespace and a softened dark palette, the UI reduces cognitive load while maintaining its personality through large radius curves and gentle neon accents. It aims to evoke a sense of approachable expertise—professional enough for a portfolio, but spirited enough to reflect a creative developer's personality.
+Quiet Hokkaido Editorial is a calm, tactile personal publishing system for a
+backend engineer balancing learning and parenting. In light mode it feels like
+an independent technical journal open beside a window; in dark mode it becomes
+the same journal on a quiet desk after the children have gone to sleep. Both
+modes stay focused, warm, intelligent, and gently humorous without becoming
+cyberpunk, cute, or decorative.
 
-## Colors
+- Density is **4/10, editorially airy**. Every section has room to breathe, while
+  article metadata stays compact and useful. Scrap indexes may increase to
+  **7/10, compact but breathable** so dates, titles, and tags scan quickly.
+- Variance is **7/10, confidently asymmetric**. The hero, profile information,
+  skills, and article index use offset columns and intentional empty space.
+- Motion is **5/10, quiet and fluid**. Interaction is noticeable through weight,
+  opacity, and small transforms rather than spectacle.
+- The panda remains the recognizable personal signature. Use the real profile
+  image once as a restrained, centered profile portrait. Never repeat it inside
+  the headline or use it as a decorative mascot elsewhere.
+- The interface must feel like a real Japanese personal blog, not a SaaS landing
+  page, developer dashboard, or generated portfolio template.
 
-The palette is anchored by a soft charcoal-indigo base, providing a "Pop Dark" foundation that is easier on the eyes than pure black. The color system is streamlined to focus on two high-visibility accents:
+## 2. Color Palette & Roles
 
-*   **Primary (Soft Neon Pink):** Used for primary calls to action, profile borders, and key brand highlights.
-*   **Secondary (Soft Cyan):** Used for technical tags, link states, and secondary interactive elements.
-*   **Neutrals:** The background is a deep muted indigo, with surfaces using a slightly lighter variant to create depth without relying on heavy borders.
-*   **Semantic Colors:** Success, Warning, and Error states should be desaturated to match the "soft" nature of the neon palette.
+Use one restrained vermilion-to-copper accent family and consistent warm neutral
+surfaces. Do not introduce cyan, purple, blue, green, or additional brand
+accents.
 
-## Typography
+### Light mode
 
-This design system uses **Plus Jakarta Sans** as the primary typeface to deliver a soft, friendly, and geometric feel. It provides the "cute" aspect of the brand while remaining highly legible for technical blog content.
+- **Snow Paper** (`#F4F3EE`) — Main canvas and article reading background.
+- **Raised Paper** (`#FAF9F5`) — Header and grouped surfaces.
+- **Charcoal Ink** (`#1C1D1A`) — Primary text and display headlines.
+- **Graphite Ink** (`#4F514B`) — Body copy and secondary descriptions.
+- **Stone Metadata** (`#74766F`) — Dates, labels, and quiet helper text.
+- **Whisper Rule** (`#D8D8D1`) — One-pixel dividers and boundaries.
+- **Hokkaido Vermilion** (`#B85F48`) — The only accent.
+- **Vermilion Wash** (`#F0DDD6`) — Selected, hover, and selection surfaces.
+- **On Accent** (`#FFFDF9`) — Text placed on Hokkaido Vermilion.
 
-For metadata, tags, and code-adjacent labels, **Space Grotesk** is introduced. Its technical, slightly quirky proportions provide a "developer" aesthetic that contrasts beautifully with the rounded body text. 
+### Dark mode
 
-Maintain high line-heights (1.6 for body) to support the goal of increased whitespace and breathability. Headlines should use tight letter-spacing to feel impactful and "pop."
+- **Night Paper** (`#171815`) — Main canvas and article reading background.
+- **Raised Night Paper** (`#1E201C`) — Header and grouped surfaces.
+- **Warm Ink** (`#F0EEE6`) — Primary text and display headlines.
+- **Soft Ash** (`#BDBCB4`) — Body copy and secondary descriptions.
+- **Smoke Metadata** (`#8A8C83`) — Dates, labels, and quiet helper text.
+- **Quiet Rule** (`#383A34`) — One-pixel dividers and boundaries.
+- **Hokkaido Copper** (`#D08A70`) — The only accent.
+- **Copper Wash** (`#5A3227`) — Selected, hover, and selection surfaces.
+- **On Accent** (`#2B1711`) — Text placed on Hokkaido Copper.
 
-## Layout & Spacing
+The accent hue keeps the same semantic role in both modes: primary CTA, active
+links, focus rings, brand mark, and no more than two highlighted words in a
+viewport. Shadows are neutral and nearly imperceptible: use
+`0 18px 50px rgba(28, 29, 26, 0.08)` in light mode and
+`0 18px 50px rgba(5, 6, 4, 0.24)` in dark mode. Never use colored shadows,
+bright edge lighting, outer glows, neon effects, glass gradients, or gradient
+text. Never use pure black.
 
-The layout philosophy shifts from a compact "dashboard" feel to a fluid, spacious **Fixed Grid** model.
+## 3. Typography Rules
 
-*   **Desktop:** 12-column grid with a max-width of 1200px. Gutters are set to 32px to ensure distinct separation between content blocks.
-*   **Whitespace:** Increase vertical margins between sections significantly (80px-120px) to allow each part of the portfolio to stand alone.
-*   **Mobile:** 4-column grid with 24px side margins. Content should stack vertically, maintaining generous 32px gaps between cards to avoid a cluttered look.
-*   **Alignment:** Center-aligned containers for the profile and hero sections, with left-aligned grids for the blog list to maintain readability.
+- **Display and headings:** `Outfit`, with `Noto Sans JP` for Japanese glyphs.
+  Weight 650–700, tight tracking between `-0.035em` and `-0.02em`. Headings are
+  composed and controlled, not oversized for impact alone.
+- **Body:** `Noto Sans JP`, with `Outfit` for Latin text. Weight 400, line height
+  1.85 for Japanese reading, maximum line length 65 characters.
+- **Metadata and technical labels:** `JetBrains Mono`, weight 500, uppercase only
+  for short Latin labels. Do not uppercase Japanese text.
+- **Scrap titles:** `1.5rem` to `1.75rem`, line height 1.24. Scrap dates and tags
+  use `0.6875rem` to `0.75rem` JetBrains Mono with tabular figures.
+- **Desktop hero:** `clamp(3.25rem, 5.8vw, 5.75rem)`, line height 1.06.
+- **Article title:** `clamp(2.5rem, 4.6vw, 4.75rem)`, line height 1.12.
+- **Section heading:** `clamp(2rem, 3.2vw, 3.25rem)`, line height 1.18.
+- **Body:** `1.0625rem` desktop and `1rem` mobile.
+- **Metadata:** `0.75rem` to `0.8125rem`, letter spacing `0.06em`.
+- Hierarchy comes from spacing, weight, and ink color. Do not use large areas of
+  bold text, decorative italics, or all-caps Japanese copy.
+- Inter and generic serif fonts are banned. The design uses no serif typography.
 
-## Elevation & Depth
+## 4. Component Stylings
 
-Depth is achieved through **Tonal Layers** and **Subtle Glows** rather than traditional heavy shadows.
+### Header
 
-*   **Surfaces:** The main background is the darkest layer. Cards and containers use a slightly lighter indigo (`surface_hex`) to "lift" off the page.
-*   **Glow Effects:** Accents use a soft, 20% opacity drop shadow of the primary or secondary color with a high blur radius (24px+). This creates a "neon" atmosphere without the harshness of high-contrast glows.
-*   **Glassmorphism:** Navigation bars use a 12px backdrop blur with a 10% white tint to stay legible while scrolling over colorful content.
+Use a 72-pixel desktop header on the active raised surface with a one-pixel rule
+at the bottom. Keep the left brand and right social icons, but remove neon and
+filled card treatments. The brand mark is a small 10-pixel accent square with
+two-pixel corner rounding. Social icons are 44-pixel touch targets with no
+background at rest; on hover they gain the active accent wash and primary ink.
+Place a 44-pixel sun/moon theme toggle beside the social links. The header may
+be sticky but should not use glassmorphism or heavy blur.
 
-## Shapes
+### Hero
 
-The shape language is defined by "Rounded" curves. 
+Use a 12-column grid inside a 1280-pixel container. The main statement spans
+columns 1–8. Profile context begins around column 10, leaving one deliberate
+empty column between them. The headline stays left aligned. Do not place an image
+inside the headline; the panda appears once in the profile column so the visual
+identity stays clear and uncluttered.
 
-*   **Cards & Containers:** Use `rounded-xl` (1.5rem) to maintain the playful, approachable character.
-*   **Profile Image:** The panda icon is strictly circular with a consistent 4px border in the Primary Pink or a tri-color stroke (Pink, Cyan, Neutral) to reference the original's energy in a cleaner way.
-*   **Interactive Elements:** Buttons and tags use `rounded-lg` (1rem) to feel tactile and soft.
+Allow exactly one filled primary CTA: `記事を読む`. It uses the active accent,
+On Accent text, a 14-pixel corner radius, and a minimum 48-pixel height. Keep
+`職務経歴` and `My Talks` as quiet underlined text links with external-link icons,
+not secondary buttons.
 
-## Components
+### Profile and skills
 
-### Profile Card
-The profile section should be centered and spacious. The panda icon must be large (min 160px) with a simple, high-contrast border. Subtext and links should have generous 16px spacing between lines to avoid the "compressed" look of the reference.
+Give the profile and skill inventory one compact raised surface so it reads as a
+distinct identity module against the open hero. Use a one-pixel structural
+border, the active raised-surface color, a neutral paper shadow, and a 16-pixel
+corner radius. Keep the portrait centered with a two-pixel accent ring. Remove
+all emoji characters from skill labels.
 
-### Blog List Cards
-Blog cards should abandon the colorful backgrounds for a clean `surface_hex` background. 
-- **Header:** Title in `headline-md`.
-- **Meta:** Date and reading time in `label-md` using a muted neutral color.
-- **Padding:** 32px internal padding on all sides.
-- **Interaction:** On hover, the card should scale slightly (1.02x) and gain a soft primary-color glow.
+Present skills under one simple `Skills` heading as five compact ruled groups:
+Languages, Frameworks, Platform, Database, and Practices. Do not show a group
+count or numeric group prefixes; the category labels already provide sufficient
+hierarchy. Within each group, render real skill values as small rectangular
+badges with a four-pixel corner radius, one-pixel neutral border, raised neutral
+fill, and JetBrains Mono labels. Badges must remain grouped under their category
+and wrap naturally; never merge every technology into one undifferentiated chip
+cloud.
 
-### Chips & Tags
-Tags use a secondary color background at 15% opacity with a solid 1px border. Use `Space Grotesk` for tag text to give it a technical "dev" feel.
+### Theme behavior
 
-### Buttons
-Buttons are solid Primary Pink with dark text for high contrast. They should have a "squishy" feel—expanding slightly on hover and shrinking on click.
+On first visit, follow `prefers-color-scheme`. A manual header-toggle selection
+overrides the system preference and persists in local storage. Apply the stored
+or system theme before the first paint to avoid a light-to-dark flash. Theme
+changes may transition color and background color for 300 milliseconds; layout,
+size, spacing, typography, and content never change between themes.
 
-### Inputs
-Search or contact fields should use a dark stroke that glows Cyan when focused, maintaining the "soft neon" theme.
+### Article index
+
+Treat the article list as an editorial index, not a card gallery. Place the full
+index section on a subtly contrasting neutral surface with top and bottom rules.
+Use border-top dividers, generous vertical padding, and a clear reading order.
+The latest story gains a raised neutral fill, accent top rule, small `Latest`
+label, and stronger type, while every story aligns to one consistent title
+column so the list scans cleanly. Other rows gain the raised neutral fill only on
+hover. Each row contains the real date, title, and real tags only. Tags are
+simple JetBrains Mono text; only the currently focused tag may use the active
+accent wash. Do not fabricate reading time, view counts, excerpts, or statistics.
+
+### Scrap index
+
+Treat scraps as a denser variation of the editorial article index, never as a
+card gallery. On desktop, use an asymmetric 12-column composition: a narrow
+intro rail in columns 1–4, one intentional empty column, and a wider searchable
+index in columns 6–12. Place `Scraps` and its real Japanese description in the
+intro rail with one short accent rule above the title.
+
+Place one search field at the top of the index column using the real placeholder
+`スクラップを検索`. Use the active clean-sheet surface, a one-pixel neutral
+border, an eight-pixel radius, and a 44-pixel minimum height. Focus changes only
+the border and two-pixel ring to the active accent. Do not add filter chips,
+sorting controls, or pagination unless the product has real behavior and data
+for them.
+
+Each scrap row is cardless and separated by a one-pixel top rule with 28–32
+pixels of vertical padding. Desktop rows align a fixed-width mono date, a
+flexible title-and-tags column, and a quiet northeast arrow. The newest real
+scrap may use a two-pixel accent left rule and the active raised surface. Other
+rows remain transparent until hover. Hover changes the title to the accent,
+adds the raised surface, and moves the arrow by no more than two pixels.
+
+Scrap tags are compact rectangular labels rather than pills: four-pixel radius,
+one-pixel neutral border, clean-sheet fill, and JetBrains Mono text. Preserve
+only real dates, titles, and tags. Never invent scrap excerpts, counts, authors,
+reading times, or engagement metrics.
+
+### Article content
+
+Use a cardless reading surface. On desktop, place date and tag in a narrow left
+metadata rail and the title/body in a wider center column, leaving asymmetric
+whitespace on the right. Separate the article header from the body with a
+one-pixel rule. Links use the active accent with a visible underline. Code blocks
+use `#1C1D1A` in light mode and Deep Night (`#11120F`) in dark mode, with warm
+light text and 16-pixel corners. Zenn message blocks use the active raised
+surface and an accent left rule.
+
+### Focus and active states
+
+All controls have a two-pixel active-accent focus ring with a three-pixel
+offset. Buttons translate down one pixel on active. Links shift no more than two
+pixels horizontally on hover. Do not use scale effects larger than 1.01.
+
+## 5. Layout Principles
+
+- Use CSS Grid as the primary layout method and a centered maximum width of
+  1280 pixels with 32-pixel desktop gutters.
+- Use a base spacing unit of 8 pixels. Major section gaps use
+  `clamp(4.5rem, 9vw, 8rem)`; internal groups use 24, 32, or 48 pixels.
+- Preserve intentional empty columns. Do not fill whitespace with badges,
+  statistics, decorative orbs, fake code windows, or abstract gradients.
+- Every element occupies its own spatial zone. Text, images, and decorative marks
+  never overlap.
+- Cards are used only when elevation communicates hierarchy. Prefer rules,
+  alignment, and negative space for articles and skills.
+- Do not use a centered hero, three equal horizontal cards, bento grids, or a
+  dashboard layout.
+- Full-height compositions use `min-height: 100dvh`, never `100vh`.
+
+### Homepage composition
+
+1. Sticky restrained header.
+2. Asymmetric hero with the real Japanese headline and one profile portrait.
+3. Direct profile and skill ledger integrated into the hero's right column.
+4. Editorial article index using the six real articles in date order.
+5. Minimal footer containing only the real name and existing English descriptor.
+
+### Article-page composition
+
+1. Same restrained header.
+2. Back link aligned to the main grid.
+3. Asymmetric article header with a narrow metadata rail and broad title column.
+4. Cardless readable body limited to 65 characters per line.
+5. Same minimal footer. Do not add a table of contents, author card, share bar,
+   related posts, newsletter, comments, or fabricated navigation.
+
+### Scrap-index composition
+
+1. Same restrained header and theme behavior as every other page.
+2. Asymmetric intro rail containing the real `Scraps` title and description.
+3. One accessible search field above the index.
+4. Cardless scrap rows using real dates, titles, tags, and consistent columns.
+5. Minimal footer with the real name and only real existing social links.
+
+## 6. Responsive Rules
+
+- Below 768 pixels, all multi-column structures collapse to one column with
+  20-pixel side padding and no horizontal scrolling.
+- The panda remains a single 96-pixel centered profile portrait on mobile.
+- Article metadata moves above the title. Article rows stack date, title, and
+  tags vertically with 12-pixel gaps.
+- Scrap layouts collapse in the order intro, search, and list. Scrap rows stack
+  date, title, tags, and arrow without horizontal overflow.
+- Header social links collapse into one clearly labelled menu; the brand remains
+  visible. Every touch target is at least 44 by 44 pixels.
+- Headings scale with `clamp()`. Japanese body text never renders below 16 pixels.
+- Section spacing reduces proportionally with
+  `clamp(3rem, 8vw, 6rem)`.
+
+## 7. Motion & Interaction
+
+- Use spring-like easing equivalent to stiffness 100 and damping 20. CSS-only
+  transitions may use `cubic-bezier(0.22, 1, 0.36, 1)`.
+- Reveal article rows in a 60-millisecond stagger and scrap rows in a
+  50-millisecond stagger using only opacity and a four-to-six-pixel vertical
+  transform.
+- The brand square performs a restrained opacity breath from 0.72 to 1 over 3.6
+  seconds. The profile image floats vertically by two pixels over 5 seconds.
+- The latest-article indicator may pulse opacity slowly. No other perpetual
+  motion is required.
+- Animate only transform and opacity. Never animate width, height, top, left, or
+  expensive filters.
+- Under `prefers-reduced-motion: reduce`, remove perpetual motion, stagger, and
+  smooth scrolling completely.
+
+## 8. Anti-Patterns: Never Do
+
+- No emojis anywhere in the generated interface.
+- No Inter, generic serif fonts, or pure black.
+- No purple, blue, cyan, neon, colored glow, or gradient text.
+- No more than one accent hue and no oversaturated colors.
+- No centered hero, overlapping elements, or absolute-positioned content stacks.
+- No three-column equal-card rows, bento grids, excessive pills, or chip clouds.
+- No card-per-scrap layout, filter-chip wall, fabricated search filters, or fake
+  pagination.
+- No custom mouse cursor or large hover scaling.
+- No generic names, placeholder people, fake metrics, reading times, statistics,
+  uptime figures, or system-performance sections.
+- No `LABEL // YEAR` formatting.
+- No filler copy such as “Elevate,” “Seamless,” “Unleash,” “Next-Gen,” “Scroll to
+  explore,” or “Swipe down.”
+- No extra navigation, testimonials, contact form, newsletter, social proof,
+  decorative device mockups, or stock photography.
+- Use the real `ぱんだ.dev`, `Yamanaka Junichi`, article titles, dates, tags,
+  profile image, biography, skills, and external links supplied by the project.
