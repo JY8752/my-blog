@@ -1,0 +1,4 @@
+interface:
+  display_name: "コミットしてpush"
+  short_description: "確認付きでコミットしupstreamへpushする"
+  default_prompt: "$cm-pushを使って、ステージ済み変更を確認付きでコミットし、upstreamへpushしてください。"

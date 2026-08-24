@@ -1,0 +1,4 @@
+interface:
+  display_name: "実装レビュー"
+  short_description: "変更ファイルを解説・レビューする静的HTMLレポートを生成"
+  default_prompt: "$review-implementationを使って、今回の実装をファイルごとに解説・レビューし、静的HTMLレポートを作成してください。"

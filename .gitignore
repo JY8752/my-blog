@@ -48,3 +48,6 @@ credentials.json
 
 # local implementation plans
 .agents/plans/
+
+# local implementation review reports
+.agents/review/

@@ -1,0 +1,4 @@
+interface:
+  display_name: "コミットメッセージ生成"
+  short_description: "ステージ済み変更から日本語の絵文字付きコミットを作成"
+  default_prompt: "$cmを使って、ステージ済み変更からコミットメッセージを生成し、確認後にコミットしてください。"
