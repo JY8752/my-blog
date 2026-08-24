@@ -291,18 +291,3 @@ Access applicationのApplication Audience（AUD）とteam domainを、
 複数の独立したGoモジュールがあり、`mise run verify`では両方のテストを実行します。
 デプロイは各Makefileから行いますが、通常の実装タスクでは実行しません。
 詳細は[GCPのREADME](gcp/README.md)を参照してください。
-
-## コントリビューション
-
-GitHubのタスクには[Issue template](.github/ISSUE_TEMPLATE/task.yml)、ローカルの作業計画には
-[タスク仕様テンプレート](.agents/task-template.md)を利用できます。目的と背景、対象範囲と対象外、
-観測可能な受け入れ条件、制約、許可する外部操作、参考情報、`mise run verify`以外に必要な
-手動検証を明記してください。
-
-変更時は関連するコード、テスト、設定を確認し、既存の設計に沿って必要最小限の範囲を編集します。
-開発中は変更箇所に近いテストを実行し、利用方法やコマンドを変えた場合はREADMEも更新します。
-受け入れ条件が不足している場合でも、安全で可逆な範囲は既存設計から判断できますが、外部公開、
-データ破壊、権限変更など結果が大きく変わる操作は事前に合意してください。
-
-Pull Requestでは[Pull Request template](.github/pull_request_template.md)を使い、受け入れ条件との
-対応、検証結果、影響範囲、残課題を記録します。
