@@ -1,0 +1,4 @@
+interface:
+  display_name: "実装計画Issueを作成"
+  short_description: "合意済み実装計画を確認付きでGitHub Issueへ登録"
+  default_prompt: "$github-create-implementation-issueを使って、合意済みの実装計画をGitHub Issueとして登録してください。"
