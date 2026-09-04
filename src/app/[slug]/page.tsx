@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Blog } from "@/app/_components/Blog";
 import { getAllBlogs } from "@/app/_lib/blog";
-import { BLOG_URL } from "@/app/_lib/site";
+import { BLOG_URL, getOgpImageUrl } from "@/app/_lib/site";
 
 import markdownToHtml from "zenn-markdown-html";
 
@@ -19,7 +19,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const blog = getAllBlogs().find((item) => item.slug === slug);
   if (!blog) return {};
-  const ogpImage = `https://ogp-generate.j-y-87524086.workers.dev?msg=${blog.title}`;
+  const ogpImage = getOgpImageUrl(blog.title);
 
   return {
     title: blog.title,

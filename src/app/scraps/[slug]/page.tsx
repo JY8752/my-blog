@@ -6,6 +6,7 @@ import { getScrapsDatabase } from "@/app/_lib/scraps/database";
 import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
 import { formatScrapDate } from "@/app/_lib/scraps/presentation";
 import { getScrapBySlug } from "@/app/_lib/scraps/repository";
+import { createScrapMetadata } from "@/app/scraps/[slug]/_metadata";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +20,7 @@ export async function generateMetadata({
 
   if (!scrap) return {};
 
-  return {
-    title: scrap.title,
-    description: `${scrap.title}についての試行錯誤とメモ。`,
-  };
+  return createScrapMetadata({ slug, title: scrap.title });
 }
 
 export default async function ScrapDetailPage({ params }: { params: Promise<{ slug: string }> }) {
