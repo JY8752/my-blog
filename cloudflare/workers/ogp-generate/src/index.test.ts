@@ -16,7 +16,7 @@ describe('Worker', () => {
 	});
 
 	it('returns a cacheable PNG image', async () => {
-		const response = await worker.fetch('/?msg=Hello');
+		const response = await worker.fetch('/?msg=Hello%20%F0%9F%90%BC');
 		const image = new Uint8Array(await response.arrayBuffer());
 
 		expect(response.status).toBe(200);

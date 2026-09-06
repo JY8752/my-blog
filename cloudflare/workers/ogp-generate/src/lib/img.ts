@@ -4,6 +4,7 @@ import satori, { init } from 'satori/wasm';
 import initYoga from 'yoga-wasm-web';
 import { Resvg, initWasm } from '@resvg/resvg-wasm';
 import type { ReactNode } from 'react';
+import { loadEmoji } from './emoji';
 import { loadGoogleFont } from './fonts';
 import yogaWasm from '../vender/yoga.wasm';
 import resvgWasm from '../vender/resvg.wasm';
@@ -40,15 +41,11 @@ export const generateImage = async (node: ReactNode) => {
         // style: 'thin',
       },
     ],
-    // loadAdditionalAsset: async (code: string, segment: string) => {
-    //   if (code === 'emoji') {
-    //     // if segment is an emoji
-    //     return `data:image/svg+xml;base64,...`
-    //   }
-
-    //   // if segment is normal text
-    //   return loadFontFromSystem(code)
-    // }
+    loadAdditionalAsset: async (code: string, segment: string) => {
+      if (code === 'emoji') {
+        return loadEmoji(segment);
+      }
+    },
   });
 
   const resvg = new Resvg(svg);
