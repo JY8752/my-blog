@@ -1,8 +1,12 @@
 {
   "name": "receptive-rotation",
+  "private": true,
   "type": "module",
   "version": "0.0.1",
   "packageManager": "bun@1.1.2",
+  "workspaces": [
+    "cloudflare/workers/*"
+  ],
   "scripts": {
     "generate:blog-data": "bun run scripts/generate-blog-data.ts",
     "predev": "bun run generate:blog-data",
@@ -13,6 +17,9 @@
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview": "bun run build:cloudflare && opennextjs-cloudflare preview",
     "deploy": "bun run build:cloudflare && wrangler deploy",
+    "dev:ogp": "bun run --cwd cloudflare/workers/ogp-generate dev",
+    "deploy:ogp": "bun run --cwd cloudflare/workers/ogp-generate deploy",
+    "deploy:ogp:dry-run": "bun run --cwd cloudflare/workers/ogp-generate deploy:dry-run",
     "db:migrate:local": "wrangler d1 migrations apply my-blog-scraps --local",
     "db:migrate:remote": "wrangler d1 migrations apply my-blog-scraps --remote",
     "types:cloudflare": "wrangler types --env-interface CloudflareEnv",

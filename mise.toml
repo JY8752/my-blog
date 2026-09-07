@@ -9,7 +9,6 @@ description = "Install all dependencies and prepare the local D1 database"
 run = """
 mise install
 bun install --frozen-lockfile
-npm ci --prefix cloudflare/workers/ogp-generate
 go -C gcp/functions/notify_blog_analytics mod download
 go -C gcp/functions/notify_zenn_analytics mod download
 bun run db:migrate:local
@@ -21,8 +20,8 @@ run = """
 bun run check
 bun run test
 ./scripts/verify-d1-migrations.sh
-npm run typecheck --prefix cloudflare/workers/ogp-generate
-npm test --prefix cloudflare/workers/ogp-generate
+bun run --cwd cloudflare/workers/ogp-generate typecheck
+bun run --cwd cloudflare/workers/ogp-generate test
 go -C gcp/functions/notify_blog_analytics test ./...
 go -C gcp/functions/notify_zenn_analytics test ./...
 bun run build:cloudflare
