@@ -2,26 +2,33 @@
 
 Cloudflare Workersを使用してOGP画像を動的に生成する。
 
-## init
+## セットアップ
 
 ```bash
-wrangler init ogp-generate -y
+mise run setup
 ```
+
+依存関係はルートのBun workspaceと`bun.lockb`で管理する。
+
+## ローカル開発
 
 ```bash
-npm i @resvg/resvg-wasm hono react satori yoga-wasm-web
+bun run dev:ogp
 ```
 
-## satori
+## 検証
 
 ```bash
-# 手元にwasmファイルを持ってくる
-curl -L 'https://unpkg.com/yoga-wasm-web/dist/yoga.wasm' -o src/vender/yoga.wasm
+bun run --cwd cloudflare/workers/ogp-generate typecheck
+bun run --cwd cloudflare/workers/ogp-generate test
+bun run deploy:ogp:dry-run
 ```
 
-## resvg
+## デプロイ
 
 ```bash
-# 手元にwasmファイルを持ってくる
-curl -L 'https://unpkg.com/@resvg/resvg-wasm/index_bg.wasm' -o src/vender/resvg.wasm
+bunx wrangler login
+bun run deploy:ogp
 ```
+
+デプロイ後はWranglerが表示する`workers.dev` URLで動作を確認する。

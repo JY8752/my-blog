@@ -171,6 +171,9 @@ GitHub Actionsも同じ2コマンドを使用します。
 | `bun run build:cloudflare` | Cloudflare Workers向けの成果物を生成 |
 | `bun run preview` | Workersランタイムでローカルプレビュー |
 | `bun run deploy` | Cloudflare Workersへビルド・デプロイ |
+| `bun run dev:ogp` | OGP画像生成Workerをローカル起動 |
+| `bun run deploy:ogp:dry-run` | OGP画像生成Workerのデプロイ内容を確認 |
+| `bun run deploy:ogp` | OGP画像生成Workerをデプロイ |
 | `bun run db:migrate:local` | ローカルD1へマイグレーションを適用 |
 | `bun run db:migrate:remote` | 本番D1へマイグレーションを適用 |
 | `bun run types:cloudflare` | Cloudflare bindingの型定義を生成 |
@@ -281,8 +284,8 @@ Access applicationのApplication Audience（AUD）とteam domainを、
 ### OGP画像生成
 
 `cloudflare/workers/ogp-generate/`に、記事タイトルからOGP画像を動的生成するWorkerがあります。
-独立したnpmプロジェクトのため、依存関係を変更した場合は同ディレクトリの
-`package-lock.json`も更新してください。デプロイはメインアプリと独立しています。
+ルートのBun workspaceに含まれており、依存関係とlockfileはルートで管理します。
+デプロイはメインアプリと独立しており、`bun run deploy:ogp`で実行します。
 詳細は[OGP WorkerのREADME](cloudflare/workers/ogp-generate/README.md)を参照してください。
 
 ### アナリティクス通知

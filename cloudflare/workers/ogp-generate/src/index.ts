@@ -10,7 +10,7 @@ app.get('/', async (c) => {
   const to = c.req.query('to') || undefined;
   const img = await generateImage(Ogp({ msg, from, to }));
   c.header('Cache-Control', 'max-age=604800');
-  return c.body(img);
+  return c.body(new Uint8Array(img).buffer);
 });
 
 export default app;

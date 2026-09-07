@@ -1,22 +1,21 @@
-import { unstable_dev } from 'wrangler';
-import type { UnstableDevWorker } from 'wrangler';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { createTestHarness } from 'wrangler';
+
+const server = createTestHarness({
+	workers: [{ configPath: './wrangler.toml' }],
+});
 
 describe('Worker', () => {
-	let worker: UnstableDevWorker;
-
 	beforeAll(async () => {
-		worker = await unstable_dev('src/index.ts', {
-			experimental: { disableExperimentalWarning: true },
-		});
+		await server.listen();
 	});
 
 	afterAll(async () => {
-		await worker.stop();
+		await server.close();
 	});
 
 	it('returns a cacheable PNG image', async () => {
-		const response = await worker.fetch('/?msg=Hello%20%F0%9F%90%BC');
+		const response = await server.fetch('/?msg=Hello%20%F0%9F%90%BC');
 		const image = new Uint8Array(await response.arrayBuffer());
 
 		expect(response.status).toBe(200);
