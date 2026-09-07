@@ -3,10 +3,10 @@ import { getScrapsDatabase } from "@/app/_lib/scraps/database";
 import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
 import { formatScrapDate } from "@/app/_lib/scraps/presentation";
 import { getScrapById } from "@/app/_lib/scraps/repository";
-import { ScrapDeleteButton } from "@/app/admin/scraps/_components/ScrapDeleteButton";
 import { ScrapEntryForm } from "@/app/admin/scraps/_components/ScrapEntryForm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ScrapDeleteButton } from "./_components/ScrapDeleteButton";
 
 export default async function ManageScrapPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

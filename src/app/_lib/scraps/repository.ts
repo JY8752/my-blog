@@ -136,7 +136,7 @@ export function getScrapById(db: D1Database, id: string): Promise<ScrapDetail | 
 export async function deleteScrap(db: D1Database, id: string): Promise<void> {
   const result = await db.prepare("DELETE FROM scraps WHERE id = ?").bind(id).run();
 
-  if (Number(result.meta.changes) !== 1) {
+  if (Number(result.meta.changes) === 0) {
     throw new ScrapNotFoundError();
   }
 }
