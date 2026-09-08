@@ -6,6 +6,7 @@ import { getScrapById } from "@/app/_lib/scraps/repository";
 import { ScrapEntryForm } from "@/app/admin/scraps/_components/ScrapEntryForm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ScrapDeleteButton } from "./_components/ScrapDeleteButton";
 
 export default async function ManageScrapPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -75,6 +76,16 @@ export default async function ManageScrapPage({ params }: { params: Promise<{ id
             <h2 className="mt-2 font-display text-2xl font-semibold">続きを書く</h2>
           </div>
           <ScrapEntryForm scrapId={scrap.id} />
+        </div>
+      </div>
+
+      <div className="mt-14 max-w-5xl border-t border-outline-variant pt-8">
+        <h2 className="font-display text-xl font-semibold">危険な操作</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-on-surface-variant">
+          スクラップと、これまでの投稿をすべて削除します。削除した内容は復元できません。
+        </p>
+        <div className="mt-5">
+          <ScrapDeleteButton scrapId={scrap.id} scrapTitle={scrap.title} />
         </div>
       </div>
     </section>

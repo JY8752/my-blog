@@ -133,6 +133,14 @@ export function getScrapById(db: D1Database, id: string): Promise<ScrapDetail | 
   return getScrapDetail(db, "id", id);
 }
 
+export async function deleteScrap(db: D1Database, id: string): Promise<void> {
+  const result = await db.prepare("DELETE FROM scraps WHERE id = ?").bind(id).run();
+
+  if (Number(result.meta.changes) === 0) {
+    throw new ScrapNotFoundError();
+  }
+}
+
 export async function createScrap(db: D1Database, input: CreateScrapInput): Promise<ScrapDetail> {
   const scrapId = crypto.randomUUID();
   const entryId = crypto.randomUUID();
