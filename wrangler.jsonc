@@ -15,6 +15,12 @@
       "migrations_dir": "./migrations"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "SCRAP_IMAGES",
+      "bucket_name": "my-blog-scrap-images"
+    }
+  ],
   "vars": {
     "ACCESS_TEAM_DOMAIN": "https://jy-panda.cloudflareaccess.com",
     "ACCESS_AUD": "6ab16807ed3ef7f443af0695915ae318786ba9f476301250ff9d576cdeabcf40"

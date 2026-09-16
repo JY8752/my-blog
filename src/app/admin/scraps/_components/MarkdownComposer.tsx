@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { type ClipboardEvent, useEffect, useId, useRef, useState } from "react";
 import { Blog } from "@/app/_components/Blog";
 
 interface MarkdownComposerProps {
   value: string;
   onChange: (value: string) => void;
+  onUploadingChange?: (isUploading: boolean) => void;
   label?: string;
   disabled?: boolean;
   compact?: boolean;
@@ -14,6 +15,7 @@ interface MarkdownComposerProps {
 export function MarkdownComposer({
   value,
   onChange,
+  onUploadingChange,
   label = "投稿本文",
   disabled = false,
   compact = false,
@@ -22,7 +24,71 @@ export function MarkdownComposer({
   const [html, setHtml] = useState("");
   const [previewError, setPreviewError] = useState("");
   const [isPreviewing, setIsPreviewing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
+  const latestValue = useRef(value);
+  const pendingUploads = useRef(0);
+  latestValue.current = value;
+
+  const updateUploading = (change: 1 | -1) => {
+    pendingUploads.current += change;
+    const hasPendingUploads = pendingUploads.current > 0;
+    setIsUploading(hasPendingUploads);
+    onUploadingChange?.(hasPendingUploads);
+  };
+
+  const updateValue = (nextValue: string) => {
+    latestValue.current = nextValue;
+    onChange(nextValue);
+  };
+
+  const handlePaste = async (event: ClipboardEvent<HTMLTextAreaElement>) => {
+    const images = Array.from(event.clipboardData.files).filter((file) =>
+      file.type.startsWith("image/"),
+    );
+    if (images.length === 0) return;
+
+    event.preventDefault();
+    setUploadError("");
+    updateUploading(1);
+
+    const { selectionStart, selectionEnd } = event.currentTarget;
+    const tokens = images.map(() => `<!-- scrap-image-upload:${crypto.randomUUID()} -->`);
+    const insertion = tokens.join("\n");
+    const currentValue = latestValue.current;
+    updateValue(
+      `${currentValue.slice(0, selectionStart)}${insertion}${currentValue.slice(selectionEnd)}`,
+    );
+
+    try {
+      for (const [index, image] of images.entries()) {
+        const formData = new FormData();
+        formData.set("image", image);
+        const response = await fetch("/api/admin/scrap-images", {
+          method: "POST",
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+          body: formData,
+        });
+        const result = (await response.json()) as { url?: string; message?: string };
+        if (!response.ok || !result.url) {
+          throw new Error(result.message ?? "画像をアップロードできませんでした。");
+        }
+
+        const alt = (image.name || "画像").replaceAll("[", "").replaceAll("]", "");
+        updateValue(latestValue.current.replace(tokens[index], `![${alt}](${result.url})`));
+      }
+    } catch (error) {
+      setUploadError(
+        error instanceof Error ? error.message : "画像をアップロードできませんでした。",
+      );
+      updateValue(
+        tokens.reduce((markdown, token) => markdown.replace(token, ""), latestValue.current),
+      );
+    } finally {
+      updateUploading(-1);
+    }
+  };
 
   useEffect(() => {
     if (!value.trim()) {
@@ -98,7 +164,8 @@ export function MarkdownComposer({
           <textarea
             id={id}
             value={value}
-            onChange={(event) => onChange(event.target.value)}
+            onChange={(event) => updateValue(event.target.value)}
+            onPaste={handlePaste}
             disabled={disabled}
             maxLength={50_000}
             spellCheck="false"
@@ -108,8 +175,18 @@ export function MarkdownComposer({
             }`}
           />
           <p className="mt-2 text-right font-label text-label-sm text-tertiary">
+            {isUploading ? "画像をアップロード中… · " : null}
             {value.length.toLocaleString()} / 50,000
           </p>
+          {uploadError ? (
+            <p role="alert" className="mt-2 text-sm text-error">
+              {uploadError}
+            </p>
+          ) : (
+            <p className="mt-2 text-xs text-tertiary">
+              画像を貼り付けるとMarkdownへ挿入できます（最大10MB）。
+            </p>
+          )}
         </div>
 
         <div
