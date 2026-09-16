@@ -28,7 +28,7 @@ export function ScrapEntryPinButton({
         type="submit"
         disabled={isPending}
         aria-pressed={isPinned}
-        className="inline-flex min-h-11 items-center rounded-md border border-outline px-4 font-label text-xs font-bold text-on-surface-variant transition-colors hover:bg-primary-container hover:text-on-primary-container disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-11 items-center rounded-md border border-outline px-4 font-label text-xs font-bold text-on-surface-variant transition-[color,background-color,transform] hover:bg-primary-container hover:text-on-primary-container focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-primary active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isPending ? "変更中…" : isPinned ? "ピン留めを解除" : "先頭にピン留め"}
       </button>
