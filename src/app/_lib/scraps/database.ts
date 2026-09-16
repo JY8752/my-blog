@@ -6,6 +6,10 @@ export function getScrapsDatabase(): D1Database {
   return getCloudflareContext().env.SCRAPS_DB;
 }
 
+export function getScrapImagesBucket(): R2Bucket {
+  return getCloudflareContext().env.SCRAP_IMAGES;
+}
+
 export function getAccessConfiguration() {
   const { env } = getCloudflareContext();
 
