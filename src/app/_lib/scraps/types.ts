@@ -13,6 +13,7 @@ export interface ScrapEntry {
   scrapId: string;
   bodyMarkdown: string;
   position: number;
+  isPinned: boolean;
   createdAt: string;
   updatedAt: string;
 }

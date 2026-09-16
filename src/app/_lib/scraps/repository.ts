@@ -24,6 +24,7 @@ interface ScrapEntryRow {
   scrap_id: string;
   body_markdown: string;
   position: number;
+  is_pinned: number;
   created_at: string;
   updated_at: string;
 }
@@ -55,6 +56,7 @@ function mapScrapEntry(row: ScrapEntryRow): ScrapEntry {
     scrapId: row.scrap_id,
     bodyMarkdown: row.body_markdown,
     position: row.position,
+    isPinned: row.is_pinned === 1,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -110,10 +112,10 @@ async function getScrapDetail(
   const entries = await db
     .prepare(
       `
-        SELECT id, scrap_id, body_markdown, position, created_at, updated_at
+        SELECT id, scrap_id, body_markdown, position, is_pinned, created_at, updated_at
         FROM scrap_entries
         WHERE scrap_id = ?
-        ORDER BY position ASC
+        ORDER BY is_pinned DESC, position ASC
       `,
     )
     .bind(scrap.id)
@@ -216,7 +218,7 @@ export async function addScrapEntry(
   const entry = await db
     .prepare(
       `
-        SELECT id, scrap_id, body_markdown, position, created_at, updated_at
+        SELECT id, scrap_id, body_markdown, position, is_pinned, created_at, updated_at
         FROM scrap_entries
         WHERE id = ?
       `,
@@ -226,4 +228,33 @@ export async function addScrapEntry(
 
   if (!entry) throw new ScrapNotFoundError("追加した投稿を取得できませんでした。");
   return mapScrapEntry(entry);
+}
+
+export async function setPinnedScrapEntry(
+  db: D1Database,
+  scrapId: string,
+  entryId: string,
+  isPinned: boolean,
+): Promise<void> {
+  const entry = await db
+    .prepare("SELECT id FROM scrap_entries WHERE id = ? AND scrap_id = ?")
+    .bind(entryId, scrapId)
+    .first<{ id: string }>();
+
+  if (!entry) throw new ScrapNotFoundError("投稿が見つかりませんでした。");
+
+  if (isPinned) {
+    await db.batch([
+      db.prepare("UPDATE scrap_entries SET is_pinned = 0 WHERE scrap_id = ?").bind(scrapId),
+      db
+        .prepare("UPDATE scrap_entries SET is_pinned = 1 WHERE id = ? AND scrap_id = ?")
+        .bind(entryId, scrapId),
+    ]);
+    return;
+  }
+
+  await db
+    .prepare("UPDATE scrap_entries SET is_pinned = 0 WHERE id = ? AND scrap_id = ?")
+    .bind(entryId, scrapId)
+    .run();
 }

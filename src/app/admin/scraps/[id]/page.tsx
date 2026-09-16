@@ -7,6 +7,7 @@ import { ScrapEntryForm } from "@/app/admin/scraps/_components/ScrapEntryForm";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ScrapDeleteButton } from "./_components/ScrapDeleteButton";
+import { ScrapEntryPinButton } from "./_components/ScrapEntryPinButton";
 
 export default async function ManageScrapPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -56,13 +57,25 @@ export default async function ManageScrapPage({ params }: { params: Promise<{ id
         <ol className="divide-y divide-outline-variant">
           {entries.map((entry) => (
             <li key={entry.id} className="px-5 py-8 sm:px-8 sm:py-10">
-              <div className="mb-7 flex items-center gap-3 font-label text-label-sm tracking-data text-tertiary">
+              <div className="mb-7 flex flex-wrap items-center gap-3 font-label text-label-sm tracking-data text-tertiary">
                 <span className="text-primary">POST {String(entry.position).padStart(2, "0")}</span>
+                {entry.isPinned ? (
+                  <span className="rounded-sm bg-primary-container px-2 py-1 text-on-primary-container">
+                    PINNED
+                  </span>
+                ) : null}
                 <span aria-hidden="true" className="h-px flex-1 bg-outline-variant" />
                 <time dateTime={entry.createdAt}>{formatScrapDate(entry.createdAt)}</time>
               </div>
               <div className="article-content">
                 <Blog html={entry.html} />
+              </div>
+              <div className="mt-7 flex justify-end border-t border-outline-variant pt-5">
+                <ScrapEntryPinButton
+                  scrapId={scrap.id}
+                  entryId={entry.id}
+                  isPinned={entry.isPinned}
+                />
               </div>
             </li>
           ))}

@@ -89,7 +89,14 @@ export default async function ScrapDetailPage({ params }: { params: Promise<{ sl
                 className="rounded-lg border border-outline-variant bg-surface-container-lowest p-5 shadow-paper sm:p-8"
               >
                 <div className="mb-7 flex items-center justify-between gap-4 border-b border-outline-variant pb-4 font-label text-label-sm text-tertiary">
-                  <span>#{entry.position}</span>
+                  <span className="flex items-center gap-2">
+                    <span>#{entry.position}</span>
+                    {entry.isPinned ? (
+                      <span className="rounded-sm bg-primary-container px-2 py-1 text-on-primary-container">
+                        PINNED
+                      </span>
+                    ) : null}
+                  </span>
                   <time dateTime={entry.createdAt}>{formatScrapDate(entry.createdAt)}</time>
                 </div>
                 <div className="article-content">
