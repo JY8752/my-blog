@@ -6,6 +6,7 @@ import { Blog } from "@/app/_components/Blog";
 interface MarkdownComposerProps {
   value: string;
   onChange: (value: string) => void;
+  onUploadingChange?: (isUploading: boolean) => void;
   label?: string;
   disabled?: boolean;
   compact?: boolean;
@@ -14,6 +15,7 @@ interface MarkdownComposerProps {
 export function MarkdownComposer({
   value,
   onChange,
+  onUploadingChange,
   label = "投稿本文",
   disabled = false,
   compact = false,
@@ -26,7 +28,15 @@ export function MarkdownComposer({
   const [uploadError, setUploadError] = useState("");
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
   const latestValue = useRef(value);
+  const pendingUploads = useRef(0);
   latestValue.current = value;
+
+  const updateUploading = (change: 1 | -1) => {
+    pendingUploads.current += change;
+    const hasPendingUploads = pendingUploads.current > 0;
+    setIsUploading(hasPendingUploads);
+    onUploadingChange?.(hasPendingUploads);
+  };
 
   const updateValue = (nextValue: string) => {
     latestValue.current = nextValue;
@@ -41,7 +51,7 @@ export function MarkdownComposer({
 
     event.preventDefault();
     setUploadError("");
-    setIsUploading(true);
+    updateUploading(1);
 
     const { selectionStart, selectionEnd } = event.currentTarget;
     const tokens = images.map(() => `<!-- scrap-image-upload:${crypto.randomUUID()} -->`);
@@ -76,7 +86,7 @@ export function MarkdownComposer({
         tokens.reduce((markdown, token) => markdown.replace(token, ""), latestValue.current),
       );
     } finally {
-      setIsUploading(false);
+      updateUploading(-1);
     }
   };
 
