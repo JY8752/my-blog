@@ -9,6 +9,12 @@
 - 認証・認可を本番だけ無効化する変更や、検証を通すための例外追加を行わない。
 - 依存関係を更新するときは対象プロジェクトのlockfileも更新し、検証を実行する。
 - ReactまたはNext.jsのコードを実装・レビューするときは、`$vercel-react-best-practices`を使用する。
+- PRを作成または更新するときは、直前に[$prepare-pull-request](skills/prepare-pull-request/SKILL.md)を
+  使用し、変更全体の短い説明と変更ファイルごとの1行説明を本文へ含める。UIの見た目が
+  変わる場合だけ、変更結果を表す代表スクリーンショットを最大1枚追加する。
+- ローカルで実装中の差分をコードレビューし、手元のHTMLで確認するよう依頼された場合は、
+  [$review-implementation](skills/review-implementation/SKILL.md)を使用する。生成したレポートは
+  ローカル専用とし、コミット、アップロード、PRへの添付を行わない。
 
 ## 初回セットアップ
 
