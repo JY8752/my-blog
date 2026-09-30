@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR本文作成"
+  short_description: "全体概要と変更ファイルごとの1行説明でPR本文を作成"
+  default_prompt: "$prepare-pull-requestを使って、現在の差分から簡潔なMarkdownのPR本文を作成してください。"
