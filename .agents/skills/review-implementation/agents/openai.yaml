@@ -1,4 +1,0 @@
-interface:
-  display_name: "ローカル実装レビュー"
-  short_description: "作業中の差分をレビューし、手元で見る静的HTMLを生成"
-  default_prompt: "$review-implementationを使って、ローカルの実装差分をレビューし、手元で確認する静的HTMLレポートを作成してください。"

@@ -13,7 +13,7 @@
   使用し、変更全体の短い説明と変更ファイルごとの1行説明を本文へ含める。UIの見た目が
   変わる場合だけ、変更結果を表す代表スクリーンショットを最大1枚追加する。
 - ローカルで実装中の差分をコードレビューし、手元のHTMLで確認するよう依頼された場合は、
-  [$review-implementation](skills/review-implementation/SKILL.md)を使用する。生成したレポートは
+  [$review-implementation](https://github.com/JY8752/skills/blob/main/review-implementation/SKILL.md)を使用する。生成したレポートは
   ローカル専用とし、コミット、アップロード、PRへの添付を行わない。
 
 ## 初回セットアップ
