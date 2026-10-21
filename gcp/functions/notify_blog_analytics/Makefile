@@ -2,7 +2,8 @@ deploy:
 	gcloud functions deploy NotifyBlogAnalytics \
 	--entry-point=BlogNotify \
 	--region=asia-northeast1 \
-	--runtime=go120 \
+	--runtime=go127 \
+	--update-build-env-vars=GOOGLE_GO_VERSION=1.27.3 \
 	--memory=128Mi \
 	--env-vars-file=.env.yaml \
 	--allow-unauthenticated \

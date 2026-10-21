@@ -2,6 +2,24 @@
 
 ブログにおいて特定の処理を実行したい場合などにGCPを使用する.
 
+## デプロイ
+
+リポジトリルートから、各FunctionのMakefileをmiseタスク経由で実行する。
+
+```bash
+# ブログのアクセス解析通知
+mise run deploy:gcp:blog
+
+# Zennのアクセス解析通知
+mise run deploy:gcp:zenn
+```
+
+事前に`gcloud`で認証と対象プロジェクトの設定を済ませ、
+使用するサービスアカウントのメールアドレスを環境変数`SERVICE_ACCOUNT_EMAIL`へ設定する。
+各Functionのディレクトリには、実行時の環境変数を記載した`.env.yaml`を用意する。
+タスクは対応するディレクトリへ移動して`make deploy`を実行するため、
+`.env.yaml`もそのディレクトリから読み込まれる。
+
 ## set gcloud
 
 ```bash
