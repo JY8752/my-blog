@@ -1,10 +1,9 @@
 module github.com/JY8752/my-blog/gcp/functions/notify_blog_analytics
 
-go 1.20
+go 1.27.3
 
 require (
 	github.com/GoogleCloudPlatform/functions-framework-go v1.6.1
-	github.com/JY8752/my-blog/gcp/functions/notify_analytics v0.0.0-20230415090255-f31ab8280cf9
 	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/slack-go/slack v0.12.2
 	google.golang.org/api v0.118.0

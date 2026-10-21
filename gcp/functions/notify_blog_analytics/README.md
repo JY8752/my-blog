@@ -32,6 +32,8 @@ gcloud scheduler jobs create pubsub monthly-blog-report \
 
 ## deploy
 
+リポジトリルートから実行する。必要な設定は[GCP README](../../README.md#デプロイ)を参照する。
+
 ```bash
-make deploy
+mise run deploy:gcp:blog
 ```

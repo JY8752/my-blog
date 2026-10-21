@@ -103,7 +103,7 @@ Bun、Node.js、Go、`note-cli`はmiseで管理するため、個別にインス
 | --- | --- | --- |
 | Bun | 1.1.2 | miseのBunバックエンド |
 | Node.js | 24.14.0 | miseのNode.jsバックエンド |
-| Go | 1.26.1 | miseのGoバックエンド |
+| Go | 1.27.3 | miseのGoバックエンド |
 | note-cli | v0.7.1 | GitHub ReleasesのOS・CPU別バイナリ |
 
 バージョンとタスクは`mise.toml`で定義しています。`note-cli`の導入にGoやHomebrewは使用しません。
@@ -140,9 +140,13 @@ bun run dev
 | `mise run lint` | ソースコードとMarkdownをLint |
 | `mise run check` | フォーマット、Lint、型、Markdownを検査 |
 | `mise run new:article` | `note-cli`で記事ファイルを作成 |
+| `mise run deploy:gcp:blog` | ブログのアクセス解析通知FunctionをGCPへデプロイ |
+| `mise run deploy:gcp:zenn` | Zennのアクセス解析通知FunctionをGCPへデプロイ |
 
 初回は`mise run setup`、タスク完了前は`mise run verify`を実行します。
 GitHub Actionsも同じ2コマンドを使用します。
+
+GCPへのデプロイに必要な設定は[GCP README](gcp/README.md#デプロイ)を参照してください。
 
 ### 完了時の検証
 

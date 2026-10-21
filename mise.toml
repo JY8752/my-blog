@@ -1,7 +1,7 @@
 [tools]
 bun = "1.1.2"
 node = "24.14.0"
-go = "1.26.1"
+go = "1.27.3"
 "github:JY8752/note-cli" = "v0.7.1"
 
 [tasks.setup]
@@ -31,6 +31,16 @@ bun run build:cloudflare
 description = "Create a new blog article under src/content/blog"
 dir = "{{ config_root }}/src/content/blog"
 run = "note-cli create article -a Junichi.Y --no-dir -t ."
+
+[tasks."deploy:gcp:blog"]
+description = "Deploy the blog analytics Cloud Function"
+dir = "{{ config_root }}/gcp/functions/notify_blog_analytics"
+run = "make deploy"
+
+[tasks."deploy:gcp:zenn"]
+description = "Deploy the Zenn analytics Cloud Function"
+dir = "{{ config_root }}/gcp/functions/notify_zenn_analytics"
+run = "make deploy"
 
 [tasks.format]
 description = "Format source files"
