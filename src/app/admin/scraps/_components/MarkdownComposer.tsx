@@ -1,7 +1,7 @@
 "use client";
 
 import { type ClipboardEvent, useEffect, useId, useRef, useState } from "react";
-import { Blog } from "@/app/_components/Blog";
+import { MarkdownPreview } from "./MarkdownPreview";
 
 interface MarkdownComposerProps {
   value: string;
@@ -211,7 +211,7 @@ export function MarkdownComposer({
             </p>
           ) : html ? (
             <div className="article-content">
-              <Blog html={html} />
+              <MarkdownPreview html={html} />
             </div>
           ) : (
             <p className="text-sm leading-7 text-tertiary">
