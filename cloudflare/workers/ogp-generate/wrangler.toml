@@ -4,3 +4,8 @@ compatibility_date = "2023-04-16"
 rules = [
   { type = "Data", globs = ["**/*.ttf", "**/*.otf"], fallthrough = true },
 ]
+
+[observability.logs]
+enabled = true
+invocation_logs = true
+head_sampling_rate = 1
