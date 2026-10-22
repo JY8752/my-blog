@@ -24,6 +24,9 @@ bun run --cwd cloudflare/workers/ogp-generate test
 bun run deploy:ogp:dry-run
 ```
 
+結合テストでは、フォントと絵文字の取得をローカルの固定データで置き換える。
+外部通信を行わず、Worker上でのPNG生成とキャッシュヘッダーを検証する。
+
 ## デプロイ
 
 ```bash
