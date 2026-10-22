@@ -102,7 +102,7 @@ Bun、Node.js、Go、`note-cli`はmiseで管理するため、個別にインス
 | ツール | バージョン | 導入方法 |
 | --- | --- | --- |
 | Bun | 1.1.2 | miseのBunバックエンド |
-| Node.js | 24.14.0 | miseのNode.jsバックエンド |
+| Node.js | 26.12.1 | miseのNode.jsバックエンド |
 | Go | 1.27.3 | miseのGoバックエンド |
 | note-cli | v0.7.1 | GitHub ReleasesのOS・CPU別バイナリ |
 
