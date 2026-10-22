@@ -1,6 +1,6 @@
 [tools]
 bun = "1.1.2"
-node = "24.14.0"
+node = "26.12.1"
 go = "1.27.3"
 "github:JY8752/note-cli" = "v0.7.1"
 
