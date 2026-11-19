@@ -3,10 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Blog } from "@/app/_components/Blog";
 import { getScrapsDatabase } from "@/app/_lib/scraps/database";
-import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
+import { getScrapEntryHtml } from "@/app/_lib/scraps/entry-html";
 import { formatScrapDate } from "@/app/_lib/scraps/presentation";
-import { getScrapBySlug } from "@/app/_lib/scraps/repository";
 import { createScrapMetadata } from "@/app/scraps/[slug]/_metadata";
+import { getScrap } from "./_queries/getScrap";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const scrap = await getScrapBySlug(getScrapsDatabase(), slug);
+  const scrap = await getScrap(slug);
 
   if (!scrap) return {};
 
@@ -25,13 +25,14 @@ export async function generateMetadata({
 
 export default async function ScrapDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const scrap = await getScrapBySlug(getScrapsDatabase(), slug);
+  const scrap = await getScrap(slug);
   if (!scrap) notFound();
 
+  const db = getScrapsDatabase();
   const entries = await Promise.all(
     scrap.entries.map(async (entry) => ({
       ...entry,
-      html: await renderScrapMarkdown(entry.bodyMarkdown),
+      html: await getScrapEntryHtml(db, entry),
     })),
   );
 

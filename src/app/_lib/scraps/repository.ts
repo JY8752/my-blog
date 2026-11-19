@@ -4,6 +4,7 @@ import { ScrapConflictError, ScrapNotFoundError } from "./errors";
 import type {
   AddScrapEntryInput,
   CreateScrapInput,
+  ScrapBodyHtml,
   ScrapDetail,
   ScrapEntry,
   ScrapSummary,
@@ -23,6 +24,8 @@ interface ScrapEntryRow {
   id: string;
   scrap_id: string;
   body_markdown: string;
+  body_html: string | null;
+  body_html_version: number | null;
   position: number;
   is_pinned: number;
   created_at: string;
@@ -55,6 +58,8 @@ function mapScrapEntry(row: ScrapEntryRow): ScrapEntry {
     id: row.id,
     scrapId: row.scrap_id,
     bodyMarkdown: row.body_markdown,
+    bodyHtml: row.body_html,
+    bodyHtmlVersion: row.body_html_version,
     position: row.position,
     isPinned: row.is_pinned === 1,
     createdAt: row.created_at,
@@ -112,7 +117,8 @@ async function getScrapDetail(
   const entries = await db
     .prepare(
       `
-        SELECT id, scrap_id, body_markdown, position, is_pinned, created_at, updated_at
+        SELECT id, scrap_id, body_markdown, body_html, body_html_version,
+               position, is_pinned, created_at, updated_at
         FROM scrap_entries
         WHERE scrap_id = ?
         ORDER BY is_pinned DESC, position ASC
@@ -143,7 +149,26 @@ export async function deleteScrap(db: D1Database, id: string): Promise<void> {
   }
 }
 
-export async function createScrap(db: D1Database, input: CreateScrapInput): Promise<ScrapDetail> {
+export async function cacheScrapEntryHtml(
+  db: D1Database,
+  entry: Pick<ScrapEntry, "id" | "bodyMarkdown">,
+  body: ScrapBodyHtml,
+): Promise<void> {
+  // Do not overwrite a newer Markdown body with HTML from an older read.
+  await db
+    .prepare(
+      `UPDATE scrap_entries SET body_html = ?, body_html_version = ?
+       WHERE id = ? AND body_markdown = ?`,
+    )
+    .bind(body.html, body.version, entry.id, entry.bodyMarkdown)
+    .run();
+}
+
+export async function createScrap(
+  db: D1Database,
+  input: CreateScrapInput,
+  body: ScrapBodyHtml,
+): Promise<ScrapDetail> {
   const scrapId = crypto.randomUUID();
   const entryId = crypto.randomUUID();
   const now = new Date().toISOString();
@@ -162,11 +187,12 @@ export async function createScrap(db: D1Database, input: CreateScrapInput): Prom
         .prepare(
           `
             INSERT INTO scrap_entries
-              (id, scrap_id, body_markdown, position, created_at, updated_at)
-            VALUES (?, ?, ?, 1, ?, ?)
+              (id, scrap_id, body_markdown, body_html, body_html_version,
+               position, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, 1, ?, ?)
           `,
         )
-        .bind(entryId, scrapId, input.bodyMarkdown, now, now),
+        .bind(entryId, scrapId, input.bodyMarkdown, body.html, body.version, now, now),
     ]);
   } catch (error) {
     if (error instanceof Error && error.message.includes("UNIQUE constraint failed: scraps.slug")) {
@@ -183,6 +209,7 @@ export async function createScrap(db: D1Database, input: CreateScrapInput): Prom
 export async function addScrapEntry(
   db: D1Database,
   input: AddScrapEntryInput,
+  body: ScrapBodyHtml,
 ): Promise<ScrapEntry> {
   const entryId = crypto.randomUUID();
   const now = new Date().toISOString();
@@ -192,10 +219,13 @@ export async function addScrapEntry(
       .prepare(
         `
           INSERT INTO scrap_entries
-            (id, scrap_id, body_markdown, position, created_at, updated_at)
+            (id, scrap_id, body_markdown, body_html, body_html_version,
+             position, created_at, updated_at)
           SELECT
             ?,
             id,
+            ?,
+            ?,
             ?,
             COALESCE(
               (SELECT MAX(position) + 1 FROM scrap_entries WHERE scrap_id = scraps.id),
@@ -207,7 +237,7 @@ export async function addScrapEntry(
           WHERE id = ?
         `,
       )
-      .bind(entryId, input.bodyMarkdown, now, now, input.scrapId),
+      .bind(entryId, input.bodyMarkdown, body.html, body.version, now, now, input.scrapId),
     db.prepare("UPDATE scraps SET updated_at = ? WHERE id = ?").bind(now, input.scrapId),
   ]);
 
@@ -218,7 +248,8 @@ export async function addScrapEntry(
   const entry = await db
     .prepare(
       `
-        SELECT id, scrap_id, body_markdown, position, is_pinned, created_at, updated_at
+        SELECT id, scrap_id, body_markdown, body_html, body_html_version,
+               position, is_pinned, created_at, updated_at
         FROM scrap_entries
         WHERE id = ?
       `,
