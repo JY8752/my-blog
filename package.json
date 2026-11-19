@@ -16,7 +16,7 @@
     "start": "next start",
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview": "bun run build:cloudflare && opennextjs-cloudflare preview",
-    "deploy": "bun run build:cloudflare && wrangler deploy",
+    "deploy": "bun run build:cloudflare && opennextjs-cloudflare deploy",
     "dev:ogp": "bun run --cwd cloudflare/workers/ogp-generate dev",
     "deploy:ogp": "bun run --cwd cloudflare/workers/ogp-generate deploy",
     "deploy:ogp:dry-run": "bun run --cwd cloudflare/workers/ogp-generate deploy:dry-run",

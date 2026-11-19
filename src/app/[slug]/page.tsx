@@ -7,6 +7,8 @@ import { BLOG_URL, getOgpImageUrl } from "@/app/_lib/site";
 
 import markdownToHtml from "zenn-markdown-html";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllBlogs().map((blog) => ({ slug: blog.slug }));
 }
