@@ -154,7 +154,7 @@ export async function cacheScrapEntryHtml(
   entry: Pick<ScrapEntry, "id" | "bodyMarkdown">,
   body: ScrapBodyHtml,
 ): Promise<void> {
-  // Do not overwrite a newer Markdown body with HTML from an older read.
+  // 取得後に本文が更新されていた場合、古い本文から生成したHTMLを保存しない。
   await db
     .prepare(
       `UPDATE scrap_entries SET body_html = ?, body_html_version = ?

@@ -47,8 +47,8 @@ async function createScrap() {
   return repository.createScrap(db, input, await renderScrapBody(input.bodyMarkdown));
 }
 
-describe("persisted Scrap HTML", () => {
-  it("stores HTML when creating and appending entries, then reads without converting again", async () => {
+describe("ScrapのHTML保存と再利用", () => {
+  it("作成・追記時にHTMLを保存し、閲覧時には再変換せずに読み込む", async () => {
     const scrap = await createScrap();
     const body = await renderScrapBody("second entry");
     const added = await repository.addScrapEntry(
@@ -67,7 +67,7 @@ describe("persisted Scrap HTML", () => {
     expect(renderScrapMarkdown).not.toHaveBeenCalled();
   });
 
-  it("backfills legacy entries once without changing the Scrap update timestamp", async () => {
+  it("既存投稿のHTMLを一度だけ補完し、Scrapと投稿の更新日時を変更しない", async () => {
     const scrap = await createScrap();
     await db.prepare("UPDATE scrap_entries SET body_html = NULL, body_html_version = NULL").run();
     vi.mocked(renderScrapMarkdown).mockClear();
@@ -81,7 +81,7 @@ describe("persisted Scrap HTML", () => {
     expect(cached?.entries[0].updatedAt).toBe(scrap.entries[0].updatedAt);
   });
 
-  it("regenerates HTML produced by an older renderer version", async () => {
+  it("古い生成バージョンのHTMLを再生成する", async () => {
     const scrap = await createScrap();
     await db
       .prepare("UPDATE scrap_entries SET body_html = 'old HTML', body_html_version = 0")
@@ -93,7 +93,7 @@ describe("persisted Scrap HTML", () => {
     expect(refreshed?.entries[0].bodyHtml).toBe("<p>first entry</p>");
   });
 
-  it("does not attach HTML from an earlier read to a changed Markdown body", async () => {
+  it("取得後に本文が更新された場合、古い本文から生成したHTMLを保存しない", async () => {
     const scrap = await createScrap();
     const previous = { ...scrap.entries[0], bodyHtml: null, bodyHtmlVersion: null };
     await db
@@ -108,7 +108,7 @@ describe("persisted Scrap HTML", () => {
     expect(await getScrapEntryHtml(db, edited!.entries[0])).toBe("<p>edited</p>");
   });
 
-  it("still renders when saving a legacy entry's cached HTML fails", async () => {
+  it("既存投稿のHTML保存に失敗しても生成済みのHTMLを表示する", async () => {
     const scrap = await createScrap();
     vi.spyOn(repository, "cacheScrapEntryHtml").mockRejectedValueOnce(new Error("D1 unavailable"));
     const log = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -119,7 +119,7 @@ describe("persisted Scrap HTML", () => {
     expect(log).toHaveBeenCalledOnce();
   });
 
-  it("preserves entry order and cached HTML when pinning and deleting", async () => {
+  it("ピン留めで投稿を先頭に表示してHTMLを維持し、Scrap削除時は投稿も削除する", async () => {
     const scrap = await createScrap();
     const added = await repository.addScrapEntry(
       db,

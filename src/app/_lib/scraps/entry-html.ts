@@ -3,7 +3,7 @@ import "server-only";
 import { cacheScrapEntryHtml } from "./repository";
 import type { ScrapBodyHtml, ScrapEntry } from "./types";
 
-// Increment when Markdown rendering, sanitization, or highlighting changes.
+// Markdownの変換・サニタイズ・ハイライトの仕様を変更したら更新する。
 const SCRAP_HTML_VERSION = 1;
 
 export async function renderScrapBody(markdown: string): Promise<ScrapBodyHtml> {
@@ -16,12 +16,12 @@ export async function getScrapEntryHtml(db: D1Database, entry: ScrapEntry): Prom
     return entry.bodyHtml;
   }
 
-  // Legacy entries and outdated HTML are rendered once, then reused across requests.
+  // 既存投稿と古いHTMLは生成し直して保存し、次回以降のリクエストで再利用する。
   const body = await renderScrapBody(entry.bodyMarkdown);
   try {
     await cacheScrapEntryHtml(db, entry, body);
   } catch (error) {
-    // A cache write failure must not prevent an otherwise valid entry from rendering.
+    // キャッシュの保存に失敗しても、生成済みのHTMLは表示できるようにする。
     console.error(
       JSON.stringify({
         event: "scrap_html_cache_write_failed",
