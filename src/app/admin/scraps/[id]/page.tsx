@@ -1,6 +1,6 @@
 import { Blog } from "@/app/_components/Blog";
 import { getScrapsDatabase } from "@/app/_lib/scraps/database";
-import { renderScrapMarkdown } from "@/app/_lib/scraps/markdown";
+import { getScrapEntryHtml } from "@/app/_lib/scraps/entry-html";
 import { formatScrapDate } from "@/app/_lib/scraps/presentation";
 import { getScrapById } from "@/app/_lib/scraps/repository";
 import { ScrapEntryForm } from "@/app/admin/scraps/_components/ScrapEntryForm";
@@ -11,13 +11,14 @@ import { ScrapEntryPinButton } from "./_components/ScrapEntryPinButton";
 
 export default async function ManageScrapPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const scrap = await getScrapById(getScrapsDatabase(), id);
+  const db = getScrapsDatabase();
+  const scrap = await getScrapById(db, id);
   if (!scrap) notFound();
 
   const entries = await Promise.all(
     scrap.entries.map(async (entry) => ({
       ...entry,
-      html: await renderScrapMarkdown(entry.bodyMarkdown),
+      html: await getScrapEntryHtml(db, entry),
     })),
   );
 

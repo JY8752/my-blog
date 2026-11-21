@@ -12,6 +12,8 @@ export interface ScrapEntry {
   id: string;
   scrapId: string;
   bodyMarkdown: string;
+  bodyHtml: string | null;
+  bodyHtmlVersion: number | null;
   position: number;
   isPinned: boolean;
   createdAt: string;
@@ -32,4 +34,9 @@ export interface CreateScrapInput {
 export interface AddScrapEntryInput {
   scrapId: string;
   bodyMarkdown: string;
+}
+
+export interface ScrapBodyHtml {
+  html: string;
+  version: number;
 }
