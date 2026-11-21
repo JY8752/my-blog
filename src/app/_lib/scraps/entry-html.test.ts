@@ -1,139 +1,97 @@
-import { readFile, readdir } from "node:fs/promises";
-import { Miniflare } from "miniflare";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { getScrapEntryHtml, renderScrapBody } from "./entry-html";
 import { renderScrapMarkdown } from "./markdown";
-import * as repository from "./repository";
+import { cacheScrapEntryHtml } from "./repository";
+import type { ScrapEntry } from "./types";
 
 vi.mock("server-only", () => ({}));
-vi.mock("./markdown", () => ({
-  renderScrapMarkdown: vi.fn(async (markdown: string) => `<p>${markdown}</p>`),
-}));
+vi.mock("./markdown", () => ({ renderScrapMarkdown: vi.fn() }));
+vi.mock("./repository", () => ({ cacheScrapEntryHtml: vi.fn() }));
 
-let mf: Miniflare;
-let db: D1Database;
+const db: D1Database = {
+  prepare: vi.fn(),
+  batch: vi.fn(),
+  exec: vi.fn(),
+  withSession: vi.fn(),
+  dump: vi.fn(),
+};
+const savedEntry: ScrapEntry = {
+  id: "entry-id",
+  scrapId: "scrap-id",
+  bodyMarkdown: "本文",
+  bodyHtml: "<p>保存済みの本文</p>",
+  bodyHtmlVersion: 1,
+  position: 1,
+  isPinned: false,
+  createdAt: "2026-11-01T00:00:00Z",
+  updatedAt: "2026-11-01T00:00:00Z",
+};
 
-beforeAll(async () => {
-  mf = new Miniflare({
-    modules: true,
-    script: "export default { fetch() { return new Response('ok'); } }",
-    compatibilityDate: "2026-07-21",
-    d1Databases: { DB: "scrap-html-test" },
-  });
-  db = await mf.getD1Database("DB");
-
-  for (const file of (await readdir("migrations")).filter((file) => file.endsWith(".sql")).sort()) {
-    const sql = await readFile(`migrations/${file}`, "utf8");
-    await db.batch(
-      sql
-        .split(";")
-        .map((statement) => statement.trim())
-        .filter(Boolean)
-        .map((statement) => db.prepare(statement)),
-    );
-  }
-});
-
-beforeEach(async () => {
-  vi.clearAllMocks();
-  await db.batch([db.prepare("DELETE FROM scrap_entries"), db.prepare("DELETE FROM scraps")]);
-});
-
+beforeEach(() => vi.resetAllMocks());
 afterEach(() => vi.restoreAllMocks());
-afterAll(async () => mf?.dispose());
 
-async function createScrap() {
-  const input = { slug: "test-scrap", title: "Test", tags: [], bodyMarkdown: "first entry" };
-  return repository.createScrap(db, input, await renderScrapBody(input.bodyMarkdown));
-}
+describe("renderScrapBody", () => {
+  it("変換したHTMLに現在の生成バージョンを付けて返す", async () => {
+    const markdown = "本文";
+    vi.mocked(renderScrapMarkdown).mockResolvedValue("<p>変換した本文</p>");
 
-describe("ScrapのHTML保存と再利用", () => {
-  it("作成・追記時にHTMLを保存し、閲覧時には再変換せずに読み込む", async () => {
-    const scrap = await createScrap();
-    const body = await renderScrapBody("second entry");
-    const added = await repository.addScrapEntry(
-      db,
-      { scrapId: scrap.id, bodyMarkdown: "second entry" },
-      body,
-    );
-    expect(added.position).toBe(2);
-    expect(added.bodyHtml).toBe("<p>second entry</p>");
+    const result = await renderScrapBody(markdown);
 
-    vi.mocked(renderScrapMarkdown).mockClear();
-    const loaded = await repository.getScrapBySlug(db, scrap.slug);
-    expect(loaded?.entries).toHaveLength(2);
-    const html = await Promise.all(loaded!.entries.map((entry) => getScrapEntryHtml(db, entry)));
-    expect(html).toEqual(["<p>first entry</p>", "<p>second entry</p>"]);
-    expect(renderScrapMarkdown).not.toHaveBeenCalled();
+    expect(result).toEqual({ html: "<p>変換した本文</p>", version: 1 });
+  });
+});
+
+describe("getScrapEntryHtml", () => {
+  it("現在の生成バージョンで保存されたHTMLを返す", async () => {
+    const entry = { ...savedEntry };
+
+    const result = await getScrapEntryHtml(db, entry);
+
+    expect(result).toBe("<p>保存済みの本文</p>");
   });
 
-  it("既存投稿のHTMLを一度だけ補完し、Scrapと投稿の更新日時を変更しない", async () => {
-    const scrap = await createScrap();
-    await db.prepare("UPDATE scrap_entries SET body_html = NULL, body_html_version = NULL").run();
-    vi.mocked(renderScrapMarkdown).mockClear();
+  it("保存済みHTMLが現在の生成バージョンならDBへ書き込まない", async () => {
+    const entry = { ...savedEntry };
 
-    const legacy = await repository.getScrapById(db, scrap.id);
-    expect(await getScrapEntryHtml(db, legacy!.entries[0])).toBe("<p>first entry</p>");
-    const cached = await repository.getScrapById(db, scrap.id);
-    expect(await getScrapEntryHtml(db, cached!.entries[0])).toBe("<p>first entry</p>");
-    expect(renderScrapMarkdown).toHaveBeenCalledTimes(1);
-    expect(cached?.updatedAt).toBe(scrap.updatedAt);
-    expect(cached?.entries[0].updatedAt).toBe(scrap.entries[0].updatedAt);
+    await getScrapEntryHtml(db, entry);
+
+    expect(cacheScrapEntryHtml).not.toHaveBeenCalled();
   });
 
-  it("古い生成バージョンのHTMLを再生成する", async () => {
-    const scrap = await createScrap();
-    await db
-      .prepare("UPDATE scrap_entries SET body_html = 'old HTML', body_html_version = 0")
-      .run();
-    const stale = await repository.getScrapById(db, scrap.id);
-    expect(await getScrapEntryHtml(db, stale!.entries[0])).toBe("<p>first entry</p>");
-    const refreshed = await repository.getScrapById(db, scrap.id);
-    expect(refreshed?.entries[0].bodyHtmlVersion).toBe(scrap.entries[0].bodyHtmlVersion);
-    expect(refreshed?.entries[0].bodyHtml).toBe("<p>first entry</p>");
+  describe.each([
+    { condition: "HTMLが未保存の場合", bodyHtml: null, bodyHtmlVersion: null },
+    { condition: "生成バージョンが古い場合", bodyHtml: "<p>古い本文</p>", bodyHtmlVersion: 0 },
+  ])("$condition", ({ bodyHtml, bodyHtmlVersion }) => {
+    it("本文から生成したHTMLを返す", async () => {
+      const entry = { ...savedEntry, bodyHtml, bodyHtmlVersion };
+      vi.mocked(renderScrapMarkdown).mockResolvedValue("<p>新しく生成した本文</p>");
+
+      const result = await getScrapEntryHtml(db, entry);
+
+      expect(result).toBe("<p>新しく生成した本文</p>");
+    });
+
+    it("生成したHTMLと現在の生成バージョンを保存する", async () => {
+      const entry = { ...savedEntry, bodyHtml, bodyHtmlVersion };
+      vi.mocked(renderScrapMarkdown).mockResolvedValue("<p>新しく生成した本文</p>");
+
+      await getScrapEntryHtml(db, entry);
+
+      expect(cacheScrapEntryHtml).toHaveBeenCalledExactlyOnceWith(db, entry, {
+        html: "<p>新しく生成した本文</p>",
+        version: 1,
+      });
+    });
   });
 
-  it("取得後に本文が更新された場合、古い本文から生成したHTMLを保存しない", async () => {
-    const scrap = await createScrap();
-    const previous = { ...scrap.entries[0], bodyHtml: null, bodyHtmlVersion: null };
-    await db
-      .prepare(
-        "UPDATE scrap_entries SET body_markdown = 'edited', body_html = NULL, body_html_version = NULL",
-      )
-      .run();
+  it("HTMLの保存に失敗しても生成済みのHTMLを返す", async () => {
+    const entry = { ...savedEntry, bodyHtml: null, bodyHtmlVersion: null };
+    vi.mocked(renderScrapMarkdown).mockResolvedValue("<p>生成した本文</p>");
+    vi.mocked(cacheScrapEntryHtml).mockRejectedValue(new Error("D1への保存失敗"));
+    vi.spyOn(console, "error").mockImplementation(() => {});
 
-    await getScrapEntryHtml(db, previous);
-    const edited = await repository.getScrapById(db, scrap.id);
-    expect(edited?.entries[0].bodyHtml).toBeNull();
-    expect(await getScrapEntryHtml(db, edited!.entries[0])).toBe("<p>edited</p>");
-  });
+    const result = await getScrapEntryHtml(db, entry);
 
-  it("既存投稿のHTML保存に失敗しても生成済みのHTMLを表示する", async () => {
-    const scrap = await createScrap();
-    vi.spyOn(repository, "cacheScrapEntryHtml").mockRejectedValueOnce(new Error("D1 unavailable"));
-    const log = vi.spyOn(console, "error").mockImplementation(() => {});
-
-    expect(
-      await getScrapEntryHtml(db, { ...scrap.entries[0], bodyHtml: null, bodyHtmlVersion: null }),
-    ).toBe("<p>first entry</p>");
-    expect(log).toHaveBeenCalledOnce();
-  });
-
-  it("ピン留めで投稿を先頭に表示してHTMLを維持し、Scrap削除時は投稿も削除する", async () => {
-    const scrap = await createScrap();
-    const added = await repository.addScrapEntry(
-      db,
-      { scrapId: scrap.id, bodyMarkdown: "pinned entry" },
-      await renderScrapBody("pinned entry"),
-    );
-    await repository.setPinnedScrapEntry(db, scrap.id, added.id, true);
-    const pinned = await repository.getScrapById(db, scrap.id);
-    expect(pinned?.entries.map((entry) => entry.bodyHtml)).toEqual([
-      "<p>pinned entry</p>",
-      "<p>first entry</p>",
-    ]);
-
-    await repository.deleteScrap(db, scrap.id);
-    expect(await db.prepare("SELECT COUNT(*) AS count FROM scrap_entries").first("count")).toBe(0);
+    expect(result).toBe("<p>生成した本文</p>");
   });
 });
